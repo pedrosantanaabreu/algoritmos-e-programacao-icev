@@ -12,6 +12,11 @@ Todos os exercícios e anotações das aulas de "Algoritmos e Programação" no 
 <br><br>
 <br><br>
 
-<div align=center><img src="https://www.somosicev.com/wp-content/themes/iCEV-1.0/images/logo.png" width="150em "></div>
+<div align=center>
+<a href="https://www.somosicev.com"
+<img src="https://www.somosicev.com/wp-content/themes/iCEV-1.0/images/logo.png" width="150em ">
+</a>
+</div>
+
  <br></br>
 <div align=center>Made by <a href="https://linktr.ee/pedrosantanaabreu" target="_blank">@pedrosantanaabreu</a><div/>
