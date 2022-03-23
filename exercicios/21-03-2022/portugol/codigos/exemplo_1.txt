@@ -1,0 +1,42 @@
+/*
+@Pedro Santana Abreu
+@Icev
+
+PT-BR:
+- Exemplo 1 da aula de Algoritmos e Programação dia 21/03/2022
+Faça um programa que receba o -salário base- de um funcionário, calcule e mostre o -salário a receber- , sabendo-se
+ que o funcionário tem -gratificação de 5%- sobre o salário base e paga -imposto de 7%- também sobre o salário base.
+ */
+ 
+programa
+{
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+		
+		// Recebendo o salário base
+		real salario_base
+		escreva ("Digite o salário do funcionário:\nR$ ")
+		leia(salario_base)
+		
+		// Obtendo valores do bônus e imposto
+		real bonus = salario_base * 0.05
+		real imposto = salario_base * 0.07
+
+		bonus =  mat.arredondar(bonus, 2)
+		imposto =  mat.arredondar(imposto, 2)
+		
+		// Calculando salário a receber
+		real salario_receber = salario_base + bonus - imposto
+		
+		salario_receber =  mat.arredondar(salario_receber, 2)
+	
+		// Exibindo resultado
+		escreva("\nSalário base | R$ ", salario_base,
+		"\nBônus | R$ +", bonus,
+		"\nImposto | R$ -", imposto,
+		"\nSalário a receber | R$ ", salario_receber)
+
+	}
+}

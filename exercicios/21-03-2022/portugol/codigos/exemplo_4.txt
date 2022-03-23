@@ -1,0 +1,45 @@
+/*
+@Pedro Santana Abreu
+@Icev
+
+PT-BR:
+Faça um programa que receba a quantidade de dinheiro em reais que uma pessoa que vai viajar possui.
+Ela vai passar por vários países e precisa converter seu dinheiro em dólares, euros e libra esterlina.
+Sabe-se que a cotarão do dólar é de R$ 4,25; do euro, de R$ 4,75; e da libra esterlina, de R$ 5,64.
+O programa deve fazer as conversões e mostrá-las.
+ */
+ 
+programa
+{
+	
+inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+		// Cotações
+		real euro = 4.75
+		real dolar = 4.25
+		real libra_esterlina = 5.64
+		real valor_reais
+
+		// Recebendo valor em reais
+		escreva("Digite o valor em reais | R$ ")
+		leia(valor_reais)
+		
+		// Conversões
+		real real_euro = valor_reais / euro
+		real real_dolar = valor_reais / dolar
+		real real_libra_esterlina = valor_reais / libra_esterlina
+
+		valor_reais = mat.arredondar(valor_reais, 2)
+		real_euro = mat.arredondar(real_euro, 2)
+		real_dolar = mat.arredondar(real_dolar, 2)
+		real_libra_esterlina = mat.arredondar(real_libra_esterlina, 2)
+		
+		// Exibindo resultados
+		escreva("\nValor em reais | R$ ", valor_reais,
+		"\nEuro | € ", real_euro,
+		"\nDolar | $ ", real_dolar,
+		"\nLibra Esterlina | £ ", real_libra_esterlina)
+	}
+}

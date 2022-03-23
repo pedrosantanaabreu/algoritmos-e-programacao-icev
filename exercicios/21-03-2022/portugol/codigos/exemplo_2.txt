@@ -1,0 +1,55 @@
+/*
+@Pedro Santana Abreu
+@Icev
+
+PT-BR:
+- Exemplo 2 da aula de Algoritmos e Programação dia 21/03/2022
+O custo ao consumidor de um carro novo é a soma do preço de fábrica com o percentual de lucro do distribuidor e dos
+impostos aplicados ao preço de fábrica. Faça um programa que receba o preço de fábrica de um veículo, o percentual
+de lucro do distribuidor e o percentual de impostos, calcure e mostre:
+
+a) o valor correspondente ao lucro do distribuidor,
+
+b) o valor correspondente aos impostos;
+
+c) o preço final do veículo.
+ */
+ 
+programa
+{
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real preco_fabrica
+		real percentual_distribuidor
+		real percentual_impostos
+		
+		escreva("Digite o preço de fábrica do veículo | R$ ")
+		leia(preco_fabrica)
+		escreva("Digite o percentual de lucro do distribuidor | % ")
+		leia(percentual_distribuidor)
+		escreva("Digite o percentual de impostos | % ")
+		leia(percentual_impostos)
+		
+		// Calculando valor distribuidor e impostos
+		real distribuidor = preco_fabrica * percentual_distribuidor / 100
+		real impostos = preco_fabrica * percentual_impostos / 100
+
+		distribuidor = mat.arredondar(distribuidor, 2)
+		impostos = mat.arredondar(impostos, 2)
+		
+		// Calculando preço final
+		real preco_final = preco_fabrica + distribuidor + impostos
+		
+		preco_final = mat.arredondar(preco_final, 2)
+		
+		// Exibindo resultados
+		escreva("\nLucro do distribuidor | R$ ", distribuidor,
+		"\nValor correspondente aos impostos | R$ ", impostos,
+		"\nPreço final | R$ ", preco_final)
+
+	}
+}

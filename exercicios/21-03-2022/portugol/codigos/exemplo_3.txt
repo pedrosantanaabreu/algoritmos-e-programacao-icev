@@ -1,0 +1,47 @@
+/*
+@Pedro Santana Abreu
+@Icev
+
+PT-BR:
+Sabe-se que o quilowatt de energia custa um quinto do salário mínimo. Faça um programa que receba o valor do salário
+mínimo e a quantidade de quilowatts consumida por uma residência. Calcule e mostre:
+
+a) o valor de cada quilowatt;
+
+b) o valor a ser pago por essa residência;
+
+c) o valor a ser pago com desconto de 15%.
+ */
+ 
+programa
+{
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+
+		// Recebendo valores
+		real salario_minimo
+		real quilowatts_consumidas
+		
+		escreva("Digite o valor do salário mínimo | R$ ")
+		leia(salario_minimo)
+		escreva("Digite a quantidade de quilowatts consumidas | ")
+		leia(quilowatts_consumidas)
+		
+		// Calculando valores
+		real valor_quilowatt = salario_minimo / 5
+		real valor_residencia = valor_quilowatt * quilowatts_consumidas
+		real valor_residencia_desconto = valor_residencia * 0.85
+
+		valor_quilowatt = mat.arredondar(valor_quilowatt, 2)
+		valor_residencia = mat.arredondar(valor_residencia, 2)
+		valor_residencia_desconto = mat.arredondar(valor_residencia_desconto, 2)
+		
+		// Exibindo resultado
+		escreva("\nValor de cada quilowatt | R$ ", valor_quilowatt,
+		"\nValor a ser pago pela residência | R$ ", valor_residencia,
+		"\nValor com 15% de desconto | R$ ", valor_residencia_desconto)
+
+	}
+}
