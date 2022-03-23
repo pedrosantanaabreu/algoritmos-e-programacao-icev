@@ -1,6 +1,6 @@
 <h1 align="left">:book: Algoritmos e Programação - Icev</h1>
 
-Todos os exercícios e anotações das aulas de "Algoritmos e Programação" no curso de Engenharia de Software pelo .["iCev - Instituto de Ensino Superior"](https://www.somosicev.com/).
+Todos os exercícios e anotações das aulas de "Algoritmos e Programação" no curso de Engenharia de Software pelo ["iCev - Instituto de Ensino Superior"](https://www.somosicev.com/).
 ## Conteúdo
 - Anotações
 - Exercícios
