@@ -13,7 +13,7 @@ Todos os exercícios e anotações das aulas de "Algoritmos e Programação" no 
 <br><br>
 
 <div align=center>
-<a href="https://www.somosicev.com"
+<a href="https://www.somosicev.com">
 <img src="https://www.somosicev.com/wp-content/themes/iCEV-1.0/images/logo.png" width="150em ">
 </a>
 </div>
