@@ -12,4 +12,4 @@ Todos os exercícios e anotações das aulas de "Algoritmos e Programação" no 
 <br><br>
 <br><br>
 
-<div align=center>Made by <a href="https://linktr.ee/pedrosantanaabreu">@pedrosantanaabreu</a><div/>
+<div align=center>Made by <a href="https://linktr.ee/pedrosantanaabreu" target="_blank">@pedrosantanaabreu</a><div/>
