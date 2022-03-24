@@ -20,7 +20,7 @@ quilowatts_consumidas = float(input('Digite a quantidade de quilowatts consumida
 # Calculando valores
 valor_quilowatt = salario_minimo / 5
 valor_residencia = valor_quilowatt * quilowatts_consumidas
-valor_residencia_desconto = valor_residencia * 0.85
+valor_residencia_desconto = valor_residencia * 0.85  # 0.85 = 15% de desconto
 
 # Exibindo resultado
 print('''
