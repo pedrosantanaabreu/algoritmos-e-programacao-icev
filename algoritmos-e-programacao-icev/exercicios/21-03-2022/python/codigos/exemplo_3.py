@@ -15,7 +15,7 @@ c) o valor a ser pago com desconto de 15%.
 
 # Recebendo valores
 salario_minimo = float(input('Digite o valor do salário mínimo | R$ '))
-quilowatts_consumidas = float(input('Digite a quantidade de quilowatts consumidas | '))
+quilowatts_consumidas = float(input('Digite a quantidade de quilowatts consumidas | Kw '))
 
 # Calculando valores
 valor_quilowatt = salario_minimo / 5
