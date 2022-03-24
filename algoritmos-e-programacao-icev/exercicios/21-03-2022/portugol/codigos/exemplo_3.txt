@@ -26,7 +26,7 @@ programa
 		
 		escreva("Digite o valor do salário mínimo | R$ ")
 		leia(salario_minimo)
-		escreva("Digite a quantidade de quilowatts consumidas | ")
+		escreva("Digite a quantidade de quilowatts consumidas | Kw ")
 		leia(quilowatts_consumidas)
 		
 		// Calculando valores
