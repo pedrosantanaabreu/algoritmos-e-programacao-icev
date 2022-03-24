@@ -1,6 +1,6 @@
 """
-@Pedro Santana Abreu
-@Icev
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
 
 PT-BR:
 - Exemplo 2 da aula de Algoritmos e Programação dia 21/03/2022

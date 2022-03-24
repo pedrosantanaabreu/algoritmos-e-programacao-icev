@@ -1,6 +1,6 @@
 """
-@Pedro Santana Abreu
-@Icev
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
 
 PT-BR:
 Faça um programa que receba a quantidade de dinheiro em reais que uma pessoa que vai viajar possui.

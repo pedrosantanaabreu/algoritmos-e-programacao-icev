@@ -1,6 +1,6 @@
 /*
-@Pedro Santana Abreu
-@Icev
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
 
 PT-BR:
 Sabe-se que o quilowatt de energia custa um quinto do salário mínimo. Faça um programa que receba o valor do salário
