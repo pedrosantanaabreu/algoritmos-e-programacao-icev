@@ -21,15 +21,15 @@ percentual_distribuidor = float(input('Digite o percentual de lucro do distribui
 percentual_impostos = float(input('Digite o percentual de impostos | % '))
 
 # Calculando valor distribuidor e impostos
-distribuidor = preco_fabrica * percentual_distribuidor / 100
-impostos = preco_fabrica * percentual_impostos / 100
+valor_distribuidor = preco_fabrica * percentual_distribuidor / 100
+valor_impostos = preco_fabrica * percentual_impostos / 100
 
 # Calculando preço final
-preco_final = preco_fabrica + distribuidor + impostos
+preco_final = preco_fabrica + valor_distribuidor + valor_impostos
 
 # Exibindo resultados
 print('''
 Lucro do distribuidor | R$ {:.2f}
 Valor correspondente aos impostos | R$ {:.2f}
 Preço final | R$ {:.2f}
-'''.format(distribuidor, impostos, preco_final))
+'''.format(valor_distribuidor, valor_impostos, preco_final))
