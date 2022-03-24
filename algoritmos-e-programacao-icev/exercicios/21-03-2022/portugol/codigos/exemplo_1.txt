@@ -21,21 +21,21 @@ programa
 		leia(salario_base)
 		
 		// Obtendo valores do bônus e imposto
-		real bonus = salario_base * 0.05
-		real imposto = salario_base * 0.07
+		real valor_bonus = salario_base * 0.05
+		real valor_imposto = salario_base * 0.07
 
-		bonus =  mat.arredondar(bonus, 2)
-		imposto =  mat.arredondar(imposto, 2)
+		bonus =  mat.arredondar(valor_bonus, 2)
+		imposto =  mat.arredondar(valor_imposto, 2)
 		
 		// Calculando salário a receber
-		real salario_receber = salario_base + bonus - imposto
+		real salario_receber = salario_base + valor_bonus - valor_imposto
 		
 		salario_receber =  mat.arredondar(salario_receber, 2)
 	
 		// Exibindo resultado
 		escreva("\nSalário base | R$ ", salario_base,
-		"\nBônus | R$ +", bonus,
-		"\nImposto | R$ -", imposto,
+		"\nBônus | R$ +", valor_bonus,
+		"\nImposto | R$ -", valor_imposto,
 		"\nSalário a receber | R$ ", salario_receber)
 
 	}
