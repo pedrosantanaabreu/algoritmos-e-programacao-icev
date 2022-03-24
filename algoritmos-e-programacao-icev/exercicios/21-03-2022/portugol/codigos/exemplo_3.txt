@@ -32,7 +32,7 @@ programa
 		// Calculando valores
 		real valor_quilowatt = salario_minimo / 5
 		real valor_residencia = valor_quilowatt * quilowatts_consumidas
-		real valor_residencia_desconto = valor_residencia * 0.85
+		real valor_residencia_desconto = valor_residencia * 0.85 // 0.85 = 15% de desconto
 
 		valor_quilowatt = mat.arredondar(valor_quilowatt, 2)
 		valor_residencia = mat.arredondar(valor_residencia, 2)
