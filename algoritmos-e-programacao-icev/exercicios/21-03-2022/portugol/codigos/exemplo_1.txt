@@ -21,8 +21,8 @@ programa
 		leia(salario_base)
 		
 		// Obtendo valores do bônus e imposto
-		real valor_bonus = salario_base * 0.05
-		real valor_imposto = salario_base * 0.07
+		real valor_bonus = salario_base * 0.05 // 0.05 = 5%
+		real valor_imposto = salario_base * 0.07 // 0.07 = 7%
 
 		valor_bonus =  mat.arredondar(valor_bonus, 2)
 		valor_imposto =  mat.arredondar(valor_imposto, 2)
