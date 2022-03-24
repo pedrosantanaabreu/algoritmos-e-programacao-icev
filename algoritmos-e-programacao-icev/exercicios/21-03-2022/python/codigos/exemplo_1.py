@@ -12,8 +12,8 @@ Faça um programa que receba o -salário base- de um funcionário, calcule e mos
 salario_base = float(input('Digite o salário do funcionário:\nR$ '))
 
 # Obtendo valores do bônus e imposto
-bonus = salario_base * 0.05
-imposto = salario_base * 0.07
+bonus = salario_base * 0.05  # 0.05 = 5%
+imposto = salario_base * 0.07  # 0.07 = 7%
 
 # Calculando salário a receber
 salario_receber = salario_base + bonus - imposto
