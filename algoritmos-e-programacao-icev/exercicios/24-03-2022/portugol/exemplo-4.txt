@@ -12,10 +12,9 @@ potência de iluminação que deverá ser utilizada.
 
 programa
 {
-	
 	funcao inicio()
 	{
-		
+	
 		// Recebendo valores
 		inteiro lado_1, lado_2
 
