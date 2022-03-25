@@ -15,7 +15,6 @@ programa
 	
 	funcao inicio()
 	{
-
 		
 		// Recebendo valores
 		inteiro lado_1, lado_2
