@@ -1,0 +1,62 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que receba o número de horas trabalhadas, o valor
+do salário mínimo e o número de horas extras trabalhadas, calcule e
+mostre o salário a receber, de acordo com as regras a seguir:
+
+a) a hora trabalhada vale 1/8 do salário mínimo;
+
+b) a hora extra vale 1/4 do salário mínimo;
+
+c) o salário bruto equivale ao número de horas trabalhadas multiplicado
+pelo valor da hora trabalhada;
+
+d) a quantia a receber pelas horas extras equivale ao número de horas
+extras trabalhadas multiplicado pelo valor da hora extra;
+
+e) o salário a receber equivale ao salário bruto mais a quantia a receber
+pelas horas extras.
+*/
+
+programa
+{
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		inteiro horas_trabalhadas, horas_extras
+		real salario_minimo
+
+		escreva("Digite o número de horas trabalhadas | ")
+		leia(horas_trabalhadas)
+		escreva("Digite o valor so salário mínimo | R$ ")
+		leia(salario_minimo)
+		escreva("Digite as horas extras | ")
+		leia(horas_extras)
+		
+		// Cálculos
+		real hora_trabalhada_valor = salario_minimo / 8
+		real hora_extra_valor = salario_minimo / 4
+		real hora_extra_total = hora_extra_valor * horas_extras
+		real hora_trabalhada_total = hora_trabalhada_valor * horas_trabalhadas
+		real salario_receber = hora_extra_total + hora_trabalhada_total
+
+		hora_trabalhada_valor = mat.arredondar(hora_trabalhada_valor, 2)
+		hora_extra_valor = mat.arredondar(hora_extra_valor, 2)
+		hora_extra_total = mat.arredondar(hora_extra_total, 2)
+		hora_trabalhada_total = mat.arredondar(hora_trabalhada_total, 2)
+		salario_receber = mat.arredondar(salario_receber, 2)
+
+		// Exibindo resultado
+		escreva("\nValor de cada hora trabalhada | R$ ", hora_trabalhada_valor,
+		"\nValor de cada hora extra | R$ ", hora_extra_valor,
+		"\n\nValor referente as horas trabalhadas | R$ ", hora_trabalhada_total,
+		"\nValor referente as horas extras | R$ ", hora_extra_total,
+		"\n\nValor do salário a receber | R$ ", salario_receber)
+	}
+}

@@ -1,0 +1,41 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que receba uma hora (um valor para hora
+e outro para minutos), calcule e mostre:
+
+a) a hora digitada convertida em minutos;
+
+b) o total dos minutos, ou seja, os minutos digitados mais a
+conversão anterior;
+
+c) o total dos minutos convertidos em segundos.
+*/
+
+programa
+{
+	
+	funcao inicio()
+	{
+
+		// Recebendo dados
+		inteiro horas, minutos
+
+		escreva("Digite a quantidade de horas | ")
+		leia(horas)
+		escreva("Digite a quantidade de minutos | ")
+		leia(minutos)
+	
+		// Calculando
+		inteiro hora_convertida_minutos = horas * 60
+		inteiro total_minutos = minutos + hora_convertida_minutos
+		inteiro minutos_convertido_segundos = total_minutos * 60
+		
+		// Exibindo resultado
+		escreva("\nHora digitada convertida em minutos | ", hora_convertida_minutos,"m",
+		"\nTotal de minutos | ", total_minutos,"m",
+		"\nTotal de segundos | ", minutos_convertido_segundos,"s")
+	}
+}

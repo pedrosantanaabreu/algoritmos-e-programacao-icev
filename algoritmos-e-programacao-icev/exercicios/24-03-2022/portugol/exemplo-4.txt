@@ -1,0 +1,36 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Sabe-se que, para iluminar de maneira correta os cômodos de
+uma casa, para cada m2, deve-se usar 18 W de potência. Faça
+um programa que receba as duas dimensões de um cômodo
+(em metros), calcule e mostre a sua área (em m2) e a
+potência de iluminação que deverá ser utilizada.
+*/
+
+programa
+{
+	
+	funcao inicio()
+	{
+
+		
+		// Recebendo valores
+		inteiro lado_1, lado_2
+
+		escreva("Digite o valor do primeiro lado | m2 ")
+		leia(lado_1)
+		escreva("Digite o valor do segundo lado | m2 ")
+		leia(lado_2)
+		
+		// Calculando
+		inteiro area = lado_1 * lado_2
+		inteiro potencia = 18 * area
+		
+		// Exibindo resultado
+		escreva("\nÁrea | ", area, " m2",
+		"\nPotência necessária | ", potencia, "W")
+	}
+}
