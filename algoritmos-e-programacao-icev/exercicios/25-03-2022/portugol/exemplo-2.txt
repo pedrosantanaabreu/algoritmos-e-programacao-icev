@@ -1,0 +1,37 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que receba três números, calcule e mostre a multiplicação desses números.
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real numero_1, numero_2, numero_3
+
+		escreva("Digite o 1º número | ")
+		leia(numero_1)
+		escreva("Digite o 2º número | ")
+		leia(numero_2)
+		escreva("Digite o 3º número | ")
+		leia(numero_3)
+		
+		// Calculando
+		real resultado = numero_1 * numero_2 * numero_3
+		numero_1 = mat.arredondar(numero_1, 2)
+		numero_2 = mat.arredondar(numero_2, 2)
+		numero_3 = mat.arredondar(numero_3, 2)
+		resultado = mat.arredondar(resultado, 2)
+		
+		// Exibindo resultado
+		escreva("\n", numero_1, " x ", numero_2, " x " , numero_3, " = ", resultado)
+	}
+}

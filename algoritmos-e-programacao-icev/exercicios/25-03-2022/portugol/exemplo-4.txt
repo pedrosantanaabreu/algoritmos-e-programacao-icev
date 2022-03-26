@@ -1,0 +1,33 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que receba duas notas, calcule e mostre a média ponderada dessas notas, 
+considerando peso 2 para a primeira e peso 3 para a segunda.
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real nota_1, nota_2
+
+		escreva("Digite a 1ª nota | ")
+		leia(nota_1)
+		escreva("Digite a 2ª nota | ")
+		leia(nota_2)
+
+		// Calculando
+		real resultado = (nota_1 + nota_2) / 2
+		resultado = mat.arredondar(resultado, 1)
+		
+		// Exibindo resultado
+		escreva("\nResultado média | ", resultado)
+	}
+}

@@ -1,0 +1,34 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que receba dois números, calcule e mostre a subtração do primeiro número pelo segundo.
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real numero_1, numero_2
+
+		escreva("Digite o 1º número | ")
+		leia(numero_1)
+		escreva("Digite o 2º número | ")
+		leia(numero_2)
+		
+		// Calculando
+		real resultado = numero_1 - numero_2
+		numero_1 = mat.arredondar(numero_1, 2)
+		numero_2 = mat.arredondar(numero_2, 2)
+		resultado = mat.arredondar(resultado, 2)
+		
+		// Exibindo resultado
+		escreva("\n", numero_1, " - ", numero_2, " = " ,resultado)
+	}
+}

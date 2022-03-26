@@ -1,0 +1,33 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que receba o preço de um produto, calcule e 
+mostre o novo preço, sabendo-se que este sofreu um desconto de 10%.
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real preco_produto
+
+		escreva("Digite o valor do produto | R$ ")
+		leia(preco_produto)
+
+		// Calculando
+		real desconto = preco_produto * 0.10
+		real preco_desconto = preco_produto - desconto
+		desconto = mat.arredondar(desconto, 2)
+		preco_desconto = mat.arredondar(preco_desconto, 2)
+		
+		// Exibindo resultado
+		escreva("\nValor sem desconto | R$ ", preco_produto, "\nDesconto | - R$ ", desconto, "\nValor com desconto | R$ ", preco_desconto)
+	}
+}

@@ -1,0 +1,38 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Um funcionário recebe um salário fixo mais 4% de comissão sobre as vendas. Faça um programa que 
+receba o salário fixo do funcionário e o valor de suas vendas, calcule e mostre a comissão e seu 
+salário final.
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real salario_fixo, valor_vendas
+
+		escreva("Digite o valor do salário | R$ ")
+		leia(salario_fixo)
+		escreva("Digite o valor das vendas | R$ ")
+		leia(valor_vendas)
+
+		// Calculando
+		real valor_comissoes = valor_vendas * 0.04
+		real salario_final = salario_fixo + valor_comissoes
+		
+		salario_fixo = mat.arredondar(salario_fixo, 2)
+		valor_comissoes = mat.arredondar(valor_comissoes, 2)
+		salario_final = mat.arredondar(salario_final, 2)
+		
+		// Exibindo resultado
+		escreva("\nSalário fixo | R$ ", salario_fixo, "\nValor comissões | R$ ",  valor_comissoes, "\nValor salário final | R$ ", salario_final)
+	}
+}
