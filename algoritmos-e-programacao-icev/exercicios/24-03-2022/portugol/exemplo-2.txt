@@ -20,16 +20,19 @@ programa
 	{
 		
 		// Recebendo valores
-		real peso_saco, quantidade_racao_gato
+		real peso_saco, quantidade_racao_gato, quantidade_racao_gato_2
 
 		escreva("Digite o peso do saco de ração | KG ")
 		leia(peso_saco)
-		escreva("Digite a quantidade de ração fornecida para cada gato | g ")
+		escreva("Digite a quantidade de ração fornecida para o 1° gato | g ")
 		leia(quantidade_racao_gato)
+                escreva("Digite a quantidade de ração fornecida para o 2° gato | g ")
+		leia(quantidade_racao_gato_2)
 		
 		// Calculando
-		real resultado_racao = peso_saco * 1000 - (quantidade_racao_gato * 5) * 2
+		real resultado_racao = peso_saco * 1000 - ((quantidade_racao_gato + quantidade_racao_gato_2) * 5)
 		resultado_racao = mat.arredondar(resultado_racao, 2)
+
 
 		// Exibindo resultado
 		escreva("\nRestará no final de 5 dias ",resultado_racao, "g de ração")
