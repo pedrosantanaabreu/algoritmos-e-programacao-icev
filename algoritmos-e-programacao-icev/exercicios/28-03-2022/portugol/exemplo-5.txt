@@ -27,6 +27,6 @@ programa
 		temperatura_fahrenheit = mat.arredondar(temperatura_fahrenheit, 1)
 		
 		// Exibindo resultado
-		escreva("\nA temperatura em Fahrenheit será | ", temperatura_fahrenheit, "°F")
+		escreva("\nA temperatura em Fahrenheit será | ", temperatura_fahrenheit, " °F")
 	}
 }

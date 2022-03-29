@@ -10,7 +10,8 @@ que ND = N * (N − 3) / 2, em que N é o número de lados do polígono.
 
 programa
 {
-	
+	inclua biblioteca Matematica --> mat
+
 	funcao inicio()
 	{
 	
@@ -22,7 +23,8 @@ programa
 		
 		// Calculando
 		numero_diagonais = lados_poligono * (lados_poligono - 3) / 2
-		
+		numero_diagonais = mat.arredondar(numero_diagonais, 1)
+
 		// Exibindo resultado
 		escreva("\nO número de diagonais do poligono é | ", numero_diagonais)
 	}

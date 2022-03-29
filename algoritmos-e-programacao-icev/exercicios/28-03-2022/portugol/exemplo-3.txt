@@ -26,7 +26,7 @@ programa
 		
 		// Calculando
 		salarios_recebidos = salario_funcionario / salario_minimo
-		salarios_recebidos = mat.arredondar(salarios_recebidos, 2)
+		salarios_recebidos = mat.arredondar(salarios_recebidos, 1)
 		
 		// Exibindo resultado
 		escreva("\nQuantidade de salários mínimos que o funcionário ganha | ", salarios_recebidos)

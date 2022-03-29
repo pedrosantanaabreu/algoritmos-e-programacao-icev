@@ -21,7 +21,7 @@ programa
 
 		escreva("Digite o 1º ângulo | ")
 		leia(angulo_1)
-		escreva("Digite o 1º ângulo | ")
+		escreva("Digite o 2º ângulo | ")
 		leia(angulo_2)
 		
 		// Calculando
