@@ -1,0 +1,75 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Em uma eleição de líder de turma concorreram ao cargo de presidente três
+estudantes (representados pelas variáveis A, B e C). Durante a apuração dos
+votos foram computados votos nulos e em branco, além dos votos válidos
+para cada candidato. Desenvolva um programa de computador que faça a
+leitura da quantidade de votos válidos para cada candidato, além de ler
+também a quantidade de votos nulos e em branco. Ao final, o programa deve
+apresentar o número total de eleitores, considerando votos válidos, nulos e
+em branco; o percentual correspondente de votos válidos em relação à
+quantidade de eleitores; o percentual correspondente de votos válidos do
+candidato A em relação à quantidade de eleitores; o percentual
+correspondente de votos válidos do candidato B em relação à quantidade de
+eleitores; o percentual correspondente de votos válidos do candidato C em
+relação à quantidade de eleitores; o percentual correspondente de votos
+nulos em relação à quantidade de eleitores; e, por último, o percentual
+correspondente de votos em branco em relação à quantidade de eleitores.
+Todos os cálculos devem efetivamente ser armazenados em memória
+*/
+
+programa
+{
+	
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real candidato_a, candidato_b, candidato_c, nulo, branco, votos_validos, total_eleitores
+		real percentual_votos_validos, percentual_votos_nulos, percentual_votos_branco
+		real percentual_candidato_a, percentual_candidato_b, percentual_candidato_c
+		
+		escreva("Digite a quantidade de votos válidos para o candidato A | ")
+		leia(candidato_a)
+		escreva("Digite a quantidade de votos válidos para o candidato B | ")
+		leia(candidato_b)
+		escreva("Digite a quantidade de votos válidos para o candidato C | ")
+		leia(candidato_c)
+		escreva("Digite a quantidade de votos nulos | ")
+		leia(nulo)
+		escreva("Digite a quantidade de votos em branco | ")
+		leia(branco)
+		
+		// Calculando
+		votos_validos = candidato_a + candidato_b + candidato_c
+		total_eleitores = votos_validos + nulo + branco
+		
+		percentual_votos_validos = votos_validos / total_eleitores * 100
+		percentual_candidato_a = candidato_a / total_eleitores * 100
+		percentual_candidato_b = candidato_b / total_eleitores * 100
+		percentual_candidato_c = candidato_c / total_eleitores * 100
+		percentual_votos_nulos = nulo / total_eleitores * 100
+		percentual_votos_branco = branco / total_eleitores * 100
+
+		percentual_votos_validos =  mat.arredondar(percentual_votos_validos, 1)
+		percentual_candidato_a = mat.arredondar(percentual_candidato_a, 1)
+		percentual_candidato_b = mat.arredondar(percentual_candidato_b, 1)
+		percentual_candidato_c = mat.arredondar(percentual_candidato_c, 1)
+		percentual_votos_nulos = mat.arredondar(percentual_votos_nulos, 1)
+		percentual_votos_branco = mat.arredondar(percentual_votos_branco, 1)
+
+		// Exibindo resultado
+		escreva("\nNúmero total de eleitores | ", total_eleitores,
+		"\nPercentual correspondente de votos válidos | ", percentual_votos_validos, " %",
+		"\n\nPercentual de votos válidos do candidato A | ", percentual_candidato_a, " %",
+		"\nPercentual de votos válidos do candidato B | ", percentual_candidato_b, " %",
+		"\nPercentual de votos válidos do candidato C | ", percentual_candidato_c, " %",
+		"\n\nPercentual correspondente de votos nulos | ", percentual_votos_nulos, " %",
+		"\nPercentual correspondente de votos em branco | ", percentual_votos_branco, " %")
+	}
+}

@@ -1,0 +1,49 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Desenvolva um programa para efetuar o cálculo da quantidade de litros de
+combustível gasta em uma viagem, considerando um automóvel que faz 12
+Km/l. Para obter o cálculo, o usuário deve fornecer o tempo gasto (variável
+TEMPO) e a velocidade média (variável VELOCIDADE) durante a viagem.
+Dessa forma, será possível obter a distância percorrida com a fórmula
+DISTÂNCIA = TEMPO * VELOCIDADE. A partir do valor da distância, basta
+calcular a quantidade de litros de combustível utilizada na viagem com a
+fórmula LITROS_USADOS = DISTÂNCIA / 12. O programa deve apresentar
+os valores da velocidade média, tempo gasto na viagem, a distância
+percorrida e a quantidade de litros utilizada na viagem.
+*/
+
+programa
+{
+	
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real tempo, velocidade, distancia, litros_usados
+
+		escreva("Digite o tempo gasto em horas | ")
+		leia(tempo)
+		escreva("Digite a velocidade média em Km/h | ")
+		leia(velocidade)
+		
+		// Calculando
+		distancia = tempo * velocidade
+		litros_usados = distancia / 12
+		
+		litros_usados = mat.arredondar(litros_usados, 1)
+		velocidade = mat.arredondar(velocidade, 1)
+		tempo = mat.arredondar(tempo, 1)
+		distancia = mat.arredondar(distancia, 1)
+		
+		// Exibindo resultado
+		escreva("\nVelocidade média | ", velocidade, " Km/h",
+		"\nTempo gasto na viagem | ", tempo, " Hrs",
+		"\nDistância percorrida | ", distancia, " Km",
+		"\nQuantidade de litros utilizada na viagem | ", litros_usados, " L")
+	}
+}

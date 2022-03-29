@@ -1,0 +1,34 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Desenvolva um programa que receba a medida de dois ângulos de um
+triângulo, calcule e mostre a medida do terceiro ângulo. sabe-se que a soma
+dos ângulos de um triângulo é 180 graus
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real angulo_1, angulo_2, angulo_resultante
+
+		escreva("Digite o 1º ângulo | ")
+		leia(angulo_1)
+		escreva("Digite o 1º ângulo | ")
+		leia(angulo_2)
+		
+		// Calculando
+		angulo_resultante = 180 - (angulo_1 + angulo_2)
+		angulo_resultante = mat.arredondar(angulo_resultante, 1)
+		
+		// Exibindo resultado
+		escreva("\nO ângulo resultante será | ", angulo_resultante, "°")
+	}
+}

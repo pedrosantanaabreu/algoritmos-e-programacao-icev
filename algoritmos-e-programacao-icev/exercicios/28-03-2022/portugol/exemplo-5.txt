@@ -1,0 +1,32 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Desenvolva um programa que receba uma temperatura em Celsius, calcule
+e mostre essa temperatura em Fahrenheit. Sabe-se que F = 180 * (c + 32) /
+100.
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real temperatura_celsius, temperatura_fahrenheit
+
+		escreva("Digite a temperatura em celsius | ")
+		leia(temperatura_celsius)
+		
+		// Calculando
+		temperatura_fahrenheit = 180 * temperatura_celsius / 100 + 32
+		temperatura_fahrenheit = mat.arredondar(temperatura_fahrenheit, 1)
+		
+		// Exibindo resultado
+		escreva("\nA temperatura em Fahrenheit será | ", temperatura_fahrenheit, "°F")
+	}
+}

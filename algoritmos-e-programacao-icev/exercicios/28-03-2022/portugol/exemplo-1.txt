@@ -1,0 +1,35 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Desenvolva um programa que receba o custo de um espetáculo teatral e o
+preço do convite desse espetáculo. Esse programa deverá calcular e mostrar
+a quantidade de convites que devem ser vendidos para que, pelo menos, o
+custo do espetáculo seja alcançado. 
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		real custo_teatral, valor_convites, convites_cobrir_custo_teatral
+
+		escreva("Digite o custo do espetáculo teatral | R$ ")
+		leia(custo_teatral)
+		escreva("Digite o preço do convite | R$ ")
+		leia(valor_convites)
+		
+		// Calculando
+		convites_cobrir_custo_teatral = custo_teatral / valor_convites
+		convites_cobrir_custo_teatral = mat.arredondar(convites_cobrir_custo_teatral, 1)
+		
+		// Exibindo resultado
+		escreva("\nConvites necessários para cobrir custo teatral | ", convites_cobrir_custo_teatral)
+	}
+}
