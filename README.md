@@ -18,7 +18,7 @@ Todos os exercícios e anotações das aulas de "Algoritmos e Programação" no 
 |      |         |           |   [21](https://rebrand.ly/ul2hf22)    |       |      |       |       |        |          |         |          |          |
 |      |         |           |   [24](https://rebrand.ly/hbuytvt)    |       |      |       |       |        |          |         |          |          |
 |      |         |           |   [25](https://rebrand.ly/4feuea5)    |       |      |       |       |        |          |         |          |          |
-|      |         |           |       |       |      |       |       |        |          |         |          |          |
+|      |         |           |   [28](https://rebrand.ly/vbo4a71)   |       |      |       |       |        |          |         |          |          |
 |      |         |           |       |       |      |       |       |        |          |         |          |          |
 |      |         |           |       |       |      |       |       |        |          |         |          |          |
 |      |         |           |       |       |      |       |       |        |          |         |          |          |
