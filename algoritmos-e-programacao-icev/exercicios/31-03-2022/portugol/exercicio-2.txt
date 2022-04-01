@@ -1,0 +1,53 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que receba três notas de um aluno,
+calcule e mostre a média aritmética e a mensagem constante
+na tabela a seguir. Aos alunos que ficaram para exame,
+calcule e mostre a nota que deverão tirar para serem
+aprovados, considerando que a média exigida é 6,0
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+
+		// Recebendo valores
+		real nota_l, nota_2, nota_3, media, nota_exame
+		
+		escreva("Escreva a sua 1º nota | ")
+		leia(nota_l)
+		escreva("Escreva a sua 2º nota | ") 
+		leia(nota_2) 
+		escreva("Escreva a sua 3º nota | ")
+		leia(nota_3)
+
+		// Calculando
+		media = (nota_l + nota_2 + nota_3) / 3 
+		media = mat.arredondar(media, 1)
+		
+		// Exibindo resultado
+		escreva("\nSua média foi ", media, "\n")
+		
+		se (media < 3.0){
+			escreva("Perdeu playboy! Ficou reprovado.")
+		}
+		
+		senao se (media >= 3.0 e media < 7){
+			nota_exame = 12 - media
+			nota_exame = mat.arredondar(nota_exame, 1)
+			escreva("\nFicou de prova final!")
+			escreva("Estude para tirar pelo menos ", nota_exame)
+		}
+		
+		senao{
+			escreva("Mandou bem! Passou direto.")
+		}
+	}
+}

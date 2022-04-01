@@ -1,0 +1,30 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que receba um número inteiro e informe
+se ele é um número par ou ímpar.
+*/
+
+programa
+{
+	
+	funcao inicio()
+	{
+
+		// Recebendo valores
+		inteiro numero
+		
+		escreva("Digite um número | ")
+		leia(numero)
+
+		// Calculando
+		se (numero % 2 == 0){
+			escreva("\nO número é par")
+		}
+		senao {
+			escreva("\nO número é ímpar")
+		}
+	}
+}
