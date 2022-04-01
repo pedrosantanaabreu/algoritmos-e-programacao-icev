@@ -1,0 +1,39 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Crie um programa que lê 6 valores inteiros e, em seguida, mostre na tela os valores lidos.
+*/
+
+programa
+{
+	
+	funcao inicio()
+	{
+
+		// Recebendo valores
+		real valor_1, valor_2, valor_3, valor_4, valor_5, valor_6
+		
+		escreva("Digite o 1º valor | ")
+		leia(valor_1)
+		escreva("Digite o 2º valor | ")
+		leia(valor_2)
+		escreva("Digite o 3º valor | ")
+		leia(valor_3)
+		escreva("Digite o 4º valor | ")
+		leia(valor_4)
+		escreva("Digite o 5º valor | ")
+		leia(valor_5)
+		escreva("Digite o 6º valor | ")
+		leia(valor_6)
+		
+		// Exibindo resultado
+		escreva("\n1º valor | ", valor_1,
+		"\n2º valor | ", valor_2,
+		"\n3º valor | ", valor_3,
+		"\n4º valor | ", valor_4,
+		"\n5º valor | ", valor_5,
+		"\n76º valor | ", valor_6)
+	}
+}

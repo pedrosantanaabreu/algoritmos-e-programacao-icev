@@ -1,0 +1,41 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Tendo como dados de entrada a altura e o sexo de uma pessoa (M-masculino e F-feminino),
+construa um algoritmo que calcule seu peso ideal, utilizando as seguintes fórmulas:
+para homens: (72.7*h)-58
+para mulheres: (62.1*h)-44.7 
+Obs h = Altura. 
+*/
+
+programa
+{
+	
+inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+
+		// Recebendo valores
+		real altura, peso_ideal
+		cadeia sexo
+
+		escreva("Digite a altura em cm | ")
+		leia(altura)
+		escreva("Digite (M) para masculino e (F) para feminino | ")
+		leia(sexo)
+		
+		// Calculando
+		peso_ideal = 72.7 * altura / 100 - 58
+		se (sexo == "F"){
+		    peso_ideal = 62.1 * altura / 100 - 44.7 
+		}
+		
+		peso_ideal = mat.arredondar(peso_ideal, 2)
+		
+		// Exibindo resultado
+		escreva("\nPeso ideal | ", peso_ideal, " Kg")
+	}
+}

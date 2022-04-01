@@ -18,7 +18,7 @@ angulo_3 = float(input("3º ângulo | "))
 if angulo_1 == 90 or angulo_2 == 90 or angulo_3 == 90:
     print('\nTriângulo Retângulo')
 
-elif angulo_1 == 90 or angulo_2 == 90 or angulo_3 == 90:
+elif angulo_1 < 90 and angulo_2 < 90 and angulo_3 < 90:
     print('\nTriângulo Acutângulo')
     
 else:

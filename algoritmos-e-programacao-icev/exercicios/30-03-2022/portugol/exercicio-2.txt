@@ -1,0 +1,43 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Escreva um programa que leia as medidas dos lados de um triângulo e escreva se ele é Equilátero, 
+Isósceles ou Escaleno. Sendo que:
+Triângulo Equilátero: possui os 3 lados iguais.
+Triângulo Isóscele: possui 2 lados iguais.
+Triângulo Escaleno: possui 3 lados diferentes
+Obs.: O programa deverá informar se os valores podem ser um triângulo.
+*/
+
+programa
+{
+	
+	funcao inicio()
+	{
+		
+		// Recebendo valores
+		inteiro lado_1, lado_2, lado_3
+		escreva("1º lado | ")
+		leia(lado_1)
+		escreva("2º lado | ")
+		leia(lado_2)
+		escreva("3º lado | ")
+		leia(lado_3)
+		
+		// Calculando
+		se (lado_2 == lado_1 e lado_2 == lado_3){
+		    escreva("\nTriângulo equilátero")
+		}
+		senao se (lado_1 == lado_2 ou lado_1 == lado_3 ou lado_3 == lado_2){
+		    escreva("\nTriângulo isósceles")
+		}
+		senao se (lado_1 < lado_2 + lado_3 e lado_2 < lado_1 + lado_3 e lado_3 < lado_1 + lado_2){
+		    escreva("\nTriângulo escaleno")
+		}
+		senao{
+		    escreva("\nOs lados acima não formam um triângulo")
+		}
+	}
+}

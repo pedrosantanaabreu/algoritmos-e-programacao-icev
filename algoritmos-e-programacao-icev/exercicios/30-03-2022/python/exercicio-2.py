@@ -17,7 +17,7 @@ lado_2 = float(input("2º lado | "))
 lado_3 = float(input("3º lado | "))
 
 # Calculando
-if lado_2 == lado_1 == lado_3:
+if lado_2 == lado_1 and lado_2 == lado_3:
     print('\nTriângulo equilátero')
 
 elif lado_1 == lado_2 or lado_1 == lado_3 or lado_3 == lado_2:

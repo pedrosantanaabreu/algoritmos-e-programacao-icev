@@ -1,0 +1,57 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Escreva um programa para ler 3 valores inteiros (considere que não serão lidos valores iguais) e 
+escrevê-los em ordem crescente e decrescente.
+*/
+
+programa
+{
+	
+	funcao inicio()
+	{
+	
+		// Recebendo valores
+		inteiro valor_1, valor_2, valor_3, maior, meio, menor
+		
+		escreva("Digite o 1º valor | ")
+		leia(valor_1)
+		escreva("Digite o 2º valor | ")
+		leia(valor_2)
+		escreva("Digite o 3º valor | ")
+		leia(valor_3)
+		
+		// Encontrando o maior valor
+		maior = valor_1
+		se (valor_2 > valor_3 e valor_2 > valor_1){
+		    maior = valor_2
+		}
+		se (valor_3 > valor_2 e valor_3 > valor_1){
+		    maior = valor_3
+		}
+		
+		// Encontrando valor central
+		meio = valor_1
+		se ((valor_1 < valor_2 e valor_2 < valor_3) ou (valor_1 > valor_2 e valor_2 > valor_3)){
+		    meio = valor_2
+		}
+		se ((valor_1 < valor_3 e valor_3 < valor_2) ou (valor_1 > valor_3 e valor_3 > valor_2)){
+		    meio = valor_3
+		}
+		
+		// Encontrando o menor valor
+		menor = valor_1
+		se (valor_2 < valor_3 e valor_2 < valor_1){
+		    menor = valor_2
+		}
+		se (valor_3 < valor_2 e valor_3 < valor_1){
+		    menor = valor_3
+		}
+		// Exibindo resultado
+		escreva("\n", valor_1, " ", valor_2, " ", valor_3, " | Números digitados",
+		"\n", menor, " ", meio, " ", maior, " | Crescente",
+		"\n", maior, " ", meio, " ", menor, " | Decrescente")
+	}
+}

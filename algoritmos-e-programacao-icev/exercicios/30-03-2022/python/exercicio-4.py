@@ -10,11 +10,11 @@ fumante perderá. Exiba o total de dias.
 """
 
 # Recebendo valores
-cigarros_por_dia = int(input("Digite o consumo de cigarros por dia | "))
-anos_fumando = int(input("Digite a quantidade de anos fumando | "))
+cigarros_por_dia = int(input("Digite o consumo de cigarro(s) por dia | "))
+anos_fumando = int(input("Digite a quantidade de ano(s) fumando | "))
 
 # Calculando
 vida_perdida = cigarros_por_dia * 365 * anos_fumando * 10 / 60 / 24
 
 # Exibindo resultado
-print("\nTem de vida perdida | {:.2f} dias".format(vida_perdida))
+print("\nTem de vida perdida | {:.2f} dia(s)".format(vida_perdida))

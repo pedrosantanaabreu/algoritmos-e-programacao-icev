@@ -20,4 +20,4 @@ if sexo == "F":
     peso_ideal = 62.1 * altura / 100 - 44.7 
 
 # Exibindo resultado
-print("\nPeso ideal | {} Kg".format(peso_ideal))
+print("\nPeso ideal | {:.2f} Kg".format(peso_ideal))

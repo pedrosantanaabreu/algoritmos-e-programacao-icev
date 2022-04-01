@@ -1,0 +1,39 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Escreva um programa que leia o valor de 3 ângulos de um triângulo e escreva se o 
+triângulo é Acutângulo, Retângulo ou Obtusângulo. Sendo que: − Triângulo Retângulo: possui um 
+ângulo reto. (igual a 90o) − Triângulo Obtusângulo: possui um ângulo obtuso. (maior que90o) − 
+Triângulo Acutângulo: possui três ângulos agudos. (menor que 90o)
+*/
+
+programa
+{
+	
+	funcao inicio()
+	{
+		
+		// Recebendo valores
+		inteiro angulo_1, angulo_2, angulo_3
+
+		escreva("1º ângulo | ")
+		leia(angulo_1)
+		escreva("2º ângulo | ")
+		leia(angulo_2)
+		escreva("3º ângulo | ")
+		leia(angulo_3)
+		
+		// Calculando
+		se (angulo_1 == 90 ou angulo_2 == 90 ou angulo_3 == 90){
+		    escreva("\nTriângulo Retângulo")
+		}
+		senao se (angulo_1 < 90 ou angulo_2 < 90 ou angulo_3 < 90){
+		    escreva("\nTriângulo Acutângulo")
+		}
+		senao{
+		    escreva("\nTriângulo Obtusângulo")
+		}
+	}
+}

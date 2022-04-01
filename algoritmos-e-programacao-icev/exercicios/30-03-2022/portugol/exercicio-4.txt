@@ -1,0 +1,36 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Escreva um programa para calcular a redução do tempo de vida de um fumante. 
+Pergunte a quantidade de cigarros fumados por dia e quantos anos ele já fumou. 
+Considere que um fumante perde 10 minutos de vida a cada cigarro, calcule quantos dias de vida um 
+fumante perderá. Exiba o total de dias.
+*/
+
+programa
+{
+	
+inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+
+		// Recebendo valores
+		real vida_perdida, cigarros_por_dia, anos_fumando
+		
+		escreva("Digite o consumo de cigarros por dia | ")
+		leia(cigarros_por_dia)
+		escreva("Digite a quantidade de anos fumando | ")
+		leia(anos_fumando)
+		
+		// Calculando
+		vida_perdida = cigarros_por_dia * 365 * anos_fumando * 10 / 60 / 24
+		vida_perdida = mat.arredondar(vida_perdida, 2)
+		
+		// Exibindo resultado
+		escreva("\nTem de vida perdida | ", vida_perdida, " dia(s)")
+
+	}
+}

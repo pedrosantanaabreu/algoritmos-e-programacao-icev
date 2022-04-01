@@ -15,10 +15,10 @@ valor_3 = int(input("Digite o 3º valor | "))
 # Encontrando o maior valor
 maior = valor_1
 if valor_2 > valor_3 and valor_2 > valor_1:
-    primeiro = valor_2
+    maior = valor_2
 
 if valor_3 > valor_2 and valor_3 > valor_1:
-    primeiro = valor_3
+    maior = valor_3
 
 # Encontrando valor central
 meio = valor_1
