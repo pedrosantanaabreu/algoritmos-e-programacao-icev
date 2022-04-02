@@ -11,6 +11,7 @@ Todos os exercícios e anotações das aulas de "Algoritmos e Programação" no 
 ![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)&nbsp;
 ![Windows](https://img.shields.io/badge/Windows-017AD7?style=for-the-badge&logo=windows&logoColor=white)&nbsp;
 ![Linux](	https://img.shields.io/badge/Linux-E34F26?style=for-the-badge&logo=linux&logoColor=black)&nbsp;
+
 ## 🛠 Capítulos
 
 | 2022 | Janeiro | Fevereiro | Março | Abril | Maio | Junho | Julho | Agosto | Setembro | Outubro | Novembro | Dezembro |
@@ -30,8 +31,8 @@ Todos os exercícios e anotações das aulas de "Algoritmos e Programação" no 
 <br><br>
 <br><br>
 <div align=center>
-<a href="https://www.somosicev.com">
-<img src="https://www.somosicev.com/wp-content/themes/iCEV-1.0/images/logo.png" width="150em ">
+  <a href="https://www.somosicev.com">
+  <img src="https://www.somosicev.com/wp-content/themes/iCEV-1.0/images/logo.png" width="150em ">
 </a>
 </div>
 <br></br>
