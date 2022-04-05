@@ -1,0 +1,117 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Desenvolva um algoritmo que receba as informações
+necessárias, calcule e exiba o valor do salário líquido de um
+trabalhador, detalhando o valor calculado para o INSS e
+imposto de renda.
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+
+		// Recebendo valores
+		inteiro numero_dependentes
+		real salario_bruto, pensao_alimenticia, programa_alimentacao_trabalhador, plano_saude, outros_descontos, inss
+		real outros_descontos_total, base_de_calculo, irrf, soma_descontos, salario_liquido, descontos_porcentagem
+		cadeia inss_texto, irrf_texto
+		
+		escreva("Informe o valor do salário bruto | R$ ")
+		leia(salario_bruto)
+		escreva("Informe o número de dependentes | ")
+		leia(numero_dependentes)
+		escreva("Informe o valor da pensão alimenticia | R$ ")
+		leia(pensao_alimenticia)
+		escreva("Informe o valor do PAT (Programa de Alimentação do Trabalhador) | R$ ")
+		leia(programa_alimentacao_trabalhador)
+		escreva("Informe o valor do plano de saúde | R$ ")
+		leia(plano_saude)
+		escreva("Informe o valor de outros descontos | R$ ")
+		leia(outros_descontos)
+
+		// Calculando INSS
+		se (salario_bruto <= 1212){
+			inss = salario_bruto * (7.5 / 100)
+			inss_texto = "7.5 %"
+		}
+		senao se (salario_bruto <= 2427.35){
+			inss = salario_bruto * (9 / 100)
+			inss_texto = "9 %"
+		}
+		senao se (salario_bruto <= 3641.03){
+			inss = salario_bruto * (12 / 100)
+			inss_texto = "12 %"
+		}
+		senao se (salario_bruto <= 7087.22){
+			inss = salario_bruto * (14 / 100)
+			inss_texto = "14 %"
+		}
+		senao {
+			inss = 828.39
+			inss_texto = "Teto"
+		}
+
+		// Calculando IRRF
+		base_de_calculo = salario_bruto - inss - pensao_alimenticia - numero_dependentes * 189.59
+		se (base_de_calculo <= 1903.98){
+			irrf  = base_de_calculo * (0 / 100) - 0
+			irrf_texto = "0 %"
+		}
+		senao se (base_de_calculo <= 2826.65){
+			irrf  = base_de_calculo * (7.5 / 100) - 142.80
+			irrf_texto = "7.5 %"
+		}
+		senao se (base_de_calculo <= 3751.05){
+			irrf  = base_de_calculo * (15 / 100) - 354.80
+			irrf_texto = "15 %"
+		}
+		senao se (base_de_calculo <= 4664.68){
+			irrf  = base_de_calculo * (22.5 / 100) - 636.13
+			irrf_texto = "22.5 %"
+		}
+		senao {
+			irrf  = base_de_calculo * (27.5 / 100) - 869.36
+			irrf_texto = "27.5 %"
+		}
+	
+		// Calculando outros descontos
+		outros_descontos_total = pensao_alimenticia + programa_alimentacao_trabalhador + plano_saude + outros_descontos 
+		soma_descontos = inss + irrf + outros_descontos_total
+		salario_liquido = salario_bruto - soma_descontos
+		descontos_porcentagem = (salario_bruto - salario_liquido) / salario_bruto * 100
+
+		salario_liquido = mat.arredondar(salario_liquido, 2)
+		descontos_porcentagem = mat.arredondar(descontos_porcentagem, 2)
+		salario_bruto = mat.arredondar(salario_bruto, 2)
+		inss = mat.arredondar(inss, 2)
+		irrf = mat.arredondar(irrf, 2)
+		outros_descontos_total = mat.arredondar(outros_descontos_total, 2)
+		soma_descontos = mat.arredondar(soma_descontos, 2)
+
+		// Exibindo resultado
+		escreva("\n",
+		"SALÁRIO LÍQUIDO | R$ ", salario_liquido, "\n",
+		"DESCONTOS | ", descontos_porcentagem, " %", "\n",
+		"\n",
+		"PROVENTOS", "\n",
+		"Salário Bruto | R$ ", salario_bruto, "\n",
+		"\n",
+		"DESCONTOS", "\n",
+		"INSS | ", inss_texto, " | R$ ", inss, "\n",
+		"IRRF | ", irrf_texto, " | R$ ", irrf, "\n",
+		"Outros descontos | R$ ", outros_descontos_total, "\n",
+		"\n",
+		"TOTAL", "\n",
+		"PROVENTOS | R$ ", salario_bruto, "\n",
+		"DESCONTOS | R$ ", soma_descontos, "\n",
+		"\n",
+		"RESULTADO | R$ ", salario_liquido)
+	}
+}
