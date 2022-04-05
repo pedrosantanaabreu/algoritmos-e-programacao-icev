@@ -27,14 +27,16 @@ programa
 		leia(lado_3)
 		
 		// Calculando
-		se (lado_2 == lado_1 e lado_2 == lado_3){
-		    escreva("\nTriângulo equilátero")
-		}
-		senao se (lado_1 == lado_2 ou lado_1 == lado_3 ou lado_3 == lado_2){
-		    escreva("\nTriângulo isósceles")
-		}
-		senao se (lado_1 < lado_2 + lado_3 e lado_2 < lado_1 + lado_3 e lado_3 < lado_1 + lado_2){
-		    escreva("\nTriângulo escaleno")
+		se (lado_1 < lado_2 + lado_3 e lado_2 < lado_1 + lado_3 e lado_3 < lado_1 + lado_2){
+		    se (lado_2 == lado_1 e lado_2 == lado_3){
+		        escreva("\nTriângulo equilátero")
+	    	    }
+		    senao se (lado_1 != lado_2 e lado_1 != lado_3){
+		        escreva("\nTriângulo escaleno")
+		    }
+		    senao{
+		        escreva("\nTriângulo isósceles")
+	    	    }
 		}
 		senao{
 		    escreva("\nOs lados acima não formam um triângulo")
