@@ -17,14 +17,12 @@ lado_2 = float(input("2º lado | "))
 lado_3 = float(input("3º lado | "))
 
 # Calculando
-if lado_2 == lado_1 and lado_2 == lado_3:
-    print('\nTriângulo equilátero')
-
-elif lado_1 == lado_2 or lado_1 == lado_3 or lado_3 == lado_2:
-    print('\nTriângulo isósceles')
-
-elif lado_1 < lado_2 + lado_3 and lado_2 < lado_1 + lado_3 and lado_3 < lado_1 + lado_2:
-    print('\nTriângulo escaleno')
-
+if lado_1 < lado_2 + lado_3 and lado_2 < lado_1 + lado_3 and lado_3 < lado_1 + lado_2:
+    if lado_1 == lado_2 and lado_2 == lado_3:
+        print("\nTriângulo equilátero")
+    elif lado_1 != lado_2 and lado_2 != lado_3:
+        print("\nTriângulo escaleno")
+    else:
+        print("\nTriângulo isósceles")
 else:
-    print('\nOs lados acima não formam um triângulo')
+    print("\nOs lados não formam um triângulo")
