@@ -1,0 +1,67 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Desenvolva um algoritmo que receba o peso (em quilograma)
+e a altura (em metros) de uma pessoa e exiba o valor do IMC,
+a avaliação do peso dessa pessoa e qual seria a faixa de peso
+ideal.
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+
+		// Recebendo valores
+		real altura, peso, imc, peso_ideal_menor, peso_ideal_maior
+		
+		escreva("Informe a altura (m) | ")
+		leia(altura)
+		escreva("Informe o peso (kg) | ")
+		leia(peso)
+
+		// Calculando IMC
+		imc = peso / (altura * altura)
+		se (imc <= 15){
+			escreva("\nExtremamente abaixo do peso")
+		}
+		senao se (imc <= 16){
+			escreva("\nGravemente abaixo do peso")
+		}
+		senao se (imc <= 18.5){
+			escreva("\nAbaixo do peso ideal")
+		}
+		senao se (imc <= 25){
+			escreva("\nFaixa de peso ideal")
+		}
+		senao se (imc <= 30){
+			escreva("\nSobrepeso")
+		}
+		senao se (imc <= 35){
+			escreva("\nObesidade grau I")
+		}
+		senao se (imc <= 40){
+			escreva("\nObesidade grau II (grave)")
+		}
+		senao {
+			escreva("\nObesidade grau III (mórbida)")
+		}
+
+		peso_ideal_menor = altura * altura * 18.5
+		peso_ideal_maior = altura * altura * 25.0
+		
+		imc = mat.arredondar(imc, 2)
+		peso_ideal_menor = mat.arredondar(peso_ideal_menor, 2)
+		peso_ideal_maior = mat.arredondar(peso_ideal_maior, 2)
+	
+		// Exibindo resultado
+		escreva("\n",
+		"\nIMC | ", imc,
+		"\nPESO IDEAL | ", peso_ideal_menor, " - ", peso_ideal_maior)
+	}
+}
