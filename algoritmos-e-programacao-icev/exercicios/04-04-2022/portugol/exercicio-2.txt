@@ -1,0 +1,88 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Desenvolva um algoritmo que receb0a
+a) O código de um produto comprado, supondo que a digitação do código
+do produto seja sempre válida, isto é, um número inteiro entre 1 e 10.
+b) O peso do produto em quilogramas.
+c) O código do país de origem, supondo que a digitação do código seja
+sempre válida, isto é, um número inteiro entre 1 e 3.
+Exercícios
+Considerando as tabelas apresentadas, calcule e mostre:
+I. o peso do produto convertido em gramas;
+II. o preço total do produto comprado;
+III. o valor do imposto, sabendo que ele é cobrado sobre o preço total do
+produto comprado e depende do país de origem;
+IV. o valor total, preço total do produto mais imposto.
+*/
+
+programa
+{
+
+	inclua biblioteca Matematica --> mat
+	
+	funcao inicio()
+	{
+
+		// Recebendo valores
+		inteiro codigo_produto, codigo_pais_origem
+		real peso_produto_kg, peso_produto_g, preco_total_produto, valor_imposto, preco_final
+		
+		escreva("Informe o código do produto (1 a 10) | ")
+		leia(codigo_produto)
+		escreva("Informe o código do país de origem (1 a 3) | ")
+		leia(codigo_pais_origem)
+		escreva("Informe o peso do produto (kg) | ")
+		leia(peso_produto_kg)
+
+		// Convertendo kg para g, calculando valor total do produto e imposto
+		peso_produto_g = peso_produto_kg * 1000
+		se ((codigo_produto >= 1 e codigo_produto <= 10) e (codigo_pais_origem >= 1 e codigo_pais_origem <= 3)){
+			se (codigo_produto <= 4){
+				preco_total_produto = peso_produto_g * 10
+			}
+			senao se (codigo_produto <= 7){
+				preco_total_produto = peso_produto_g *25
+			}
+			senao {
+				preco_total_produto =  peso_produto_g * 35
+			}
+
+			se (codigo_pais_origem == 1){
+				valor_imposto = preco_total_produto * 0.00
+			}
+			senao se (codigo_pais_origem == 2){
+				valor_imposto = preco_total_produto * 0.15
+			}
+			senao {
+				valor_imposto = preco_total_produto * 0.25
+			}
+
+			preco_final = preco_total_produto + valor_imposto
+			peso_produto_g = mat.arredondar(peso_produto_g, 2)
+			preco_total_produto = mat.arredondar(preco_total_produto, 2)
+			valor_imposto = mat.arredondar(valor_imposto, 2)
+			preco_final = mat.arredondar(preco_final, 2)
+			
+			// Exibindo resultado
+			escreva("\nPeso do produto convertido em gramas | ", peso_produto_g," g",
+			"\nPreço total do produto comprado | R$ ", preco_total_produto,
+			"\nValor do imposto | R$ ", valor_imposto,
+			"\nValor total | R$ ", preco_final)
+		}	
+		senao {
+			se (nao(codigo_produto >= 1 e codigo_produto <= 10)){
+				escreva("\nO código do produto é inválido!")
+			}
+			senao se(nao(codigo_pais_origem >= 1 e codigo_pais_origem <= 3)){
+				escreva("\nO código do país de origem é inválido!")
+			}
+			senao {
+				escreva("\nO código do produto é inválido!")
+				escreva("\nO código do país de origem é inválido!")
+			}
+		}
+	}
+}
