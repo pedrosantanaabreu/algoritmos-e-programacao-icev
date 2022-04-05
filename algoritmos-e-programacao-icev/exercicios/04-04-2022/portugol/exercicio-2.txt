@@ -73,15 +73,15 @@ programa
 			"\nValor total | R$ ", preco_final)
 		}	
 		senao {
-			se (nao(codigo_produto >= 1 e codigo_produto <= 10)){
+			se (nao(codigo_produto >= 1 e codigo_produto <= 10) e nao(codigo_pais_origem >= 1 e codigo_pais_origem <= 3)){
 				escreva("\nO código do produto é inválido!")
+				escreva("\nO código do país de origem é inválido!")
 			}
 			senao se(nao(codigo_pais_origem >= 1 e codigo_pais_origem <= 3)){
 				escreva("\nO código do país de origem é inválido!")
 			}
 			senao {
 				escreva("\nO código do produto é inválido!")
-				escreva("\nO código do país de origem é inválido!")
 			}
 		}
 	}
