@@ -1,15 +1,33 @@
 /*
-@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
 @Icev (https://somosicev.com)
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu) + @Grupo 5
+
+@Grupo 5
+	@Ianna
+	@Paulo Henrique
+	@Gustavo Lima
+	@Ligia
+	@Ângela
 
 PT-BR:
-Desenvolva um algoritmo que receb0a
+Desenvolva um algoritmo que receba
 a) O código de um produto comprado, supondo que a digitação do código
 do produto seja sempre válida, isto é, um número inteiro entre 1 e 10.
 b) O peso do produto em quilogramas.
 c) O código do país de origem, supondo que a digitação do código seja
 sempre válida, isto é, um número inteiro entre 1 e 3.
 Exercícios
+
+Codigo do pais de origem / Imposto
+1 - 0 %
+2 - 15 %
+3 - 25 %
+
+Codigo do produto / Preço por grama
+1 a 4 - 10
+5 a 7 - 25
+8 a 10 - 35
+
 Considerando as tabelas apresentadas, calcule e mostre:
 I. o peso do produto convertido em gramas;
 II. o preço total do produto comprado;
