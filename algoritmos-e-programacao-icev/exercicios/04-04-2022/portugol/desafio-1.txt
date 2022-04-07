@@ -42,15 +42,15 @@ programa
 			inss_texto = "7.5 %"
 		}
 		senao se (salario_bruto <= 2427.35){
-			inss = salario_bruto * (9 / 100)
+			inss = salario_bruto * (9.0 / 100)
 			inss_texto = "9 %"
 		}
 		senao se (salario_bruto <= 3641.03){
-			inss = salario_bruto * (12 / 100)
+			inss = salario_bruto * (12.0 / 100)
 			inss_texto = "12 %"
 		}
 		senao se (salario_bruto <= 7087.22){
-			inss = salario_bruto * (14 / 100)
+			inss = salario_bruto * (14.0 / 100)
 			inss_texto = "14 %"
 		}
 		senao {
@@ -69,7 +69,7 @@ programa
 			irrf_texto = "7.5 %"
 		}
 		senao se (base_de_calculo <= 3751.05){
-			irrf  = base_de_calculo * (15 / 100) - 354.80
+			irrf  = base_de_calculo * (15.0 / 100) - 354.80
 			irrf_texto = "15 %"
 		}
 		senao se (base_de_calculo <= 4664.68){
