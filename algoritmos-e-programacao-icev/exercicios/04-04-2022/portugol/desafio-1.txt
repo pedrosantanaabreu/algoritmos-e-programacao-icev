@@ -61,7 +61,7 @@ programa
 		// Calculando IRRF
 		base_de_calculo = salario_bruto - inss - pensao_alimenticia - numero_dependentes * 189.59
 		se (base_de_calculo <= 1903.98){
-			irrf  = base_de_calculo * (0 / 100) - 0
+			irrf  = base_de_calculo * (0.0 / 100) - 0
 			irrf_texto = "0 %"
 		}
 		senao se (base_de_calculo <= 2826.65){
