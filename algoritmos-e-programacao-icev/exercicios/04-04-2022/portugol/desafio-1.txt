@@ -37,7 +37,7 @@ programa
 		leia(outros_descontos)
 
 		// Calculando INSS
-		se (salario_bruto <= 1212){
+		se (salario_bruto <= 1212.0){
 			inss = salario_bruto * (7.5 / 100)
 			inss_texto = "7.5 %"
 		}
