@@ -17,7 +17,7 @@ Todos os exercícios e anotações das aulas de "Algoritmos e Programação" no 
 | 2022 | Janeiro | Fevereiro | Março | Abril | Maio | Junho | Julho | Agosto | Setembro | Outubro | Novembro | Dezembro |
 |------|:-------:|:---------:|:-----:|:-----:|:----:|:-----:|:-----:|:------:|:--------:|:-------:|:--------:|:--------:|
 |      |         |           |   [21](https://rebrand.ly/ul2hf22)    |   [04](https://rebrand.ly/zqnwkh2)    |      |       |       |        |          |         |          |          |
-|      |         |           |   [24](https://rebrand.ly/hbuytvt)    |       |      |       |       |        |          |         |          |          |
+|      |         |           |   [24](https://rebrand.ly/hbuytvt)    |   [18](https://rebrand.ly/b67dxtg)   |      |       |       |        |          |         |          |          |
 |      |         |           |   [25](https://rebrand.ly/4feuea5)    |       |      |       |       |        |          |         |          |          |
 |      |         |           |   [28](https://rebrand.ly/vbo4a71)   |       |      |       |       |        |          |         |          |          |
 |      |         |           |   [30](https://rebrand.ly/4d30ce)   |       |      |       |       |        |          |         |          |          |
