@@ -25,20 +25,14 @@ no serviço;
 f) a menor idade entre as mulheres que já têm experiência no serviço.
 '''
 
-quantidade_masculino = 0
-soma_idade_masculino_experiencia = 0
-quantidade_masculino_experiencia = 0
-masculino_maior_45_anos = 0
-porcentagem_masculino_45_anos = 0
-idade_media_masculino_experiencia= 0
-feminino_menor_21_anos_com_experiencia = 0
-feminino_menor_idade_experiencia = 0
+quantidade_masculino, quantidade_masculino_experiencia, soma_idade_masculino_experiencia, idade_media_masculino_experiencia = 0, 0, 0, 0
+masculino_maior_45_anos, porcentagem_masculino_45_anos = 0, 0
+feminino_menor_21_anos_com_experiencia, feminino_menor_idade_experiencia  = 0, 0
 
 numero_candidatos = int(input('Digite o número de candidatos | '))
-
 for i in range(1, numero_candidatos + 1):
     while True:
-        print(f'\n[ + ] {i}º candidato\n{"-=" * 30}')
+        print(f'\n[ + ] {i}º candidato\n{"-=" * 50}')
         idade = input('Digite a idade | ').strip().upper()
         sexo = input('Digite o sexo (M / F) | ').strip().upper()
         experiencia_servico = input(f'Digite se tem experiência no serviço (S ou N) | ').strip().upper()
@@ -70,10 +64,9 @@ for i in range(1, numero_candidatos + 1):
     quantidade_feminino = numero_candidatos - quantidade_masculino
 
 print(f'''
-[ + ] Informações gerais\n{"-=" * 30}
+[ + ] Informações gerais\n{"-=" * 50}
 O número de candidatos do sexo feminino | {quantidade_feminino}
-O número de candidatos do sexo masculino | {quantidade_masculino}
-
+O número de candidatos do sexo masculino | {quantidade_masculino}\n
 Idade média dos homens que já têm experiência no serviço | {idade_media_masculino_experiencia:.2f}
 Porcentagem dos homens com mais de 45 anos entre o total dos homens | {porcentagem_masculino_45_anos:.2%}
 Número de mulheres com idade inferior a 21 anos e com experiência no serviço | {feminino_menor_21_anos_com_experiencia}
