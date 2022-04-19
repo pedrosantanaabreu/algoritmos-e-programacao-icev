@@ -25,50 +25,49 @@ no serviço;
 f) a menor idade entre as mulheres que já têm experiência no serviço.
 '''
 
-quantidade_feminino = 0
-feminino_menor_21_anos_com_experiencia = 0
-feminino_menor_idade_experiencia = 0
 quantidade_masculino = 0
 soma_idade_masculino_experiencia = 0
 quantidade_masculino_experiencia = 0
 masculino_maior_45_anos = 0
+porcentagem_masculino_45_anos = 0
 idade_media_masculino_experiencia= 0
+feminino_menor_21_anos_com_experiencia = 0
+feminino_menor_idade_experiencia = 0
 
 numero_candidatos = int(input('Digite o número de candidatos | '))
 
 for i in range(1, numero_candidatos + 1):
     while True:
         print(f'\n[ + ] {i}º candidato\n{"-=" * 30}')
-        idade = input(f'Digite a idade | ').strip().upper()
-        sexo = input(f'Digite o sexo (M / F) | ').strip().upper()
+        idade = input('Digite a idade | ').strip().upper()
+        sexo = input('Digite o sexo (M / F) | ').strip().upper()
         experiencia_servico = input(f'Digite se tem experiência no serviço (S ou N) | ').strip().upper()
 
         if (idade.isnumeric() and int(idade) > 0) and (sexo == 'M' or sexo == 'F') and (experiencia_servico == 'S' or experiencia_servico == 'N'):
             idade = int(idade)
             break
-
+    
     if sexo == 'M':
         quantidade_masculino += 1
         if idade > 45:
             masculino_maior_45_anos += 1
-        porcentagem_masculino_45_anos =  masculino_maior_45_anos / quantidade_masculino
+            porcentagem_masculino_45_anos =  masculino_maior_45_anos / quantidade_masculino
 
         if experiencia_servico == 'S':
             quantidade_masculino_experiencia += 1
             soma_idade_masculino_experiencia += idade
-            idade_media_masculino_experiencia = soma_idade_masculino_experiencia / quantidade_masculino_experiencia 
-
+            idade_media_masculino_experiencia = soma_idade_masculino_experiencia / quantidade_masculino_experiencia
     else:
-        quantidade_feminino += 1
         if experiencia_servico == 'S':
             if idade < 21:
                 feminino_menor_21_anos_com_experiencia += 1
 
-            if idade < feminino_menor_idade_experiencia and feminino_menor_idade_experiencia != 0:
+            if feminino_menor_idade_experiencia == 0:
                 feminino_menor_idade_experiencia = idade
-                continue
-
-            feminino_menor_idade_experiencia = idade
+            else:
+                if idade < feminino_menor_idade_experiencia:
+                    feminino_menor_idade_experiencia = idade
+    quantidade_feminino = numero_candidatos - quantidade_masculino
 
 print(f'''
 [ + ] Informações gerais\n{"-=" * 30}
