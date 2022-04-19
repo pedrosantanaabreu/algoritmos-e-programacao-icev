@@ -28,7 +28,6 @@ f) a menor idade entre as mulheres que já têm experiência no serviço.
 quantidade_feminino = 0
 feminino_menor_21_anos_com_experiencia = 0
 feminino_menor_idade_experiencia = 0
-
 quantidade_masculino = 0
 soma_idade_masculino_experiencia = 0
 quantidade_masculino_experiencia = 0
