@@ -37,10 +37,16 @@ porcentagem_masculino_45_anos = 0
 idade_media_masculino_experiencia= 0
 
 numero_candidatos = int(input('Digite o número de candidatos | '))
-for i in range(0, numero_candidatos):
-    idade = int(input(f'\nDigite a idade do {i + 1}º candidato | ')) 
-    sexo = input(f'Digite o sexo do {i + 1}º candidato (M / F) | ')
-    experiencia_servico = input(f'Digite o se o {i + 1}º candidato tem experiência no serviço (S ou N) | ')
+
+for i in range(1, numero_candidatos + 1):
+    while True:
+        print(f'\n[ + ] {i}º candidato\n{"-=" * 30}')
+        idade = input(f'Digite a idade | ').strip().upper()
+        sexo = input(f'Digite o sexo (M / F) | ').strip().upper()
+        experiencia_servico = input(f'Digite se tem experiência no serviço (S ou N) | ').strip().upper()
+        
+        if (idade.isnumeric() and idade > 0) and (sexo == 'M' or sexo == 'F') and (experiencia_servico == 'S' and experiencia_servico == 'N'):
+            break
 
     if sexo == 'M':
         quantidade_masculino += 1
