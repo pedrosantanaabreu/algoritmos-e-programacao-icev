@@ -33,7 +33,6 @@ quantidade_masculino = 0
 soma_idade_masculino_experiencia = 0
 quantidade_masculino_experiencia = 0
 masculino_maior_45_anos = 0
-porcentagem_masculino_45_anos = 0
 idade_media_masculino_experiencia= 0
 
 numero_candidatos = int(input('Digite o número de candidatos | '))
@@ -53,13 +52,12 @@ for i in range(1, numero_candidatos + 1):
         quantidade_masculino += 1
         if idade > 45:
             masculino_maior_45_anos += 1
+        porcentagem_masculino_45_anos =  masculino_maior_45_anos / quantidade_masculino
 
         if experiencia_servico == 'S':
             quantidade_masculino_experiencia += 1
             soma_idade_masculino_experiencia += idade
-            idade_media_masculino_experiencia = soma_idade_masculino_experiencia / quantidade_masculino_experiencia
-    
-        porcentagem_masculino_45_anos =  masculino_maior_45_anos / quantidade_masculino
+            idade_media_masculino_experiencia = soma_idade_masculino_experiencia / quantidade_masculino_experiencia 
 
     else:
         quantidade_feminino += 1
