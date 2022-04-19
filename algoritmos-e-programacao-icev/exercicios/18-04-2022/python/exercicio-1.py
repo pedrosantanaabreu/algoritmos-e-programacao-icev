@@ -44,42 +44,41 @@ for i in range(1, numero_candidatos + 1):
         idade = input(f'Digite a idade | ').strip().upper()
         sexo = input(f'Digite o sexo (M / F) | ').strip().upper()
         experiencia_servico = input(f'Digite se tem experiência no serviço (S ou N) | ').strip().upper()
-        
-        if (idade.isnumeric() and idade > 0) and (sexo == 'M' or sexo == 'F') and (experiencia_servico == 'S' and experiencia_servico == 'N'):
+
+        if (idade.isnumeric() and int(idade) > 0) and (sexo == 'M' or sexo == 'F') and (experiencia_servico == 'S' or experiencia_servico == 'N'):
+            idade = int(idade)
             break
 
     if sexo == 'M':
         quantidade_masculino += 1
-
         if idade > 45:
             masculino_maior_45_anos += 1
+            porcentagem_masculino_45_anos = quantidade_masculino / masculino_maior_45_anos
 
         if experiencia_servico == 'S':
             quantidade_masculino_experiencia += 1
             soma_idade_masculino_experiencia += idade
+            idade_media_masculino_experiencia = soma_idade_masculino_experiencia / quantidade_masculino_experiencia
+            
     else:
         quantidade_feminino += 1
+        if experiencia_servico == 'S':
+            if idade < 21:
+                feminino_menor_21_anos_com_experiencia += 1
 
-        if idade < 21 and experiencia_servico == 'S':
-            if idade < feminino_menor_idade_experiencia:
+            if idade < feminino_menor_idade_experiencia and feminino_menor_idade_experiencia != 0:
                 feminino_menor_idade_experiencia = idade
-            else:
-                feminino_menor_idade_experiencia = idade
+                continue
 
-            feminino_menor_21_anos_com_experiencia += 1
-        
-if quantidade_masculino_experiencia != 0:
-    idade_media_masculino_experiencia = soma_idade_masculino_experiencia / quantidade_masculino_experiencia
-
-if masculino_maior_45_anos != 0:
-    porcentagem_masculino_45_anos = quantidade_masculino / masculino_maior_45_anos
+            feminino_menor_idade_experiencia = idade
 
 print(f'''
+[ + ] Informações gerais\n{"-=" * 30}
 O número de candidatos do sexo feminino | {quantidade_feminino}
 O número de candidatos do sexo masculino | {quantidade_masculino}
 
 Idade média dos homens que já têm experiência no serviço | {idade_media_masculino_experiencia:.2f}
 Porcentagem dos homens com mais de 45 anos entre o total dos homens | {porcentagem_masculino_45_anos:.2f} %
 Número de mulheres com idade inferior a 21 anos e com experiência no serviço | {feminino_menor_21_anos_com_experiencia}
-Menor idade entre as mulheres que já têm experiência no serviço | {feminino_menor_idade_experiencia}
+Menor idade entre as mulheres que já têm experiência no serviço | {feminino_menor_idade_experiencia} anos
 ''')
