@@ -150,7 +150,30 @@ else:
         numero_convertido = numero_invertido_hexadecimal_binario
 
     else:
-        for i in range(len(numero_para_conversao)):
-            numero_convertido += 16 ** i * hexadecimal_tabela.index(str(numero_para_conversao[len(numero_para_conversao) - 1 - i]))
+        numero_invertido_hexadecimal_decimal = ''
+        for i in numero_para_conversao:
+            numero_invertido_hexadecimal_decimal = i + numero_invertido_hexadecimal_decimal
+
+        potencia = 0
+        while True:
+            for i in numero_invertido_hexadecimal_decimal:
+                if i == 'A':
+                    j = 10
+                elif i == 'B':
+                    j = 11
+                elif i == 'C':
+                    j = 12
+                elif i == 'D':
+                    j = 13
+                elif i == 'E':
+                    j = 14
+                elif i == 'F':
+                    j = 15
+                else:
+                    j = i
+
+                numero_convertido += int(j) * 16 ** potencia 
+                potencia += 1
+            break
 
 print(f'\n[ / ] {escolha_numero_principal} | {numero_para_conversao}\n[ / ] {escolha_numero_conversao} | {numero_convertido}')
