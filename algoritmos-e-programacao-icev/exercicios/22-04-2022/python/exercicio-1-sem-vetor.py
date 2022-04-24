@@ -75,18 +75,35 @@ elif base_principal == '2':
         divisor = 2
     else:
         divisor = 16
+
     while True:
         divisao_inteira_decimal_binario = int(dividendo) // divisor
         resto_divisao_decimal_binario = int(dividendo) % divisor
 
         if divisor == 16:
-            numero_convertido += hexadecimal_tabela[resto_divisao_decimal_binario]
+            if resto_divisao_decimal_binario == '10':
+                letra_numero_hexadecimal = 'A'
+            elif resto_divisao_decimal_binario == '11':
+                letra_numero_hexadecimal = 'B'
+            elif resto_divisao_decimal_binario == '12':
+                letra_numero_hexadecimal = 'C'
+            elif resto_divisao_decimal_binario == '13':
+                letra_numero_hexadecimal = 'D'
+            elif resto_divisao_decimal_binario == '14':
+                letra_numero_hexadecimal = 'E'
+            else:
+                letra_numero_hexadecimal = 'F'
+
+            numero_convertido += letra_numero_hexadecimal
         else:
             numero_convertido += str(resto_divisao_decimal_binario)
         dividendo = divisao_inteira_decimal_binario
 
         if divisao_inteira_decimal_binario == 0:
-            numero_convertido = numero_convertido[::-1]
+            numero_invertido_decimal = numero_convertido
+            numero_convertido = ''
+            for i in numero_invertido_decimal:
+                numero_convertido = i + numero_convertido
             break
 
 else:
