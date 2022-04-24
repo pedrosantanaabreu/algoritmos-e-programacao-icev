@@ -12,9 +12,81 @@ retorne o número decimal equivalente.
 3. Desenvolva um algoritmo que receba como parâmetro um número decimal e retorne
 o número binário equivalente.
 '''
-numero_convertido = 0
 hexadecimal_tabela = '0123456789ABCDEF'
 escolhas = ['Binário','Decimal', 'Hexadecimal']
+
+# Recebe Int e retorna Int
+def converter_binario_para_binario(numero_para_converter):
+    return numero_para_converter
+
+# Recebe Int e retorna Int
+def converter_binario_para_decimal(numero_para_converter):
+    numero_para_converter = str(numero_para_converter)
+    resultado_binario_para_decimal = 0
+
+    for i in range(len(numero_para_converter)):
+        resultado_binario_para_decimal += int(numero_para_converter[len(numero_para_converter) - 1 - i]) * 2 ** i
+
+    return int(resultado_binario_para_decimal)
+
+# Recebe Int e retorna String
+def converter_binario_para_hexadecimal(numero_para_converter):
+    numero_para_converter = str(numero_para_converter)
+    resultado_binario_para_hexadecimal = ''
+
+    for i in range(0, len(numero_para_converter), 4):
+        resultado_binario_para_hexadecimal += hexadecimal_tabela[converter_binario_para_decimal(numero_para_converter[-4 - i:len(numero_para_converter) - i])]
+    
+    return resultado_binario_para_hexadecimal[::-1]
+
+# Recebe Int e retorna Int
+def converter_decimal_para_decimal(numero_para_converter):
+    return numero_para_converter
+
+# Recebe Int e retorna Int
+def converter_decimal_para_binario(numero_para_converter):
+    resultado_decimal_para_binario = ''
+
+    while numero_para_converter != 0:
+        resultado_decimal_para_binario += str(int(numero_para_converter) % 2)
+        numero_para_converter //= 2
+
+    return resultado_decimal_para_binario[::-1] or 0
+
+# Recebe Int e retorna String
+def converter_decimal_para_hexadecimal(numero_para_converter):
+    resultado_decimal_para_binario = ''
+
+    while numero_para_converter != 0:
+        resultado_decimal_para_binario += hexadecimal_tabela[numero_para_converter % 16]
+        numero_para_converter //= 16
+
+    return resultado_decimal_para_binario[::-1] or 0
+
+# Recebe String ou Int e retorna String
+def converter_hexadecimal_para_hexadecimal(numero_para_converter):
+    return numero_para_converter
+
+# Recebe String ou Int e retorna Int
+def converter_hexadecimal_para_decimal(numero_para_converter):
+    numero_para_converter = str(numero_para_converter)
+    resultado_hexadecimal_para_decimal = 0
+
+    for i in range(len(numero_para_converter)):
+        resultado_hexadecimal_para_decimal += hexadecimal_tabela.index(str(numero_para_converter[len(numero_para_converter) - 1 - i])) * 16 ** i
+    
+    return int(resultado_hexadecimal_para_decimal)
+
+# Recebe String ou Int e retorna Int
+def converter_hexadecimal_para_binario(numero_para_converter):
+    numero_para_converter = str(numero_para_converter)
+    resultado_hexadecimal_para_binario = ''
+
+    for i in numero_para_converter:
+        print(resultado_hexadecimal_para_binario)
+        resultado_hexadecimal_para_binario += str(converter_decimal_para_binario(int(hexadecimal_tabela.index(i))))
+
+    return int(resultado_hexadecimal_para_binario) or 0
 
 while True:
     base_principal = input('[ ? ] De:\n[ 1 ] Binário\n[ 2 ] Decimal\n[ 3 ] Hexadecimal\n[ > ] ').strip()
@@ -37,64 +109,28 @@ while True:
         break
     print('\n[ ! ] Um dos valor digitados é inváido, tente novamente:\n')
 
-if base_principal == base_conversao:
-    numero_convertido = numero_para_conversao
-
-elif base_principal == '1':
-    if base_conversao == '2':
-        for i in range(len(numero_para_conversao)):
-                numero_convertido += int(numero_para_conversao[len(numero_para_conversao) - 1 - i]) * 2 ** i
+if base_principal == '1':
+    if base_conversao == '1':
+        numero_convertido = converter_binario_para_binario(numero_para_conversao)
+    elif base_conversao == '2':
+        numero_convertido = converter_binario_para_decimal(numero_para_conversao)
     else:
-        numero_convertido = ''
-        for i in range(0, len(numero_para_conversao), 4):
-            resultado_conversao_bloco_binario_hexadecimal = 0
-            bloco = numero_para_conversao[-4 - i:len(numero_para_conversao) - i]
-
-            for j in range(len(bloco)):
-                resultado_conversao_bloco_binario_hexadecimal += int(bloco[len(bloco) - 1 - j]) * 2 ** j
-
-            numero_convertido += hexadecimal_tabela[resultado_conversao_bloco_binario_hexadecimal]
-        numero_convertido = numero_convertido[::-1]
+        numero_convertido = converter_binario_para_hexadecimal(numero_para_conversao)
 
 elif base_principal == '2':
-    numero_convertido = ''
-    dividendo = numero_para_conversao
-
     if base_conversao == '1':
-        divisor = 2
+        numero_convertido = converter_decimal_para_binario(numero_para_conversao)
+    elif base_conversao == '2':
+        numero_convertido = converter_decimal_para_decimal(numero_para_conversao)
     else:
-        divisor = 16
-    while True:
-        divisao_inteira_decimal_binario = int(dividendo) // divisor
-        resto_divisao_decimal_binario = int(dividendo) % divisor
-
-        if divisor == 16:
-            numero_convertido += hexadecimal_tabela[resto_divisao_decimal_binario]
-        else:
-            numero_convertido += str(resto_divisao_decimal_binario)
-        dividendo = divisao_inteira_decimal_binario
-
-        if divisao_inteira_decimal_binario == 0:
-            numero_convertido = numero_convertido[::-1]
-            break
+        numero_convertido = converter_decimal_para_hexadecimal(numero_para_conversao)
 
 else:
     if base_conversao == '1':
-        numero_convertido = ''
-        for i in numero_para_conversao:
-            index_hexadecimal = int(hexadecimal_tabela.index(i))
-            while True:
-                divisao_inteira_decimal_binario = int(index_hexadecimal) // 2
-                resto_divisao_decimal_binario = int(index_hexadecimal) % 2
-                numero_convertido += str(resto_divisao_decimal_binario)
-                index_hexadecimal = divisao_inteira_decimal_binario
-
-                if divisao_inteira_decimal_binario == 0:
-                    break
-        numero_convertido = numero_convertido[::-1]
-    
+        numero_convertido = converter_hexadecimal_para_binario(numero_para_conversao)
+    elif base_conversao == '2':
+        numero_convertido = converter_hexadecimal_para_decimal(numero_para_conversao)
     else:
-        for i in range(len(numero_para_conversao)):
-            numero_convertido += 16 ** i * hexadecimal_tabela.index(str(numero_para_conversao[len(numero_para_conversao) - 1 - i]))
+        numero_convertido = converter_hexadecimal_para_hexadecimal(numero_para_conversao)
 
 print(f'\n[ / ] {escolhas[int(base_principal) - 1]} | {numero_para_conversao}\n[ / ] {escolhas[int(base_conversao) - 1]} | {numero_convertido}')

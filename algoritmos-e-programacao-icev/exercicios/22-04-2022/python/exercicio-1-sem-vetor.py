@@ -67,6 +67,7 @@ elif base_principal == '1':
             break
     else:
         numero_convertido = ''
+        bloco_invertido = ''
         for i in range(0, len(numero_para_conversao), 4):
             resultado_conversao_bloco_binario_hexadecimal = 0
             bloco = numero_para_conversao[-4 - i:len(numero_para_conversao) - i]
