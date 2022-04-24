@@ -153,6 +153,6 @@ def inicio():
 
         if not verificador_continuar:
             break
-    print('[ / ] Programa executado com êxito')
+    print('[ / ] Programa finalizado com êxito')
 
 inicio()
