@@ -31,8 +31,10 @@ if base_principal == '1':
         numero_convertido = numero_para_conversao
 
     elif base_conversao == '2':
-        for i in range(len(numero_para_conversao)):
-                numero_convertido += int(numero_para_conversao[len(numero_para_conversao) - 1 - i]) * 2 ** i
+        i = 0
+        for numero_binario in numero_para_conversao:
+            numero_convertido += (int(numero_binario) * 2 ** i)
+            i += 1
 
     else:
         numero_convertido = ''
@@ -63,16 +65,7 @@ elif base_principal == '2':
         numero_convertido = numero_para_conversao
 
     else:
-        numero_convertido = ''
-        while True:
-            divisao_inteira_decimal_binario = int(numero_para_conversao) // 16
-            resto_divisao_decimal_binario = int(numero_para_conversao) % 16
-            numero_convertido += hexadecimal_tabela[resto_divisao_decimal_binario]
-            numero_para_conversao = divisao_inteira_decimal_binario
-
-            if divisao_inteira_decimal_binario == 0:
-                numero_convertido = numero_convertido[::-1]
-                break
+        print()
 
 else:
     print()
