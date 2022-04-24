@@ -23,7 +23,7 @@ while True:
         while True:
             numero_para_conversao = input('\nDigite o número para conversão | ').strip().upper()
             for i in numero_para_conversao:
-                if not i in '123456789ABCDEF':
+                if not i in '0123456789ABCDEF':
                     verificador = False
                     print('\n[ ! ] O valor digitado é inváido, tente novamente:')
                     break
@@ -41,7 +41,6 @@ elif base_principal == '1':
     if base_conversao == '2':
         for i in range(len(numero_para_conversao)):
                 numero_convertido += int(numero_para_conversao[len(numero_para_conversao) - 1 - i]) * 2 ** i
-
     else:
         numero_convertido = ''
         for i in range(0, len(numero_para_conversao), 4):
@@ -55,29 +54,26 @@ elif base_principal == '1':
         numero_convertido = numero_convertido[::-1]
 
 elif base_principal == '2':
+    numero_convertido = ''
+    dividendo = numero_para_conversao
+
     if base_conversao == '1':
-        numero_convertido = ''
-        while True:
-            divisao_inteira_decimal_binario = int(numero_para_conversao) // 2
-            resto_divisao_decimal_binario = int(numero_para_conversao) % 2
-            numero_convertido += str(resto_divisao_decimal_binario)
-            numero_para_conversao = divisao_inteira_decimal_binario
-
-            if divisao_inteira_decimal_binario == 0:
-                numero_convertido = numero_convertido[::-1]
-                break
-
+        divisor = 2
     else:
-        numero_convertido = ''
-        while True:
-            divisao_inteira_decimal_binario = int(numero_para_conversao) // 16
-            resto_divisao_decimal_binario = int(numero_para_conversao) % 16
-            numero_convertido += hexadecimal_tabela[resto_divisao_decimal_binario]
-            numero_para_conversao = divisao_inteira_decimal_binario
+        divisor = 16
+    while True:
+        divisao_inteira_decimal_binario = int(dividendo) // divisor
+        resto_divisao_decimal_binario = int(dividendo) % divisor
 
-            if divisao_inteira_decimal_binario == 0:
-                numero_convertido = numero_convertido[::-1]
-                break
+        if divisor == 16:
+            numero_convertido += hexadecimal_tabela[resto_divisao_decimal_binario]
+        else:
+            numero_convertido += str(resto_divisao_decimal_binario)
+        dividendo = divisao_inteira_decimal_binario
+
+        if divisao_inteira_decimal_binario == 0:
+            numero_convertido = numero_convertido[::-1]
+            break
 
 else:
     if base_conversao == '1':
