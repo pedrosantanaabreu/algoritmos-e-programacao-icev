@@ -88,49 +88,71 @@ def converter_hexadecimal_para_binario(numero_para_converter):
 
     return int(resultado_hexadecimal_para_binario) or 0
 
-while True:
-    base_principal = input('[ ? ] De:\n[ 1 ] Binário\n[ 2 ] Decimal\n[ 3 ] Hexadecimal\n[ > ] ').strip()
-    base_conversao = input('\n[ ? ] Para:\n[ 1 ] Binário\n[ 2 ] Decimal\n[ 3 ] Hexadecimal\n[ > ] ').strip()
-
-    if base_principal in '123' and base_conversao in '123':
+# Main
+def inicio():
+    while True:
         while True:
-            numero_para_conversao = input('\n[ ? ] Digite o número para conversão\n[ > ] ').strip().upper()
+            base_principal = input('[ ? ] De:\n[ 1 ] Binário\n[ 2 ] Decimal\n[ 3 ] Hexadecimal\n[ > ] ').strip()
+            base_conversao = input('\n[ ? ] Para:\n[ 1 ] Binário\n[ 2 ] Decimal\n[ 3 ] Hexadecimal\n[ > ] ').strip()
 
-            for i in numero_para_conversao:
-                if base_principal == '1' and i in '01' or base_principal == '2' and i in '0123456789' or base_principal == '3' and i in '0123456789ABCDEF':
-                    verificador = True
-                else:
-                    verificador = False
-                    break
-    
-            if verificador:
+            if base_principal in '123' and base_conversao in '123':
+                while True:
+                    numero_para_conversao = input('\n[ ? ] Digite o número para conversão\n[ > ] ').strip().upper()
+
+                    for i in numero_para_conversao:
+                        if base_principal == '1' and i in '01' or base_principal == '2' and i in '0123456789' or base_principal == '3' and i in '0123456789ABCDEF':
+                            verificador = True
+                        else:
+                            verificador = False
+                            break
+            
+                    if verificador:
+                        break
+                    print('\n[ ! ] O valor digitado é inváido, tente novamente:')
                 break
-            print('\n[ ! ] O valor digitado é inváido, tente novamente:')
-        break
-    print('\n[ ! ] Um dos valor digitados é inváido, tente novamente:\n')
+            print('\n[ ! ] Um dos valor digitados é inváido, tente novamente:\n')
 
-if base_principal == '1':
-    if base_conversao == '1':
-        numero_convertido = converter_binario_para_binario(numero_para_conversao)
-    elif base_conversao == '2':
-        numero_convertido = converter_binario_para_decimal(numero_para_conversao)
-    else:
-        numero_convertido = converter_binario_para_hexadecimal(numero_para_conversao)
+        if base_principal == '1':
+            if base_conversao == '1':
+                numero_convertido = converter_binario_para_binario(int(numero_para_conversao))
+            elif base_conversao == '2':
+                numero_convertido = converter_binario_para_decimal(int(numero_para_conversao))
+            else:
+                numero_convertido = converter_binario_para_hexadecimal(int(numero_para_conversao))
 
-elif base_principal == '2':
-    if base_conversao == '1':
-        numero_convertido = converter_decimal_para_binario(numero_para_conversao)
-    elif base_conversao == '2':
-        numero_convertido = converter_decimal_para_decimal(numero_para_conversao)
-    else:
-        numero_convertido = converter_decimal_para_hexadecimal(numero_para_conversao)
+        elif base_principal == '2':
+            if base_conversao == '1':
+                numero_convertido = converter_decimal_para_binario(int(numero_para_conversao))
+            elif base_conversao == '2':
+                numero_convertido = converter_decimal_para_decimal(int(numero_para_conversao))
+            else:
+                numero_convertido = converter_decimal_para_hexadecimal(int(numero_para_conversao))
 
-else:
-    if base_conversao == '1':
-        numero_convertido = converter_hexadecimal_para_binario(numero_para_conversao)
-    elif base_conversao == '2':
-        numero_convertido = converter_hexadecimal_para_decimal(numero_para_conversao)
-    else:
-        numero_convertido = converter_hexadecimal_para_hexadecimal(numero_para_conversao)
+        else:
+            if base_conversao == '1':
+                numero_convertido = converter_hexadecimal_para_binario(numero_para_conversao)
+            elif base_conversao == '2':
+                numero_convertido = converter_hexadecimal_para_decimal(numero_para_conversao)
+            else:
+                numero_convertido = converter_hexadecimal_para_hexadecimal(numero_para_conversao)
 
-print(f'\n[ / ] {escolhas[int(base_principal) - 1]} | {numero_para_conversao}\n[ / ] {escolhas[int(base_conversao) - 1]} | {numero_convertido}')
+        print(f'\n[ / ] {escolhas[int(base_principal) - 1]} | {numero_para_conversao}\n[ / ] {escolhas[int(base_conversao) - 1]} | {numero_convertido}')
+
+        while True:
+            resposta_continuar_sair = input('\n[ 1 ] Converter outro número\n[ 2 ] Sair\n[ > ] ').strip()
+            print()
+
+            if resposta_continuar_sair == '1':
+                verificador_continuar = True
+                break
+            elif resposta_continuar_sair == '2':
+                verificador_continuar = False
+                break
+            else:
+                print('[ ! ] O valor digitado é inváido, tente novamente:')
+
+        if not verificador_continuar:
+            break
+    print('[ / ] Programa executado com êxito')
+
+inicio()
