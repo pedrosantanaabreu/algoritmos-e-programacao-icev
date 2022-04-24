@@ -53,8 +53,17 @@ if base_principal == base_conversao:
 
 elif base_principal == '1':
     if base_conversao == '2':
-        for i in range(len(numero_para_conversao)):
-                numero_convertido += int(numero_para_conversao[len(numero_para_conversao) - 1 - i]) * 2 ** i
+        numero_invertido_binario = str(numero_para_conversao)
+        numero_nao_invertido_binario = ''
+        for i in numero_invertido_binario:
+            numero_nao_invertido_binario = i + numero_nao_invertido_binario
+
+        contador = 0
+        while True:
+            for j in numero_nao_invertido_binario:
+                numero_convertido += int(j) * 2 ** contador
+                contador += 1
+            break
     else:
         numero_convertido = ''
         for i in range(0, len(numero_para_conversao), 4):
@@ -81,15 +90,15 @@ elif base_principal == '2':
         resto_divisao_decimal_binario = int(dividendo) % divisor
 
         if divisor == 16:
-            if resto_divisao_decimal_binario == '10':
+            if resto_divisao_decimal_binario == 10:
                 letra_numero_hexadecimal = 'A'
-            elif resto_divisao_decimal_binario == '11':
+            elif resto_divisao_decimal_binario == 11:
                 letra_numero_hexadecimal = 'B'
-            elif resto_divisao_decimal_binario == '12':
+            elif resto_divisao_decimal_binario == 12:
                 letra_numero_hexadecimal = 'C'
-            elif resto_divisao_decimal_binario == '13':
+            elif resto_divisao_decimal_binario == 13:
                 letra_numero_hexadecimal = 'D'
-            elif resto_divisao_decimal_binario == '14':
+            elif resto_divisao_decimal_binario == 14:
                 letra_numero_hexadecimal = 'E'
             else:
                 letra_numero_hexadecimal = 'F'
