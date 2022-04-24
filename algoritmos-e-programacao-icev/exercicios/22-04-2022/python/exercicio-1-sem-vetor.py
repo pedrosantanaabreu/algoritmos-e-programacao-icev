@@ -33,7 +33,7 @@ if base_principal == '1':
     elif base_conversao == '2':
         i = 0
         for numero_binario in numero_para_conversao:
-            numero_convertido += (int(numero_binario) * 2 ** i)
+            numero_convertido += int(numero_binario) * 2 ** i
             i += 1
 
     else:

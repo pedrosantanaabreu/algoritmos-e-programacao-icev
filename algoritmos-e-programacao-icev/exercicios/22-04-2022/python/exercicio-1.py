@@ -23,7 +23,7 @@ while True:
         print('\n[ ! ] Um dos valor digitados é inváido, tente novamente:')
         continue
     else:
-        numero_para_conversao = input('\nDigite o número para conversão | ')
+        numero_para_conversao = input('\nDigite o número para conversão | ').strip().upper()
         break
 
 if base_principal == '1':
@@ -75,5 +75,24 @@ elif base_principal == '2':
                 break
 
 else:
-    print()
+    if base_conversao == '1':
+        numero_convertido = ''
+        for i in numero_para_conversao:
+            index_hexadecimal = int(hexadecimal_tabela.index(i))
+            while True:
+                divisao_inteira_decimal_binario = int(index_hexadecimal) // 2
+                resto_divisao_decimal_binario = int(index_hexadecimal) % 2
+                numero_convertido += str(resto_divisao_decimal_binario)
+                index_hexadecimal = divisao_inteira_decimal_binario
+
+                if divisao_inteira_decimal_binario == 0:
+                    break
+
+        numero_convertido = numero_convertido[::-1]
+    
+    elif base_conversao == '2':
+        for i in range(len(numero_para_conversao)):
+            numero_convertido += 16 ** i * hexadecimal_tabela.index(str(numero_para_conversao[len(numero_para_conversao) - 1 - i]))
+    else:
+        numero_convertido = numero_para_conversao
 print(numero_convertido)
