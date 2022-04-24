@@ -36,16 +36,18 @@ while True:
 
         while True:
             numero_para_conversao = input('\n[ ? ] Digite o número para conversão\n[ > ] ').strip().upper()
+
             for i in numero_para_conversao:
-                if not i in '0123456789ABCDEF':
-                    verificador = False
-                    print('\n[ ! ] O valor digitado é inváido, tente novamente:')
-                    break
-                else:
+                if base_principal == '1' and i in '01' or base_principal == '2' and i in '0123456789' or base_principal == '3' and i in '0123456789ABCDEF':
                     verificador = True
+                else:
+                    verificador = False
+                    break
+    
             if verificador:
                 break
-        break    
+            print('\n[ ! ] O valor digitado é inváido, tente novamente:')
+        break
     print('\n[ ! ] Um dos valor digitados é inváido, tente novamente:\n')
 
 if base_principal == base_conversao:
@@ -118,18 +120,35 @@ else:
     if base_conversao == '1':
         numero_convertido = ''
         for i in numero_para_conversao:
-            index_hexadecimal = int(hexadecimal_tabela.index(i))
+            if i == 'A':
+                numero_hexadecimal_binario = 10
+            elif i == 'B':
+                numero_hexadecimal_binario = 11
+            elif i == 'C':
+                numero_hexadecimal_binario = 12
+            elif i == 'D':
+                numero_hexadecimal_binario = 13
+            elif i == 'E':
+                numero_hexadecimal_binario = 14
+            elif i == 'F':
+                numero_hexadecimal_binario = 15
+            else:
+                numero_hexadecimal_binario = i
+
             while True:
-                divisao_inteira_decimal_binario = int(index_hexadecimal) // 2
-                resto_divisao_decimal_binario = int(index_hexadecimal) % 2
+                divisao_inteira_decimal_binario = int(numero_hexadecimal_binario) // 2
+                resto_divisao_decimal_binario = int(numero_hexadecimal_binario) % 2
                 numero_convertido += str(resto_divisao_decimal_binario)
-                index_hexadecimal = divisao_inteira_decimal_binario
+                numero_hexadecimal_binario = divisao_inteira_decimal_binario
 
                 if divisao_inteira_decimal_binario == 0:
                     break
 
-        numero_convertido = numero_convertido[::-1]
-    
+        numero_invertido_hexadecimal_binario = ''
+        for i in numero_convertido:
+            numero_invertido_hexadecimal_binario = i + numero_invertido_hexadecimal_binario
+        numero_convertido = numero_invertido_hexadecimal_binario
+
     else:
         for i in range(len(numero_para_conversao)):
             numero_convertido += 16 ** i * hexadecimal_tabela.index(str(numero_para_conversao[len(numero_para_conversao) - 1 - i]))
