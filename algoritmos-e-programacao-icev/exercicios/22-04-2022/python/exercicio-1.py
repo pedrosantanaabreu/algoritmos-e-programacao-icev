@@ -14,6 +14,7 @@ o número binário equivalente.
 '''
 numero_convertido = 0
 hexadecimal_tabela = '0123456789ABCDEF'
+escolhas = ['Binário','Decimal', 'Hexadecimal']
 
 while True:
     base_principal = input('[ ? ] De:\n[ 1 ] Binário\n[ 2 ] Decimal\n[ 3 ] Hexadecimal\n[ > ] ').strip()
@@ -21,17 +22,19 @@ while True:
 
     if base_principal in '123' and base_conversao in '123':
         while True:
-            numero_para_conversao = input('\nDigite o número para conversão | ').strip().upper()
+            numero_para_conversao = input('\n[ ? ] Digite o número para conversão\n[ > ] ').strip().upper()
+
             for i in numero_para_conversao:
-                if not i in '0123456789ABCDEF':
-                    verificador = False
-                    print('\n[ ! ] O valor digitado é inváido, tente novamente:')
-                    break
-                else:
+                if base_principal == '1' and i in '01' or base_principal == '2' and i in '0123456789' or base_principal == '3' and i in '0123456789ABCDEF':
                     verificador = True
+                else:
+                    verificador = False
+                    break
+    
             if verificador:
                 break
-        break    
+            print('\n[ ! ] O valor digitado é inváido, tente novamente:')
+        break
     print('\n[ ! ] Um dos valor digitados é inváido, tente novamente:\n')
 
 if base_principal == base_conversao:
@@ -88,11 +91,10 @@ else:
 
                 if divisao_inteira_decimal_binario == 0:
                     break
-
         numero_convertido = numero_convertido[::-1]
     
     else:
         for i in range(len(numero_para_conversao)):
             numero_convertido += 16 ** i * hexadecimal_tabela.index(str(numero_para_conversao[len(numero_para_conversao) - 1 - i]))
 
-print(f'\nO número {numero_para_conversao} convertido fica {numero_convertido}')
+print(f'\n[ / ] {escolhas[int(base_principal) - 1]} | {numero_para_conversao}\n[ / ] {escolhas[int(base_conversao) - 1]} | {numero_convertido}')

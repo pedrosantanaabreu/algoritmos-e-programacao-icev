@@ -53,16 +53,15 @@ if base_principal == base_conversao:
 
 elif base_principal == '1':
     if base_conversao == '2':
-        numero_invertido_binario = str(numero_para_conversao)
-        numero_nao_invertido_binario = ''
-        for i in numero_invertido_binario:
-            numero_nao_invertido_binario = i + numero_nao_invertido_binario
+        numero_invertido_binario = ''
+        for i in numero_para_conversao:
+            numero_invertido_binario = i + numero_invertido_binario
 
-        contador = 0
+        potencia = 0
         while True:
-            for j in numero_nao_invertido_binario:
-                numero_convertido += int(j) * 2 ** contador
-                contador += 1
+            for j in numero_invertido_binario:
+                numero_convertido += int(j) * 2 ** potencia
+                potencia += 1
             break
     else:
         numero_convertido = ''
