@@ -71,11 +71,41 @@ elif base_principal == '1':
             resultado_conversao_bloco_binario_hexadecimal = 0
             bloco = numero_para_conversao[-4 - i:len(numero_para_conversao) - i]
 
-            for j in range(len(bloco)):
-                resultado_conversao_bloco_binario_hexadecimal += int(bloco[len(bloco) - 1 - j]) * 2 ** j
+            bloco_invertido = bloco
+            bloco = ''
+            for j in bloco_invertido:
+                bloco = j + bloco
 
-            numero_convertido += hexadecimal_tabela[resultado_conversao_bloco_binario_hexadecimal]
-        numero_convertido = numero_convertido[::-1]
+            potencia = 0
+            resultado_conversao_bloco_binario_hexadecimal = 0
+            while True:
+                for k in bloco:
+                    resultado_conversao_bloco_binario_hexadecimal += int(k) * 2 ** potencia
+                    potencia += 1
+                break
+
+            if resultado_conversao_bloco_binario_hexadecimal > 9:
+                    if resultado_conversao_bloco_binario_hexadecimal == 10:
+                        numero_binario_hexadecimal = 'A'
+                    elif resultado_conversao_bloco_binario_hexadecimal == 11:
+                        numero_binario_hexadecimal = 'B'
+                    elif resultado_conversao_bloco_binario_hexadecimal == 12:
+                        numero_binario_hexadecimal = 'C'
+                    elif resultado_conversao_bloco_binario_hexadecimal == 13:
+                        numero_binario_hexadecimal = 'D'
+                    elif resultado_conversao_bloco_binario_hexadecimal == 14:
+                        numero_binario_hexadecimal = 'E'
+                    else:
+                        numero_binario_hexadecimal = 'F'
+            else:
+                numero_binario_hexadecimal = str(resultado_conversao_bloco_binario_hexadecimal)
+    
+            numero_convertido += numero_binario_hexadecimal
+
+        binario_hexadecimal_invertido = numero_convertido
+        numero_convertido = ''
+        for i in binario_hexadecimal_invertido:
+            numero_convertido = i + numero_convertido
 
 elif base_principal == '2':
     numero_convertido = ''
@@ -91,18 +121,21 @@ elif base_principal == '2':
         resto_divisao_decimal_binario = int(dividendo) % divisor
 
         if divisor == 16:
-            if resto_divisao_decimal_binario == 10:
-                letra_numero_hexadecimal = 'A'
-            elif resto_divisao_decimal_binario == 11:
-                letra_numero_hexadecimal = 'B'
-            elif resto_divisao_decimal_binario == 12:
-                letra_numero_hexadecimal = 'C'
-            elif resto_divisao_decimal_binario == 13:
-                letra_numero_hexadecimal = 'D'
-            elif resto_divisao_decimal_binario == 14:
-                letra_numero_hexadecimal = 'E'
+            if resto_divisao_decimal_binario > 9:
+                if resto_divisao_decimal_binario == 10:
+                    letra_numero_hexadecimal = 'A'
+                elif resto_divisao_decimal_binario == 11:
+                    letra_numero_hexadecimal = 'B'
+                elif resto_divisao_decimal_binario == 12:
+                    letra_numero_hexadecimal = 'C'
+                elif resto_divisao_decimal_binario == 13:
+                    letra_numero_hexadecimal = 'D'
+                elif resto_divisao_decimal_binario == 14:
+                    letra_numero_hexadecimal = 'E'
+                else:
+                    letra_numero_hexadecimal = 'F'
             else:
-                letra_numero_hexadecimal = 'F'
+                letra_numero_hexadecimal = str(resto_divisao_decimal_binario)
 
             numero_convertido += letra_numero_hexadecimal
         else:
