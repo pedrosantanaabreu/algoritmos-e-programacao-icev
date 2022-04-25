@@ -140,6 +140,7 @@ def inicio():
 
         while True:
             resposta_continuar_sair = input('\n[ 1 ] Converter outro número\n[ 2 ] Sair\n[ > ] ').strip()
+            print()
 
             if resposta_continuar_sair == '1':
                 verificador_continuar = True
