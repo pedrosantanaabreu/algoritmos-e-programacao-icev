@@ -61,7 +61,7 @@ for i in range(1, numero_candidatos + 1):
 
 print(f'''
 [ + ] Informações gerais\n{"-=" * 50}
-O número de candidatos do sexo feminino | {quantidade_feminino}
+O número de candidatos do sexo feminino | {numero_candidatos - quantidade_masculino}
 O número de candidatos do sexo masculino | {quantidade_masculino}\n
 Idade média dos homens que já têm experiência no serviço | {idade_media_masculino_experiencia:.2f}
 Porcentagem dos homens com mais de 45 anos entre o total dos homens | {porcentagem_masculino_45_anos:.2%}
