@@ -56,12 +56,8 @@ for i in range(1, numero_candidatos + 1):
             if idade < 21:
                 feminino_menor_21_anos_com_experiencia += 1
 
-            if feminino_menor_idade_experiencia == 0:
+            if feminino_menor_idade_experiencia == 0 or idade < feminino_menor_idade_experiencia:
                 feminino_menor_idade_experiencia = idade
-            else:
-                if idade < feminino_menor_idade_experiencia:
-                    feminino_menor_idade_experiencia = idade
-    quantidade_feminino = numero_candidatos - quantidade_masculino
 
 print(f'''
 [ + ] Informações gerais\n{"-=" * 50}
