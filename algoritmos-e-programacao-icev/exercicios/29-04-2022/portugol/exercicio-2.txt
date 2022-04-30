@@ -1,0 +1,180 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Desenvolva um programa que receba o valor de um carro e mostre uma
+tabela com os seguintes dados: preço final,
+quantidade de parcelas e valor da parcela.
+
+Considere o seguinte:
+a) o preço final para compra à vista tem
+desconto de 20%;
+
+b) a quantidade de parcelas pode ser: 6, 12, 18,
+24, 30, 36, 42, 48, 54 e 60;
+
+c) os percentuais de acréscimo encontram-se na tabela ao lado
+
+6 - 3 % juros
+12 - 6 % juros
+18 - 9 % juros
+24 - 12 % juros
+30 - 15 % juros
+36 - 18 % juros
+42 - 21 % juros
+48 - 24 % juros
+54 - 27 % juros
+60 - 30 % juros
+
+*/
+ 
+programa
+{
+	 
+	inclua biblioteca Matematica
+
+	funcao inicio()
+	{	
+		inteiro valor_automovel
+
+		real valor_parcela_em_6_vezes = 0.0
+		real valor_parcela_em_12_vezes = 0.0
+		real valor_parcela_em_18_vezes = 0.0
+		real valor_parcela_em_24_vezes = 0.0
+		real valor_parcela_em_30_vezes = 0.0
+		real valor_parcela_em_36_vezes = 0.0
+		real valor_parcela_em_42_vezes = 0.0
+		real valor_parcela_em_48_vezes = 0.0
+		real valor_parcela_em_54_vezes = 0.0
+		real valor_parcela_em_60_vezes = 0.0
+
+		real desconto_valor_a_vista = 20.0 / 100.0
+		real juros_parcelado_em_6_vezes = 3.0 / 100.0
+		real juros_parcelado_em_12_vezes = 6.0 / 100.0
+		real juros_parcelado_em_18_vezes = 9.0 / 100.0
+		real juros_parcelado_em_24_vezes = 12.0 / 100.0
+		real juros_parcelado_em_30_vezes = 15.0 / 100.0
+		real juros_parcelado_em_36_vezes = 18.0 / 100.0
+		real juros_parcelado_em_42_vezes = 21.0 / 100.0
+		real juros_parcelado_em_48_vezes = 24.0 / 100.0
+		real juros_parcelado_em_54_vezes = 27.0 / 100.0
+		real juros_parcelado_em_60_vezes = 30.0 / 100.0
+
+		real valor_a_vista = 0.0
+		real valor_parcelado_em_6_vezes = 0.0
+		real valor_parcelado_em_12_vezes = 0.0
+		real valor_parcelado_em_18_vezes = 0.0
+		real valor_parcelado_em_24_vezes = 0.0
+		real valor_parcelado_em_30_vezes = 0.0
+		real valor_parcelado_em_36_vezes = 0.0
+		real valor_parcelado_em_42_vezes = 0.0
+		real valor_parcelado_em_48_vezes = 0.0
+		real valor_parcelado_em_54_vezes = 0.0
+		real valor_parcelado_em_60_vezes = 0.0
+		
+		escreva("[ ? ] Informe o valor do automóvel | R$ ")
+		leia(valor_automovel)
+
+		valor_a_vista = valor_automovel - (valor_automovel * desconto_valor_a_vista)
+		valor_parcelado_em_6_vezes = valor_automovel * (1 + juros_parcelado_em_6_vezes)
+		valor_parcelado_em_12_vezes = valor_automovel * (1 + juros_parcelado_em_12_vezes)
+		valor_parcelado_em_18_vezes = valor_automovel * (1 + juros_parcelado_em_18_vezes)
+		valor_parcelado_em_24_vezes = valor_automovel * (1 + juros_parcelado_em_24_vezes)
+		valor_parcelado_em_30_vezes = valor_automovel * (1 + juros_parcelado_em_30_vezes)
+		valor_parcelado_em_36_vezes = valor_automovel * (1 + juros_parcelado_em_36_vezes)
+		valor_parcelado_em_42_vezes = valor_automovel * (1 + juros_parcelado_em_42_vezes)
+		valor_parcelado_em_48_vezes = valor_automovel * (1 + juros_parcelado_em_48_vezes)
+		valor_parcelado_em_54_vezes = valor_automovel * (1 + juros_parcelado_em_54_vezes)
+		valor_parcelado_em_60_vezes = valor_automovel * (1 + juros_parcelado_em_60_vezes)
+		
+		valor_parcela_em_6_vezes = valor_parcelado_em_6_vezes / 6
+		valor_parcela_em_12_vezes = valor_parcelado_em_12_vezes / 12
+		valor_parcela_em_18_vezes = valor_parcelado_em_18_vezes / 18
+		valor_parcela_em_24_vezes = valor_parcelado_em_24_vezes / 24
+		valor_parcela_em_30_vezes = valor_parcelado_em_30_vezes / 30
+		valor_parcela_em_36_vezes = valor_parcelado_em_36_vezes / 36
+		valor_parcela_em_42_vezes = valor_parcelado_em_42_vezes / 42
+		valor_parcela_em_48_vezes = valor_parcelado_em_48_vezes / 48
+		valor_parcela_em_54_vezes = valor_parcelado_em_54_vezes / 54
+		valor_parcela_em_60_vezes = valor_parcelado_em_60_vezes / 60
+
+		valor_a_vista = Matematica.arredondar(valor_a_vista, 2)
+		
+		valor_parcelado_em_6_vezes = Matematica.arredondar(valor_parcelado_em_6_vezes, 2)
+		valor_parcela_em_6_vezes = Matematica.arredondar(valor_parcela_em_6_vezes, 2)
+
+		valor_parcelado_em_12_vezes = Matematica.arredondar(valor_parcelado_em_12_vezes, 2)
+		valor_parcela_em_12_vezes = Matematica.arredondar(valor_parcela_em_12_vezes, 2)
+
+		valor_parcelado_em_18_vezes = Matematica.arredondar(valor_parcelado_em_18_vezes, 2)
+		valor_parcela_em_18_vezes = Matematica.arredondar(valor_parcela_em_18_vezes, 2)
+
+		valor_parcelado_em_24_vezes = Matematica.arredondar(valor_parcelado_em_24_vezes, 2)
+		valor_parcela_em_24_vezes = Matematica.arredondar(valor_parcela_em_24_vezes, 2)
+
+		valor_parcelado_em_30_vezes = Matematica.arredondar(valor_parcelado_em_30_vezes, 2)
+		valor_parcela_em_30_vezes = Matematica.arredondar(valor_parcela_em_30_vezes, 2)
+
+		valor_parcelado_em_36_vezes = Matematica.arredondar(valor_parcelado_em_36_vezes, 2)
+		valor_parcela_em_36_vezes = Matematica.arredondar(valor_parcela_em_36_vezes, 2)
+
+		valor_parcelado_em_42_vezes = Matematica.arredondar(valor_parcelado_em_42_vezes, 2)
+		valor_parcela_em_42_vezes = Matematica.arredondar(valor_parcela_em_42_vezes, 2)
+
+		valor_parcelado_em_48_vezes = Matematica.arredondar(valor_parcelado_em_48_vezes, 2)
+		valor_parcela_em_48_vezes = Matematica.arredondar(valor_parcela_em_48_vezes, 2)
+
+		valor_parcelado_em_54_vezes = Matematica.arredondar(valor_parcelado_em_54_vezes, 2)
+		valor_parcela_em_54_vezes = Matematica.arredondar(valor_parcela_em_54_vezes, 2)
+
+		valor_parcelado_em_60_vezes = Matematica.arredondar(valor_parcelado_em_60_vezes, 2)
+		valor_parcela_em_60_vezes = Matematica.arredondar(valor_parcela_em_60_vezes, 2)
+		
+		
+		escreva("\n[ R$ ", valor_automovel, " ] Valor automóvel",
+		"\n",
+		"\n[ / ] À vista",
+		"\n[ R$ ", valor_a_vista, " ] Valor final",
+		"\n",
+		"\n[ / ] Parcelado em 6 vezes",
+		"\n[ R$ ", valor_parcelado_em_6_vezes, " ] Valor final",
+		"\n[ R$ ", valor_parcela_em_6_vezes, " ] Valor das parcelas",
+		"\n",
+		"\n[ / ] Parcelado em 12 vezes",
+		"\n[ R$ ", valor_parcelado_em_12_vezes, " ] Valor final",
+		"\n[ R$ ", valor_parcela_em_12_vezes, " ] Valor das parcelas",
+		"\n",
+		"\n[ / ] Parcelado em 18 vezes",
+		"\n[ R$ ", valor_parcelado_em_18_vezes, " ] Valor final",
+		"\n[ R$ ", valor_parcela_em_18_vezes, " ] Valor das parcelas",
+		"\n",
+		"\n[ / ] Parcelado em 24 vezes",
+		"\n[ R$ ", valor_parcelado_em_24_vezes, " ] Valor final",
+		"\n[ R$ ", valor_parcela_em_24_vezes, " ] Valor das parcelas",
+		"\n",
+		"\n[ / ] Parcelado em 30 vezes",
+		"\n[ R$ ", valor_parcelado_em_30_vezes, " ] Valor final",
+		"\n[ R$ ", valor_parcela_em_30_vezes, " ] Valor das parcelas",
+		"\n",
+		"\n[ / ] Parcelado em 36 vezes",
+		"\n[ R$ ", valor_parcelado_em_36_vezes, " ] Valor final",
+		"\n[ R$ ", valor_parcela_em_36_vezes, " ] Valor das parcelas",
+		"\n",
+		"\n[ / ] Parcelado em 42 vezes",
+		"\n[ R$ ", valor_parcelado_em_42_vezes, " ] Valor final",
+		"\n[ R$ ", valor_parcela_em_42_vezes, " ] Valor das parcelas",
+		"\n",
+		"\n[ / ] Parcelado em 48 vezes",
+		"\n[ R$ ", valor_parcelado_em_48_vezes, " ] Valor final",
+		"\n[ R$ ", valor_parcela_em_48_vezes, " ] Valor das parcelas",
+		"\n",
+		"\n[ / ] Parcelado em 54 vezes",
+		"\n[ R$ ", valor_parcelado_em_54_vezes, " ] Valor final",
+		"\n[ R$ ", valor_parcela_em_54_vezes, " ] Valor das parcelas",
+		"\n",
+		"\n[ / ] Parcelado em 60 vezes",
+		"\n[ R$ ", valor_parcelado_em_60_vezes, " ] Valor final",
+		"\n[ R$ ", valor_parcela_em_60_vezes, " ] Valor das parcelas")
+	}
+}
