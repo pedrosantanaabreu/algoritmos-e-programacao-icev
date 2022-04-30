@@ -1,0 +1,85 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Cada espectador de um cinema respondeu a um questionário no qual
+constava sua idade e sua opinião em relação ao filme: ótimo - 3; bom - 2;
+regular - 1. Faça um programa que receba a idade e a opinião de quinze
+espectadores, calcule e mostre:
+
+a) a média das idades das pessoas que responderam ótimo;
+
+b) a quantidade de pessoas que responderam regular; e
+
+c) a porcentagem de pessoas que responderam bom, entre todos os
+espectadores analisados.
+*/
+ 
+programa
+{
+	 
+	inclua biblioteca Matematica
+
+	funcao inicio()
+	{	
+		inteiro opcao_regular = 1
+		inteiro opcao_bom = 2
+		inteiro opcao_otimo = 3
+
+		real total_usuarios = 15.0
+
+		inteiro opcao_usuario = 0
+		inteiro idade_usuario = 0
+
+		real soma_idades_opcao_otimo = 0.0
+		real quantidade_usuarios_opcao_otimo = 0.0
+		real media_idades_opcao_otimo = 0.0
+
+		inteiro quantidade_usuarios_opcao_regular = 0
+
+		real quantidade_usuarios_opcao_bom = 0.0
+		real porcentagem_opcao_bom = 0.0
+
+		para(inteiro i = 1; i <= total_usuarios; i++)
+		{
+			escreva("[ / ] ", i, "º espectador")
+			escreva("\n[ ? ] Digite sua idade\n[ > ] ")
+			leia(idade_usuario)
+	
+			escreva("\n[ / ] Avalie o filme conforme a tabela a seguir",
+			"\n[ 1 ] Regular",
+			"\n[ 2 ] Bom",
+			"\n[ 3 ] Ótimo",
+			"\n[ > ] ")
+			leia(opcao_usuario)
+			escreva("\n")
+	
+			se (opcao_usuario == opcao_otimo)
+			{
+				quantidade_usuarios_opcao_otimo++
+				soma_idades_opcao_otimo += idade_usuario
+	
+				media_idades_opcao_otimo = soma_idades_opcao_otimo / quantidade_usuarios_opcao_otimo
+			}
+			
+			senao se (opcao_usuario == opcao_regular)
+			{
+				quantidade_usuarios_opcao_regular++
+			}
+	
+			senao
+			{
+				quantidade_usuarios_opcao_bom++
+	
+				porcentagem_opcao_bom = quantidade_usuarios_opcao_bom / total_usuarios * 100
+			}
+		}
+		media_idades_opcao_otimo = Matematica.arredondar(media_idades_opcao_otimo, 2)
+		porcentagem_opcao_bom = Matematica.arredondar(porcentagem_opcao_bom, 2)
+
+		escreva("[ ", media_idades_opcao_otimo, " ] Média das idades das pessoas que responderam ótimo",
+		"\n[ ", quantidade_usuarios_opcao_regular, " ] Quantidade de pessoas que responderam regular",
+		"\n[ ", porcentagem_opcao_bom, "% ] Porcentagem de pessoas que responderam bom, entre todos os espectadores analisados")
+	}
+}

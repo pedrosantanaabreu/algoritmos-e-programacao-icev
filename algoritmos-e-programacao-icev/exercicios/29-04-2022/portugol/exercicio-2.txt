@@ -26,7 +26,6 @@ c) os percentuais de acréscimo encontram-se na tabela ao lado
 48 - 24 % juros
 54 - 27 % juros
 60 - 30 % juros
-
 */
  
 programa
