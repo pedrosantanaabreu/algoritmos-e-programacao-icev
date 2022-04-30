@@ -238,6 +238,10 @@ programa
 				escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n\n")
 			}
 
+			/*
+			 * Confirmação de voto
+			 */
+		
 			se (verificador_voto_valido){
 				enquanto (verdadeiro){
 					escreva("\n=============== Confirmação de voto ===============",
@@ -266,7 +270,11 @@ programa
 						escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n")
 					}
 				}
-			
+
+				/*
+				 * Se o voto for validado pelo usuário, o voto será computado
+				 */
+				 
 				se (voto_validado){
 					quantidade_total_votos++
 
@@ -294,7 +302,7 @@ programa
 						votos_branco++
 					}
 
-					contador_voto++
+				contador_voto++
 				}
 			}
 		}
