@@ -32,10 +32,38 @@ Número candidato
 programa
 {
 	
+	/*
+	 * Biblioteca Matematica será utilizada para arredondar números
+	 */
+	 
 	inclua biblioteca Matematica
 	
 	funcao inicio()
 	{
+		/* Tabela de candidatos e seus respectivos números.
+		 * 
+		 * Resolução problema verificação de voto válido:
+		 * 	- Este problema pode ser resolvido de diversas formas, mas no caso desse programa a maneira escolhida... 
+		 * 	...foi transformando o número em cadeia de caracteres.
+		 * 	- Permitindo o usuário digitar letras e símbolos sem comprometer a integridade do programa.
+		 * 	
+		 * 	Exemplo de aplicação:
+		 * 		Sendo número:
+		 * 			inteiro numero
+		 * 			leia(numero)
+		 * 			(usuário) -> A
+		 * 			(error / programa fecha)
+		 * 			
+		 * 			// 'A' não é inteiro e nem pode ser convertido para inteiro, logo causando erro no programa 
+		 *		
+		 *		Sendo cadeia de caracteres:
+		 *			cadeia numero
+		 *			leia(numero)
+		 *			(usuário) -> A
+		 *			(programa realiza as comparações necessárias e caso nenhuma seja atendida ele exibe...
+		 *			...uma mensagem de valor inválido e pede ao usuário digitar novamente)
+		 */
+	
 		cadeia numero_joao = "10"
 		cadeia numero_maria = "20"
 		cadeia numero_francisco = "30"
@@ -43,7 +71,7 @@ programa
 		cadeia numero_nulo = "98"
 		cadeia numero_branco = "99"
 		cadeia numero_sair = "99999"
-		
+
 		cadeia voto_usuario = ""
 		cadeia opcao_de_voto_escolhida = ""
 		cadeia confirmacao_voto = ""
@@ -51,21 +79,24 @@ programa
 		logico verificador_voto_valido = falso
 		logico voto_validado = falso
 		
-		real votos_candidato_joao = 0.0
-		real votos_candidato_maria = 0.0
-		real votos_candidato_francisco = 0.0
-		real votos_candidato_raimunda = 0.0
-		real votos_nulo = 0.0
-		real votos_branco = 0.0
-		real quantidade_total_votos = 0.0
+		inteiro votos_candidato_joao = 0
+		inteiro votos_candidato_maria = 0
+		inteiro votos_candidato_francisco = 0
+		inteiro votos_candidato_raimunda = 0
+		inteiro votos_nulo = 0
+		inteiro votos_branco = 0
+		inteiro quantidade_total_votos = 0
 		
-		real porcentagem_joao =  0.0
+		real porcentagem_joao = 0.0
 		real porcentagem_maria = 0.0
 		real porcentagem_francisco = 0.0
 		real porcentagem_raimunda = 0.0
 		real porcentagem_nulo = 0.0
 		real porcentagem_branco = 0.0
-		
+
+		/*
+		 * 'contador_voto' Representa em que voto estamos
+		 */
 		inteiro contador_voto = 1
 		
 		enquanto (verdadeiro){
