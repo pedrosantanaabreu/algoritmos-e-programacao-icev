@@ -159,7 +159,7 @@ programa
 
 					senao se (confirmacao_voto == "N" ou confirmacao_voto == "n"){
 						voto_validado = falso
-						escreva("\n[ / ] Voto cancelado")
+						escreva("\n[ / ] Voto cancelado\n\n")
 						pare
 					}
 
