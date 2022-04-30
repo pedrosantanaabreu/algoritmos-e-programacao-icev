@@ -294,7 +294,7 @@ programa
 						votos_branco++
 					}
 
-				contador_voto++
+					contador_voto++
 				}
 			}
 		}
