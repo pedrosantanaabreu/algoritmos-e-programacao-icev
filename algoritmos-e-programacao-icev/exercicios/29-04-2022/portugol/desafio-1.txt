@@ -79,7 +79,7 @@ programa
 		inteiro inteiro_voto_usuario = 0
 
 		/*
-		 * Tabela de candidatos e seus respectios números
+		 * Tabela de candidatos e seus respectivos números
 		 */
 		 
 		inteiro numero_joao = 10
