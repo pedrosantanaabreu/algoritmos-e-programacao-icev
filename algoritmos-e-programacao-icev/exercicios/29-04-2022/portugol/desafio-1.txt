@@ -32,7 +32,6 @@ Número candidato
 programa
 {
 	
-	
 	/*
 	 * Biblioteca Matematica será utilizada para arredondar números
 	 * Biblioteca Tipos será utilizada para transformar real para inteiro e cadeia de caracteres para inteiro
@@ -66,6 +65,18 @@ programa
 		 *			(programa realiza as comparações necessárias e caso nenhuma seja atendida ele exibe...
 		 *			...uma mensagem de valor inválido e pede ao usuário digitar novamente)
 		 */
+
+		/*
+		 * "voto_usuario" será a variavel cadeia que será recebida pelo programa
+		 * "inteiro_voto_usuario" tera o valor de "voto_usuario", porem, em inteiro
+		 */
+		 
+		cadeia voto_usuario = ""
+		inteiro inteiro_voto_usuario = 0
+
+		/*
+		 * Tabela de candidatos e seus respectios números
+		 */
 		 
 		inteiro numero_joao = 10
 		inteiro numero_maria = 20
@@ -75,9 +86,6 @@ programa
 		inteiro numero_branco = 99
 		inteiro numero_sair = 99999
 
-		cadeia voto_usuario = ""
-		inteiro inteiro_voto_usuario = 0
-		
 		cadeia opcao_de_voto_escolhida = ""
 		cadeia confirmacao_voto = ""
 		
@@ -87,6 +95,8 @@ programa
 		/*
 		 * Votos serão inicializados como real para que haja a possibilidade de divisão para realizar o calculo...
 		 * ...de porcentagem
+		 * 
+		 * Logo em seguida todos serão transformados para inteiros para ser exibido no escreva final
 		 */
 		 
 		real votos_candidato_joao = 0.0
@@ -205,7 +215,11 @@ programa
 						porcentagem_raimunda = Matematica.arredondar(porcentagem_raimunda, 2)
 						porcentagem_nulo = Matematica.arredondar(porcentagem_nulo, 2)
 						porcentagem_branco = Matematica.arredondar(porcentagem_branco, 2)
-	
+
+						/*
+						 * Convertendo valores reais para inteiros
+						 */
+						 
 						inteiro_votos_candidato_joao = Tipos.real_para_inteiro(votos_candidato_joao)
 						inteiro_votos_candidato_maria = Tipos.real_para_inteiro(votos_candidato_maria)
 						inteiro_votos_candidato_francisco = Tipos.real_para_inteiro(votos_candidato_francisco)
