@@ -97,8 +97,14 @@ programa
 		/*
 		 * 'contador_voto' Representa em que voto estamos
 		 */
+		 
 		inteiro contador_voto = 1
-		
+
+		/*
+		 * Usa-se enquanto (verdadeiro) para entrar pelo menos uma vez no loop...
+		 * ...metodo semelhante ao faca...enquanto porém, o faca...enquanto não é recomendado a se trabalhar
+		 */
+		 
 		enquanto (verdadeiro){
 			escreva("=============== Tabela candidatos ===============",
 			"\n", "[ ", numero_joao, " ]", " João",
@@ -116,7 +122,8 @@ programa
 			"\n[ > ] ")
 			leia(voto_usuario)
 
-			se (nao (voto_usuario == numero_sair)){
+			
+			se (voto_usuario != numero_sair){
 				se (voto_usuario == numero_joao){
 					verificador_voto_valido = verdadeiro
 					opcao_de_voto_escolhida = "João"
@@ -154,6 +161,10 @@ programa
 			}
 			
 			senao {
+				/*
+				 * Confere se a quantidade de votos é maior que 0 visando evitar divisão por zero
+				 */
+				 
 				se (quantidade_total_votos > 0){
 					porcentagem_joao =  votos_candidato_joao / quantidade_total_votos * 100
 					porcentagem_maria = votos_candidato_maria / quantidade_total_votos * 100
@@ -186,6 +197,8 @@ programa
 					
 					se (confirmacao_voto == "S" ou confirmacao_voto == "s"){
 						voto_validado = verdadeiro
+						escreva("\n[ / ] Voto validado\n\n")
+						pare
 					}
 
 					senao se (confirmacao_voto == "N" ou confirmacao_voto == "n"){
@@ -198,13 +211,8 @@ programa
 						voto_validado = falso
 						escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n")
 					}
-
-					se (voto_validado){
-						escreva("\n[ / ] Voto validado\n\n")
-						pare
-					}
 				}
-				
+			
 				se (voto_validado){
 					quantidade_total_votos++
 
