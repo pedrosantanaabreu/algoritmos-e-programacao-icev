@@ -1,0 +1,97 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Uma agência bancária possui vários clientes que podem fazer
+investimentos com rendimentos mensais, conforme a tabela a seguir:
+Faça um programa que leia o código do cliente, o tipo do investimento e o
+valor investido, e que calcule e mostre o rendimento mensal de acordo com
+o tipo do investimento. No final, o programa deverá mostrar o total investido
+e o total de juros pagos. A leitura terminará quando o código do cliente
+digitado for menor ou igual a 0.
+*/
+ 
+programa
+{
+	
+	inclua biblioteca Matematica
+	
+	funcao inicio()
+	{
+		inteiro codigo_cliente = 0
+
+		inteiro tipo_investimento_cliente = 0
+
+		inteiro tipo_poupanca = 1
+		inteiro tipo_poupanca_plus = 2
+		inteiro fundos_de_renda_fixa = 3
+		
+		real taxa_rendimento_mensal_poupanca = 1.5 / 100.0
+		real taxa_rendimento_mensal_poupanca_plus = 2.0 / 100.0
+		real taxa_rendimento_mensal_fundos_de_renda_fixa = 4.0 / 100.0
+
+		real rendimento_mensal_cliente = 0.0
+		real valor_investido_cliente = 0.0
+
+		real rendimento_total = 0.0
+		real valor_investido_total = 0.0
+
+		inteiro contador_cliente = 1
+		enquanto (verdadeiro)
+		{
+			escreva("[ / ] Sobre o ", contador_cliente,"º cliente, informe:")
+			escreva("\n[ ? ] Código do cliente\n[ > ] # ")
+			leia(codigo_cliente)
+
+			se (codigo_cliente <= 0)
+			{
+				pare
+			}
+
+			senao
+			{
+				escreva("\n[ / ] Informe o investimento realizado:",
+				"\n[ ", tipo_poupanca," ] Poupança",
+				"\n[ ", tipo_poupanca_plus," ] Poupança plus",
+				"\n[ ", fundos_de_renda_fixa," ] Fundos de renda fixa\n[ > ] ")
+				leia(tipo_investimento_cliente)
+
+				escreva("\n[ ? ] Informe o valor investido\n[ > ] R$ ")
+				leia(valor_investido_cliente)
+	
+				se (tipo_investimento_cliente == tipo_poupanca)
+				{
+					rendimento_mensal_cliente = valor_investido_cliente * taxa_rendimento_mensal_poupanca
+				}
+
+				senao se (tipo_investimento_cliente == tipo_poupanca_plus)
+				{
+					rendimento_mensal_cliente = valor_investido_cliente * taxa_rendimento_mensal_poupanca_plus
+				}
+
+				senao
+				{
+					rendimento_mensal_cliente = valor_investido_cliente * taxa_rendimento_mensal_fundos_de_renda_fixa
+				}
+
+				valor_investido_total += valor_investido_cliente
+				rendimento_total += rendimento_mensal_cliente
+
+				rendimento_mensal_cliente = Matematica.arredondar(rendimento_mensal_cliente, 2)
+				
+				escreva("\n[ / ] O rendimento mensal será R$ ", rendimento_mensal_cliente,"\n")
+			}
+
+			contador_cliente++
+			escreva("\n")
+		}
+
+		valor_investido_total = Matematica.arredondar(valor_investido_total, 2)
+		rendimento_total = Matematica.arredondar(rendimento_total, 2)
+		
+		escreva("\n[ / ] Informações gerais",
+		"\n[ R$ ", valor_investido_total, " ] Valor total investido",
+		"\n[ R$ ", rendimento_total, " ] Rendimento total")
+	}
+}
