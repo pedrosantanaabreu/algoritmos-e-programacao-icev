@@ -149,4 +149,4 @@ f"\n[ {votos_candidato_maria} ] | [ {porcentagem_maria:.2%} ] | Maria",
 f"\n[ {votos_candidato_francisco} ] | [ {porcentagem_francisco:.2%} ] | Francisco",
 f"\n[ {votos_candidato_raimunda} ] | [ {porcentagem_raimunda:.2%} ] | Raimunda",
 f"\n[ {votos_nulo} ] | [ {porcentagem_nulo:.2%} ] | Nulo",
-f"\n[ {votos_branco} ] | [ {porcentagem_branco:.2%} ] | Branco",)
+f"\n[ {votos_branco} ] | [ {porcentagem_branco:.2%} ] | Branco")

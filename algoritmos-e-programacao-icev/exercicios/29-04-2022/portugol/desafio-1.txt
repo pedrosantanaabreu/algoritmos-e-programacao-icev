@@ -1,0 +1,216 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Desenvolva um programa para ser usado na eleição para
+presidente do Centro Acadêmico de Engenharia de Software do
+iCEV. O programa deve permitir que os alunos votem nos
+candidatos de acordo com os números apresentados na tabela
+abaixo. Caso o aluno queira votar nulo, ele deve informar o
+número 98. Por outro lado, se ele quiser votar em branco, deve
+informar o número 99.
+Ao final da votação, o programa deve exibir:
+• o total de votos para cada candidato;
+• o total de votos nulos;
+• o total de votos em branco;
+• a porcentagem de votos nulos sobre o
+total de votos; e
+• a porcentagem de votos em branco
+sobre o total de votos.
+Para finalizar a votação, o mesário tem que informar o valor
+99999 e, para números inválidos de candidato, o programa
+deverá mostrar uma mensagem.
+
+Número candidato
+10 - João
+20 - Maria
+30 - Francisco
+40 - Raimunda
+*/
+
+programa
+{
+	
+	inclua biblioteca Matematica
+	
+	funcao inicio()
+	{
+		cadeia numero_joao = "10"
+		cadeia numero_maria = "20"
+		cadeia numero_francisco = "30"
+		cadeia numero_raimunda = "40"
+		cadeia numero_nulo = "98"
+		cadeia numero_branco = "99"
+		cadeia numero_sair = "99999"
+		
+		cadeia voto_usuario = ""
+		cadeia opcao_de_voto_escolhida = ""
+		cadeia confirmacao_voto = ""
+		
+		logico verificador_voto_valido = falso
+		logico voto_validado = falso
+		
+		real votos_candidato_joao = 0.0
+		real votos_candidato_maria = 0.0
+		real votos_candidato_francisco = 0.0
+		real votos_candidato_raimunda = 0.0
+		real votos_nulo = 0.0
+		real votos_branco = 0.0
+		real quantidade_total_votos = 0.0
+		
+		real porcentagem_joao =  0.0
+		real porcentagem_maria = 0.0
+		real porcentagem_francisco = 0.0
+		real porcentagem_raimunda = 0.0
+		real porcentagem_nulo = 0.0
+		real porcentagem_branco = 0.0
+		
+		inteiro contador_voto = 1
+		
+		enquanto (verdadeiro){
+			escreva("=============== Tabela candidatos ===============",
+			"\n", "[ ", numero_joao, " ]", " João",
+			"\n", "[ ", numero_maria, " ]", " Maria",
+			"\n", "[ ", numero_francisco, " ]", " Francisco",
+			"\n", "[ ", numero_raimunda, " ]", " Raimunda",
+			"\n", "[ ", numero_nulo, " ]", " Nulo",
+			"\n", "[ ", numero_branco, " ]", " Branco",
+			"\n",
+			"\n", "[ ", numero_sair, " ]", " Sair",
+			"\n")
+
+			escreva("\n[ / ] ", contador_voto, "º voto",
+			"\n[ ? ] Digite o número da opção",
+			"\n[ > ] ")
+			leia(voto_usuario)
+
+			se (nao (voto_usuario == numero_sair)){
+				se (voto_usuario == numero_joao){
+					verificador_voto_valido = verdadeiro
+					opcao_de_voto_escolhida = "João"
+				}
+				
+				senao se (voto_usuario == numero_maria){
+					verificador_voto_valido = verdadeiro
+					opcao_de_voto_escolhida = "Maria"
+				}
+				
+				senao se (voto_usuario == numero_francisco){
+					verificador_voto_valido = verdadeiro
+					opcao_de_voto_escolhida = "Francisco"
+				}
+				
+				senao se (voto_usuario == numero_raimunda){
+					verificador_voto_valido = verdadeiro
+					opcao_de_voto_escolhida = "Raimunda"
+				}
+				
+				senao se (voto_usuario == numero_nulo){
+					verificador_voto_valido = verdadeiro
+					opcao_de_voto_escolhida = "Nulo"
+				}
+				
+				senao se (voto_usuario == numero_branco){
+					verificador_voto_valido = verdadeiro
+					opcao_de_voto_escolhida = "Branco"
+				}
+
+				senao {
+					verificador_voto_valido = falso
+					escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n\n")
+				}
+			}
+			
+			senao {
+				se (quantidade_total_votos > 0){
+					porcentagem_joao =  votos_candidato_joao / quantidade_total_votos * 100
+					porcentagem_maria = votos_candidato_maria / quantidade_total_votos * 100
+					porcentagem_francisco = votos_candidato_francisco / quantidade_total_votos * 100
+					porcentagem_raimunda = votos_candidato_raimunda / quantidade_total_votos * 100
+					porcentagem_nulo = votos_nulo / quantidade_total_votos * 100
+					porcentagem_branco = votos_branco / quantidade_total_votos * 100
+
+					porcentagem_joao = Matematica.arredondar(porcentagem_joao, 2)
+					porcentagem_maria = Matematica.arredondar(porcentagem_maria, 2)
+					porcentagem_francisco = Matematica.arredondar(porcentagem_francisco, 2)
+					porcentagem_raimunda = Matematica.arredondar(porcentagem_raimunda, 2)
+					porcentagem_nulo = Matematica.arredondar(porcentagem_nulo, 2)
+					porcentagem_branco = Matematica.arredondar(porcentagem_branco, 2)
+				}
+				
+				pare
+			}
+
+			se (verificador_voto_valido){
+				enquanto (verdadeiro){
+					escreva("\n[ ? ] Confirmação de voto",
+					"\n[ / ] Opção | ", opcao_de_voto_escolhida,
+					"\n[ / ] Número | ", voto_usuario,
+					"\n",
+					"\n[ S ] Para confirmar",
+					"\n[ N ] Para recusar",
+					"\n[ > ] ")
+					leia(confirmacao_voto)
+					
+					se (confirmacao_voto == "S" ou confirmacao_voto == "s"){
+						voto_validado = verdadeiro
+					}
+
+					senao se (confirmacao_voto == "N" ou confirmacao_voto == "n"){
+						voto_validado = falso
+						escreva("\n[ / ] Voto cancelado")
+						pare
+					}
+
+					senao {
+						voto_validado = falso
+						escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n")
+					}
+
+					se (voto_validado){
+						escreva("\n[ / ] Voto validado\n\n")
+						pare
+					}
+				}
+				
+				se (voto_validado){
+					quantidade_total_votos++
+
+					se (voto_usuario == numero_joao){
+						votos_candidato_joao++
+					}
+					
+					senao se (voto_usuario == numero_maria){
+						votos_candidato_maria++
+					}
+
+					senao se (voto_usuario == numero_francisco){
+						votos_candidato_francisco++
+					}
+
+					senao se (voto_usuario == numero_raimunda){
+						votos_candidato_raimunda++
+					}
+
+					senao se (voto_usuario == numero_nulo){
+						votos_nulo++
+					}
+
+					senao {
+						votos_branco++
+					}
+
+				contador_voto++
+				}
+			}
+		}
+
+		escreva("\n[ ", votos_candidato_joao," ] | [ ", porcentagem_joao, "% ] | João",
+		"\n[ ", votos_candidato_maria," ] | [ ", porcentagem_maria, "% ] | Maria",
+		"\n[ ", votos_candidato_francisco," ] | [ ", porcentagem_francisco, "% ] | Francisco",
+		"\n[ ", votos_candidato_raimunda," ] | [ ", porcentagem_raimunda, "% ] | Raimunda",
+		"\n[ ", votos_nulo," ] | [ ", porcentagem_nulo, "% ] | Nulo",
+		"\n[ ", votos_branco," ] | [ ", porcentagem_branco, "% ] | Branco")
+	}
+}
