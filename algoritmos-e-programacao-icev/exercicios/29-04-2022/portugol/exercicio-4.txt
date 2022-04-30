@@ -1,0 +1,214 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+4. O IBGE realizou uma pesquisa sobre a audiência de canal de TV em várias
+casas de uma cidade, em determinado dia. Para cada casa consultada,
+foram fornecidos o número do canal (4, 5, 7, 10, 12) e o número de pessoas
+que estavam assistindo àquele canal. Se a televisão estivesse desligada,
+nada era anotado, ou seja, essa casa não entrava na pesquisa. Faça um
+programa que:
+
+a) leia os dados de 20 residências (número do canal e número de pessoas
+que estavam assistindo);
+
+b) calcule e mostre a porcentagem de audiência de cada canal.
+*/
+ 
+programa
+{
+	 
+	inclua biblioteca Matematica
+
+	funcao inicio()
+	{	
+		real quantidade_residencias = 20.0
+		real quantidade_residencias_tv_ligada = 0.0
+
+		real canal_04 = 0.0
+		real canal_05 = 0.0
+		real canal_07 = 0.0
+		real canal_10 = 0.0
+		real canal_12 = 0.0
+		
+		real porcentagem_canal_04 = 0.0
+		real porcentagem_canal_05 = 0.0
+		real porcentagem_canal_07 = 0.0
+		real porcentagem_canal_10 = 0.0
+		real porcentagem_canal_12 = 0.0
+		
+		inteiro numero_canal = 0
+		inteiro espectadores_residencia = 0
+
+		real quantidade_espectadores_total = 0.0
+
+		para (inteiro i = 1; i <= quantidade_residencias; i++)
+		{	
+			escreva("[ // ] ", i, "ª residência")
+			escreva("\n[ ?? ] Informe o número do canal\n",
+			"\n[ 04 ] Canal 4",
+			"\n[ 05 ] Canal 5",
+			"\n[ 07 ] Canal 7",
+			"\n[ 10 ] Canal 10",
+			"\n[ 12 ] Canal 12",
+			"\n\n[ 00 ] Televisão desligada\n",
+			"\n[ -> ] ")
+			leia(numero_canal)
+
+			se (numero_canal != 0)
+			{
+				escreva("\n[ // ] Informe a quantidade de espectadores do canal ", numero_canal, "\n[ -> ] ")
+				leia(espectadores_residencia)
+			
+				quantidade_espectadores_total += espectadores_residencia
+	
+				se (numero_canal == 4)
+				{
+					canal_04++
+				}
+				
+				senao se (numero_canal == 5)
+				{
+					canal_05++
+				}
+
+				senao se (numero_canal == 7)
+				{
+					canal_07++
+				}
+
+				senao se (numero_canal == 10)
+				{
+					canal_10++
+				}
+
+				senao
+				{
+					canal_12++
+				}
+			}
+			
+			escreva("\n")
+		}
+		
+		porcentagem_canal_04 = canal_04 / quantidade_espectadores_total * 100
+		porcentagem_canal_05 = canal_05 / quantidade_espectadores_total * 100
+		porcentagem_canal_07 = canal_07 / quantidade_espectadores_total * 100
+		porcentagem_canal_10 = canal_10 / quantidade_espectadores_total * 100
+		porcentagem_canal_12 = canal_12 / quantidade_espectadores_total * 100
+		
+		escreva("\n[ ", porcentagem_canal_04,"% ] Canal 04",
+		"\n[ ", porcentagem_canal_05,"% ] Canal 05",
+		"\n[ ", porcentagem_canal_07,"% ] Canal 07",
+		"\n[ ", porcentagem_canal_10,"% ] Canal 10",
+		"\n[ ", porcentagem_canal_12,"% ] Canal 12")
+	}
+}
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+4. O IBGE realizou uma pesquisa sobre a audiência de canal de TV em várias
+casas de uma cidade, em determinado dia. Para cada casa consultada,
+foram fornecidos o número do canal (4, 5, 7, 10, 12) e o número de pessoas
+que estavam assistindo àquele canal. Se a televisão estivesse desligada,
+nada era anotado, ou seja, essa casa não entrava na pesquisa. Faça um
+programa que:
+
+a) leia os dados de 20 residências (número do canal e número de pessoas
+que estavam assistindo);
+
+b) calcule e mostre a porcentagem de audiência de cada canal.
+*/
+ 
+programa
+{
+	 
+	inclua biblioteca Matematica
+
+	funcao inicio()
+	{	
+		real quantidade_residencias = 20.0
+		real quantidade_residencias_tv_ligada = 0.0
+
+		real espectadores_canal_04 = 0.0
+		real espectadores_canal_05 = 0.0
+		real espectadores_canal_07 = 0.0
+		real espectadores_canal_10 = 0.0
+		real espectadores_canal_12 = 0.0
+		
+		real porcentagem_canal_04 = 0.0
+		real porcentagem_canal_05 = 0.0
+		real porcentagem_canal_07 = 0.0
+		real porcentagem_canal_10 = 0.0
+		real porcentagem_canal_12 = 0.0
+		
+		inteiro numero_canal = 0
+		inteiro espectadores_residencia = 0
+
+		real quantidade_espectadores_total = 0.0
+
+		para (inteiro i = 1; i <= quantidade_residencias; i++)
+		{	
+			escreva("[ // ] ", i, "ª residência")
+			escreva("\n[ ?? ] Informe o número do canal\n",
+			"\n[ 04 ] Canal 4",
+			"\n[ 05 ] Canal 5",
+			"\n[ 07 ] Canal 7",
+			"\n[ 10 ] Canal 10",
+			"\n[ 12 ] Canal 12",
+			"\n\n[ 00 ] Televisão desligada\n",
+			"\n[ -> ] ")
+			leia(numero_canal)
+
+			se (numero_canal != 0)
+			{
+				escreva("\n[ // ] Informe a quantidade de espectadores do canal ", numero_canal, "\n[ -> ] ")
+				leia(espectadores_residencia)
+			
+				quantidade_espectadores_total += espectadores_residencia
+	
+				se (numero_canal == 4)
+				{
+					espectadores_canal_04 += espectadores_residencia
+				}
+				
+				senao se (numero_canal == 5)
+				{
+					espectadores_canal_05 += espectadores_residencia
+				}
+
+				senao se (numero_canal == 7)
+				{
+					espectadores_canal_07 += espectadores_residencia
+				}
+
+				senao se (numero_canal == 10)
+				{
+					espectadores_canal_10 += espectadores_residencia
+				}
+
+				senao
+				{
+					espectadores_canal_12 += espectadores_residencia
+				}
+			}
+			
+			escreva("\n")
+		}
+		
+		porcentagem_canal_04 = espectadores_canal_04 / quantidade_espectadores_total * 100
+		porcentagem_canal_05 = espectadores_canal_05 / quantidade_espectadores_total * 100
+		porcentagem_canal_07 = espectadores_canal_07 / quantidade_espectadores_total * 100
+		porcentagem_canal_10 = espectadores_canal_10 / quantidade_espectadores_total * 100
+		porcentagem_canal_12 = espectadores_canal_12 / quantidade_espectadores_total * 100
+		
+		escreva("[ ", porcentagem_canal_04,"% ] Canal 04",
+		"\n[ ", porcentagem_canal_05,"% ] Canal 05",
+		"\n[ ", porcentagem_canal_07,"% ] Canal 07",
+		"\n[ ", porcentagem_canal_10,"% ] Canal 10",
+		"\n[ ", porcentagem_canal_12,"% ] Canal 12")
+	}
+}
