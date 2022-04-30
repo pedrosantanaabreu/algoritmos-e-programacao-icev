@@ -1,0 +1,55 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que receba a idade e a altura de várias pessoas, calcule 
+e mostre a média das alturas daquelas com mais de 50 anos. Para encerrar
+a entrada de dados, digite idade menor ou igual a zero.
+*/
+ 
+programa
+{
+	
+	inclua biblioteca Matematica
+	
+	funcao inicio()
+	{
+		inteiro idade_usuario
+		real altura_usuario
+
+		real quantidade_altura_mais_50_anos = 0.0
+		real soma_altura_mais_50_anos = 0.0
+		real media_altura_mais_50_anos = 0.0
+
+		inteiro contador_pessoa = 1
+		enquanto (verdadeiro)
+		{
+			escreva("[ / ] Dados sobre a ", contador_pessoa, "ª pessoa")
+			escreva("\n[ ? ] Insira a idade\n[ > ] ")
+			leia(idade_usuario)
+	
+			se (idade_usuario <= 0)
+			{
+				pare
+			}
+
+			escreva("[ ? ] Insira a altura\n[ > ] ")
+			leia(altura_usuario)
+			escreva("\n")
+
+			se (idade_usuario > 50)
+			{
+				soma_altura_mais_50_anos += altura_usuario
+				quantidade_altura_mais_50_anos++
+
+				media_altura_mais_50_anos = soma_altura_mais_50_anos / quantidade_altura_mais_50_anos
+			}
+			contador_pessoa++
+		}
+
+		media_altura_mais_50_anos = Matematica.arredondar(media_altura_mais_50_anos, 2)
+
+		escreva("\n[ ", media_altura_mais_50_anos, "m ] Média das alturas dos usuários com mais de 50 anos")
+	}
+}
