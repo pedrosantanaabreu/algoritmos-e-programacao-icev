@@ -32,19 +32,22 @@ Número candidato
 programa
 {
 	
+	
 	/*
 	 * Biblioteca Matematica será utilizada para arredondar números
+	 * Biblioteca Tipos será utilizada para transformar real para inteiro e cadeia de caracteres para inteiro
 	 */
 	 
 	inclua biblioteca Matematica
+	inclua biblioteca Tipos
 	
 	funcao inicio()
 	{
-		/* Tabela de candidatos e seus respectivos números.
-		 * 
+		
+		/* 
 		 * Resolução problema verificação de voto válido:
 		 * 	- Este problema pode ser resolvido de diversas formas, mas no caso desse programa a maneira escolhida... 
-		 * 	...foi transformando o número em cadeia de caracteres.
+		 * 	...foi transformando o voto do usuario em cadeia de caracteres.
 		 * 	- Permitindo o usuário digitar letras e símbolos sem comprometer a integridade do programa.
 		 * 	
 		 * 	Exemplo de aplicação:
@@ -63,29 +66,44 @@ programa
 		 *			(programa realiza as comparações necessárias e caso nenhuma seja atendida ele exibe...
 		 *			...uma mensagem de valor inválido e pede ao usuário digitar novamente)
 		 */
-	
-		cadeia numero_joao = "10"
-		cadeia numero_maria = "20"
-		cadeia numero_francisco = "30"
-		cadeia numero_raimunda = "40"
-		cadeia numero_nulo = "98"
-		cadeia numero_branco = "99"
-		cadeia numero_sair = "99999"
+		 
+		inteiro numero_joao = 10
+		inteiro numero_maria = 20
+		inteiro numero_francisco = 30
+		inteiro numero_raimunda = 40
+		inteiro numero_nulo = 98
+		inteiro numero_branco = 99
+		inteiro numero_sair = 99999
 
 		cadeia voto_usuario = ""
+		inteiro inteiro_voto_usuario = 0
+		
 		cadeia opcao_de_voto_escolhida = ""
 		cadeia confirmacao_voto = ""
 		
 		logico verificador_voto_valido = falso
 		logico voto_validado = falso
 		
-		inteiro votos_candidato_joao = 0
-		inteiro votos_candidato_maria = 0
-		inteiro votos_candidato_francisco = 0
-		inteiro votos_candidato_raimunda = 0
-		inteiro votos_nulo = 0
-		inteiro votos_branco = 0
-		inteiro quantidade_total_votos = 0
+		/*
+		 * Votos serão inicializados como real para que haja a possibilidade de divisão para realizar o calculo...
+		 * ...de porcentagem
+		 */
+		 
+		real votos_candidato_joao = 0.0
+		real votos_candidato_maria = 0.0
+		real votos_candidato_francisco = 0.0
+		real votos_candidato_raimunda = 0.0
+		real votos_nulo = 0.0
+		real votos_branco = 0.0
+		real quantidade_total_votos = 0.0
+
+		inteiro inteiro_votos_candidato_joao = 0
+		inteiro inteiro_votos_candidato_maria = 0
+		inteiro inteiro_votos_candidato_francisco = 0
+		inteiro inteiro_votos_candidato_raimunda = 0
+		inteiro inteiro_votos_nulo = 0
+		inteiro inteiro_votos_branco = 0
+		inteiro inteiro_quantidade_total_votos = 0
 		
 		real porcentagem_joao = 0.0
 		real porcentagem_maria = 0.0
@@ -93,7 +111,7 @@ programa
 		real porcentagem_raimunda = 0.0
 		real porcentagem_nulo = 0.0
 		real porcentagem_branco = 0.0
-
+		
 		/*
 		 * 'contador_voto' Representa em que voto estamos
 		 */
@@ -122,66 +140,87 @@ programa
 			"\n[ > ] ")
 			leia(voto_usuario)
 
-			
-			se (voto_usuario != numero_sair){
-				se (voto_usuario == numero_joao){
-					verificador_voto_valido = verdadeiro
-					opcao_de_voto_escolhida = "João"
-				}
+			se (Tipos.cadeia_e_inteiro(voto_usuario, 10)){
 				
-				senao se (voto_usuario == numero_maria){
-					verificador_voto_valido = verdadeiro
-					opcao_de_voto_escolhida = "Maria"
-				}
-				
-				senao se (voto_usuario == numero_francisco){
-					verificador_voto_valido = verdadeiro
-					opcao_de_voto_escolhida = "Francisco"
-				}
-				
-				senao se (voto_usuario == numero_raimunda){
-					verificador_voto_valido = verdadeiro
-					opcao_de_voto_escolhida = "Raimunda"
-				}
-				
-				senao se (voto_usuario == numero_nulo){
-					verificador_voto_valido = verdadeiro
-					opcao_de_voto_escolhida = "Nulo"
-				}
-				
-				senao se (voto_usuario == numero_branco){
-					verificador_voto_valido = verdadeiro
-					opcao_de_voto_escolhida = "Branco"
-				}
-
-				senao {
-					verificador_voto_valido = falso
-					escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n\n")
-				}
-			}
-			
-			senao {
 				/*
-				 * Confere se a quantidade de votos é maior que 0 visando evitar divisão por zero
+				 * Convertendo cadeia de caracteres para inteiro
 				 */
 				 
-				se (quantidade_total_votos > 0){
-					porcentagem_joao =  votos_candidato_joao / quantidade_total_votos * 100
-					porcentagem_maria = votos_candidato_maria / quantidade_total_votos * 100
-					porcentagem_francisco = votos_candidato_francisco / quantidade_total_votos * 100
-					porcentagem_raimunda = votos_candidato_raimunda / quantidade_total_votos * 100
-					porcentagem_nulo = votos_nulo / quantidade_total_votos * 100
-					porcentagem_branco = votos_branco / quantidade_total_votos * 100
-
-					porcentagem_joao = Matematica.arredondar(porcentagem_joao, 2)
-					porcentagem_maria = Matematica.arredondar(porcentagem_maria, 2)
-					porcentagem_francisco = Matematica.arredondar(porcentagem_francisco, 2)
-					porcentagem_raimunda = Matematica.arredondar(porcentagem_raimunda, 2)
-					porcentagem_nulo = Matematica.arredondar(porcentagem_nulo, 2)
-					porcentagem_branco = Matematica.arredondar(porcentagem_branco, 2)
+				inteiro_voto_usuario = Tipos.cadeia_para_inteiro(voto_usuario, 10)
+				
+				se (inteiro_voto_usuario != numero_sair){
+					se (inteiro_voto_usuario == numero_joao){
+						verificador_voto_valido = verdadeiro
+						opcao_de_voto_escolhida = "João"
+					}
+					
+					senao se (inteiro_voto_usuario == numero_maria){
+						verificador_voto_valido = verdadeiro
+						opcao_de_voto_escolhida = "Maria"
+					}
+					
+					senao se (inteiro_voto_usuario == numero_francisco){
+						verificador_voto_valido = verdadeiro
+						opcao_de_voto_escolhida = "Francisco"
+					}
+					
+					senao se (inteiro_voto_usuario == numero_raimunda){
+						verificador_voto_valido = verdadeiro
+						opcao_de_voto_escolhida = "Raimunda"
+					}
+					
+					senao se (inteiro_voto_usuario == numero_nulo){
+						verificador_voto_valido = verdadeiro
+						opcao_de_voto_escolhida = "Nulo"
+					}
+					
+					senao se (inteiro_voto_usuario == numero_branco){
+						verificador_voto_valido = verdadeiro
+						opcao_de_voto_escolhida = "Branco"
+					}
+	
+					senao {
+						verificador_voto_valido = falso
+						escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n\n")
+					}
 				}
 				
-				pare
+				senao {
+					
+					/*
+					 * Confere se a quantidade de votos é maior que 0 visando evitar divisão por zero
+					 */
+					 
+					se (quantidade_total_votos > 0){
+						porcentagem_joao =  votos_candidato_joao / quantidade_total_votos * 100
+						porcentagem_maria = votos_candidato_maria / quantidade_total_votos * 100
+						porcentagem_francisco = votos_candidato_francisco / quantidade_total_votos * 100
+						porcentagem_raimunda = votos_candidato_raimunda / quantidade_total_votos * 100
+						porcentagem_nulo = votos_nulo / quantidade_total_votos * 100
+						porcentagem_branco = votos_branco / quantidade_total_votos * 100
+	
+						porcentagem_joao = Matematica.arredondar(porcentagem_joao, 2)
+						porcentagem_maria = Matematica.arredondar(porcentagem_maria, 2)
+						porcentagem_francisco = Matematica.arredondar(porcentagem_francisco, 2)
+						porcentagem_raimunda = Matematica.arredondar(porcentagem_raimunda, 2)
+						porcentagem_nulo = Matematica.arredondar(porcentagem_nulo, 2)
+						porcentagem_branco = Matematica.arredondar(porcentagem_branco, 2)
+	
+						inteiro_votos_candidato_joao = Tipos.real_para_inteiro(votos_candidato_joao)
+						inteiro_votos_candidato_maria = Tipos.real_para_inteiro(votos_candidato_maria)
+						inteiro_votos_candidato_francisco = Tipos.real_para_inteiro(votos_candidato_francisco)
+						inteiro_votos_candidato_raimunda = Tipos.real_para_inteiro(votos_candidato_raimunda)
+						inteiro_votos_nulo = Tipos.real_para_inteiro(votos_nulo)
+						inteiro_votos_branco = Tipos.real_para_inteiro(votos_branco)
+					}
+					
+					pare
+				}
+			}
+
+			senao {
+				verificador_voto_valido = falso
+				escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n\n")
 			}
 
 			se (verificador_voto_valido){
@@ -216,23 +255,23 @@ programa
 				se (voto_validado){
 					quantidade_total_votos++
 
-					se (voto_usuario == numero_joao){
+					se (inteiro_voto_usuario == numero_joao){
 						votos_candidato_joao++
 					}
 					
-					senao se (voto_usuario == numero_maria){
+					senao se (inteiro_voto_usuario == numero_maria){
 						votos_candidato_maria++
 					}
 
-					senao se (voto_usuario == numero_francisco){
+					senao se (inteiro_voto_usuario == numero_francisco){
 						votos_candidato_francisco++
 					}
 
-					senao se (voto_usuario == numero_raimunda){
+					senao se (inteiro_voto_usuario == numero_raimunda){
 						votos_candidato_raimunda++
 					}
 
-					senao se (voto_usuario == numero_nulo){
+					senao se (inteiro_voto_usuario == numero_nulo){
 						votos_nulo++
 					}
 
@@ -245,11 +284,11 @@ programa
 			}
 		}
 
-		escreva("\n[ ", votos_candidato_joao," ] | [ ", porcentagem_joao, "% ] | João",
-		"\n[ ", votos_candidato_maria," ] | [ ", porcentagem_maria, "% ] | Maria",
-		"\n[ ", votos_candidato_francisco," ] | [ ", porcentagem_francisco, "% ] | Francisco",
-		"\n[ ", votos_candidato_raimunda," ] | [ ", porcentagem_raimunda, "% ] | Raimunda",
-		"\n[ ", votos_nulo," ] | [ ", porcentagem_nulo, "% ] | Nulo",
-		"\n[ ", votos_branco," ] | [ ", porcentagem_branco, "% ] | Branco")
+		escreva("\n[ ", inteiro_votos_candidato_joao," ] | [ ", porcentagem_joao, "% ] | João",
+		"\n[ ", inteiro_votos_candidato_maria," ] | [ ", porcentagem_maria, "% ] | Maria",
+		"\n[ ", inteiro_votos_candidato_francisco," ] | [ ", porcentagem_francisco, "% ] | Francisco",
+		"\n[ ", inteiro_votos_candidato_raimunda," ] | [ ", porcentagem_raimunda, "% ] | Raimunda",
+		"\n[ ", inteiro_votos_nulo," ] | [ ", porcentagem_nulo, "% ] | Nulo",
+		"\n[ ", inteiro_votos_branco," ] | [ ", porcentagem_branco, "% ] | Branco")
 	}
 }
