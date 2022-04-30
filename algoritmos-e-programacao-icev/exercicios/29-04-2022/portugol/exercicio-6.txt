@@ -1,0 +1,118 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que receba o tipo da ação, ou seja, uma letra a ser
+comercializada na bolsa de valores, a quantidade de ações negociadas, o
+preço de compra e o preço de venda de cada ação e que calcule e mostre:
+
+e) o lucro de cada ação negociada;
+
+f) a quantidade de ações com lucro superior a R$ 1.000,00;
+
+g) a quantidade de ações com lucro inferior a R$ 200,00;
+
+h) o lucro total da empresa.
+
+Finalize com o tipo de ação ‘F’.
+*/
+ 
+programa
+{
+	
+	inclua biblioteca Matematica
+	
+	funcao inicio()
+	{
+		cadeia tipo_acao = ""
+
+		inteiro quantidade_de_acoes_negociadas = 0
+		
+		real preco_de_compra_unitario_acao = 0.0
+		real preco_de_venda_unitario_acao = 0.0
+
+		real valor_total_compra = 0.0
+		real valor_total_venda = 0.0
+
+		real resultado_operacao = 0.0
+		real resultado_operacao_unitario = 0.0
+	
+		inteiro quantidade_acoes_lucro_superior_1000 = 0
+		inteiro quantidade_acoes_lucro_inferior_200 = 0
+
+		real lucro_total_empresa = 0.0
+		
+		inteiro contador_acao = 1
+		
+		enquanto (verdadeiro)
+		{
+			escreva("[ / ] Informe as informações sobre a ", contador_acao, "ª ação")
+			escreva("\n[ ? ] Digite o tipo da ação ou 'F' para sair\n[ > ] # ")
+			leia(tipo_acao)
+
+			se (tipo_acao == "F" ou tipo_acao == "f")
+			{
+				pare
+			}
+			
+			senao
+			{
+				escreva("\n[ / ] Sobre a ação de tipo # ", tipo_acao, ", informe:")
+				escreva("\n[ ? ] Quantidade de ações negociadas\n[ > ] ")
+				leia(quantidade_de_acoes_negociadas)
+
+				escreva("\n[ ? ] Preço de compra de cada ação\n[ > ] R$ ")
+				leia(preco_de_compra_unitario_acao)
+
+				escreva("\n[ ? ] Preço de venda de cada ação\n[ > ] R$ ")
+				leia(preco_de_venda_unitario_acao)
+
+				valor_total_compra = quantidade_de_acoes_negociadas * preco_de_compra_unitario_acao
+				valor_total_venda = quantidade_de_acoes_negociadas * preco_de_venda_unitario_acao
+
+				resultado_operacao = valor_total_venda - valor_total_compra
+				resultado_operacao_unitario = preco_de_venda_unitario_acao - preco_de_compra_unitario_acao
+				
+				lucro_total_empresa += resultado_operacao
+
+				se (resultado_operacao > 1000)
+				{
+					quantidade_acoes_lucro_superior_1000++
+				}
+
+				se (resultado_operacao < 200)
+				{
+					quantidade_acoes_lucro_inferior_200++
+				}
+
+				preco_de_compra_unitario_acao = Matematica.arredondar(preco_de_compra_unitario_acao, 2)
+				preco_de_venda_unitario_acao = Matematica.arredondar(preco_de_venda_unitario_acao, 2)
+				resultado_operacao_unitario = Matematica.arredondar(resultado_operacao_unitario, 2)
+
+				valor_total_compra = Matematica.arredondar(valor_total_compra, 2)
+				valor_total_venda = Matematica.arredondar(valor_total_venda, 2)
+				resultado_operacao = Matematica.arredondar(resultado_operacao, 2)
+				
+				escreva("\n[ / ] Lucro referente a ação # ", tipo_acao,
+				"\n[ - R$ ", preco_de_compra_unitario_acao, " ] Valor unitário de compra",
+				"\n[ + R$ ", preco_de_venda_unitario_acao, " ] Valor unitário de venda",
+				"\n[ = R$ ", resultado_operacao_unitario," ] Resultado operação unitário",
+				"\n",
+				"\n[ - R$ ", valor_total_compra," ] Valor total de compra",
+				"\n[ + R$ ", valor_total_venda, " ] Valor total de venda",
+				"\n[ = R$ ", resultado_operacao, " ] Resultado operação total\n\n")
+
+				contador_acao++
+			}
+		}
+		
+		lucro_total_empresa = Matematica.arredondar(lucro_total_empresa, 2)
+		
+		escreva("\n[ / ] Informações financeiras sobre a empresa",
+		"\n[ R$ ", lucro_total_empresa," ] Lucro total",
+		"\n",
+		"\n[ ", quantidade_acoes_lucro_superior_1000, " ] Quantidade ações com lucro superior a R$ 1.000,00",
+		"\n[ ", quantidade_acoes_lucro_inferior_200, " ] Quantidade ações com lucro inferior a R$ 200,00")
+	}
+}
