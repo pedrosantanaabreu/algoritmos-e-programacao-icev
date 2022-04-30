@@ -1,0 +1,120 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+1. Faça um programa que receba a idade, o peso, a altura, a cor dos olhos (A
+- azul; P - preto; V - verde; e C - castanho) e a cor dos cabelos (P - preto; C
+- castanho; L - louro; e R - ruivo) de seis pessoas, e que calcule e mostre:
+
+a) a quantidade de pessoas com idade superior a 50 anos e peso inferior a
+60 kg;
+
+b) a média das idades das pessoas com altura inferior a 1,50 m;
+
+c) a porcentagem de pessoas com olhos azuis entre todas as pessoas
+analisadas;
+
+d) a quantidade de pessoas ruivas e que não possuem olhos azuis.
+*/
+ 
+programa
+{
+	 
+	inclua biblioteca Matematica
+
+	funcao inicio()
+	{	
+		cadeia opcao_olho_azul = "A"
+		cadeia opcao_olho_preto = "P"
+		cadeia opcao_olho_verde = "V"
+		cadeia opcao_olho_castanho = "C"
+
+		cadeia opcao_cabelo_preto = "P"
+		cadeia opcao_cabelo_castanho = "C"
+		cadeia opcao_cabelo_loiro = "L"
+		cadeia opcao_cabelo_ruivo = "R"
+
+		real quantidade_usuarios = 6.0
+		
+		inteiro quantidade_usuarios_mais_50_anos_menos_60_kg = 0
+		
+		real quantidade_usuarios_menos_1_50_altura = 0.0
+		real soma_idade_usuarios_menos_1_50_altura = 0.0
+		real media_idade_usuarios_menos_1_50_altura = 0.0
+
+		real quantidade_usuarios_olho_azul = 0.0
+		real porcentagem_usuarios_olho_azul = 0.0
+		
+		inteiro quantidade_usuarios_ruivo_sem_olho_azul = 0
+
+		inteiro idade_usuario = 0
+		
+		real peso_usuario = 0.0
+		real altura_usuario = 0.0
+
+		cadeia cor_do_olho_usuario = ""
+		cadeia cor_do_cabelo_usuario = ""
+
+		para (inteiro i = 1; i <= quantidade_usuarios; i++)
+		{
+			escreva("[ / ] Digite as informações do ", i, "º usuário\n")
+			
+			escreva("\n[ ? ] Digite sua idade | ")
+			leia(idade_usuario)
+	
+			escreva("[ ? ] Digite seu peso (kg) | ")
+			leia(peso_usuario)
+	
+			escreva("[ ? ] Digite sua altura (m) | ")
+			leia(altura_usuario)
+
+			escreva("\n[ A ] Azul",
+			"\n[ P ] Preto",
+			"\n[ V ] Verde",
+			"\n[ C ] Castanho\n")
+			escreva("[ ? ] Digite a cor dos seus olhos | ")
+			leia(cor_do_olho_usuario)
+
+			escreva("\n[ P ] Preto",
+			"\n[ L ] Loiro",
+			"\n[ R ] Ruivo",
+			"\n[ C ] Castanho\n")
+			escreva("[ ? ] Digite a cor do seu cabelo | ")
+			leia(cor_do_cabelo_usuario)
+			escreva("\n")
+
+			se (idade_usuario > 50 e peso_usuario < 60)
+			{
+				quantidade_usuarios_mais_50_anos_menos_60_kg++
+			}
+
+			se (altura_usuario < 1.50)
+			{
+				soma_idade_usuarios_menos_1_50_altura += idade_usuario
+				quantidade_usuarios_menos_1_50_altura++
+				
+				media_idade_usuarios_menos_1_50_altura = soma_idade_usuarios_menos_1_50_altura / quantidade_usuarios_menos_1_50_altura
+			}
+
+			se (cor_do_olho_usuario == opcao_olho_azul)
+			{
+				quantidade_usuarios_olho_azul++
+				porcentagem_usuarios_olho_azul = quantidade_usuarios_olho_azul / quantidade_usuarios * 100
+			}
+
+			se (cor_do_cabelo_usuario == opcao_cabelo_ruivo e cor_do_olho_usuario != opcao_olho_azul)
+			{
+				quantidade_usuarios_ruivo_sem_olho_azul++
+			}
+		}
+
+		media_idade_usuarios_menos_1_50_altura = Matematica.arredondar(media_idade_usuarios_menos_1_50_altura, 2)
+		porcentagem_usuarios_olho_azul = Matematica.arredondar(porcentagem_usuarios_olho_azul, 2)
+
+		escreva("[ ", quantidade_usuarios_mais_50_anos_menos_60_kg," ] Quantidade de pessoas com idade superior a 50 anos e peso inferior a 60 kg",
+		"\n[ ", media_idade_usuarios_menos_1_50_altura," ] Média das idades das pessoas com altura inferior a 1,50 m",
+		"\n[ ", porcentagem_usuarios_olho_azul,"% ] Porcentagem de pessoas com olhos azuis entre todas as pessoas analisadas",
+		"\n[ ", quantidade_usuarios_ruivo_sem_olho_azul," ] Quantidade de pessoas ruivas e que não possuem olhos azuis")
+	}
+}
