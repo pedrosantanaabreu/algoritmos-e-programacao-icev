@@ -1,0 +1,28 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Prepare um programa que imprima as tabuadas de multiplicação dos
+números de 1 a 10
+*/
+ 
+programa
+{
+
+	funcao inicio()
+	{	
+		inteiro resultado_multiplicacao = 0
+
+		para (inteiro numero_para_multiplicar = 1; numero_para_multiplicar <= 10; numero_para_multiplicar++)
+		{
+			escreva("Tabuada do número | ", numero_para_multiplicar, "\n")
+			para (inteiro multiplicador = 0; multiplicador <= 10; multiplicador++)
+			{
+				resultado_multiplicacao = numero_para_multiplicar * multiplicador
+				escreva(numero_para_multiplicar," x ", multiplicador, " = ", resultado_multiplicacao, "\n")
+			}
+			escreva("\n")
+		}
+	}
+}
