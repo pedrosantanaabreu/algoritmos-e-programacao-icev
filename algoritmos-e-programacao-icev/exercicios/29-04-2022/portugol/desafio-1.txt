@@ -133,7 +133,8 @@ programa
 		 * ...metodo semelhante ao faca...enquanto porém, o faca...enquanto não é recomendado a se trabalhar
 		 */
 		 
-		enquanto (verdadeiro){
+		enquanto (verdadeiro)
+		{
 			escreva("=============== Tabela candidatos ===============",
 			"\n", "[ ", numero_joao, " ]", " João",
 			"\n", "[ ", numero_maria, " ]", " Maria",
@@ -150,7 +151,8 @@ programa
 			"\n[ > ] ")
 			leia(voto_usuario)
 
-			se (Tipos.cadeia_e_inteiro(voto_usuario, 10)){
+			se (Tipos.cadeia_e_inteiro(voto_usuario, 10))
+			{
 				
 				/*
 				 * Convertendo cadeia de caracteres para inteiro
@@ -158,50 +160,60 @@ programa
 				 
 				inteiro_voto_usuario = Tipos.cadeia_para_inteiro(voto_usuario, 10)
 				
-				se (inteiro_voto_usuario != numero_sair){
-					se (inteiro_voto_usuario == numero_joao){
+				se (inteiro_voto_usuario != numero_sair)
+				{
+					se (inteiro_voto_usuario == numero_joao)
+					{
 						verificador_voto_valido = verdadeiro
 						opcao_de_voto_escolhida = "João"
 					}
 					
-					senao se (inteiro_voto_usuario == numero_maria){
+					senao se (inteiro_voto_usuario == numero_maria)
+					{
 						verificador_voto_valido = verdadeiro
 						opcao_de_voto_escolhida = "Maria"
 					}
 					
-					senao se (inteiro_voto_usuario == numero_francisco){
+					senao se (inteiro_voto_usuario == numero_francisco)
+					{
 						verificador_voto_valido = verdadeiro
 						opcao_de_voto_escolhida = "Francisco"
 					}
 					
-					senao se (inteiro_voto_usuario == numero_raimunda){
+					senao se (inteiro_voto_usuario == numero_raimunda)
+					{
 						verificador_voto_valido = verdadeiro
 						opcao_de_voto_escolhida = "Raimunda"
 					}
 					
-					senao se (inteiro_voto_usuario == numero_nulo){
+					senao se (inteiro_voto_usuario == numero_nulo)
+					{
 						verificador_voto_valido = verdadeiro
 						opcao_de_voto_escolhida = "Nulo"
 					}
 					
-					senao se (inteiro_voto_usuario == numero_branco){
+					senao se (inteiro_voto_usuario == numero_branco)
+					{
 						verificador_voto_valido = verdadeiro
 						opcao_de_voto_escolhida = "Branco"
 					}
 	
-					senao {
+					senao
+					{
 						verificador_voto_valido = falso
 						escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n\n")
 					}
 				}
 				
-				senao {
+				senao
+				{
 					
 					/*
 					 * Confere se a quantidade de votos é maior que 0 visando evitar divisão por zero
 					 */
 					 
-					se (quantidade_total_votos > 0){
+					se (quantidade_total_votos > 0)
+					{
 						porcentagem_joao =  votos_candidato_joao / quantidade_total_votos * 100
 						porcentagem_maria = votos_candidato_maria / quantidade_total_votos * 100
 						porcentagem_francisco = votos_candidato_francisco / quantidade_total_votos * 100
@@ -233,7 +245,8 @@ programa
 				}
 			}
 
-			senao {
+			senao
+			{
 				verificador_voto_valido = falso
 				escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n\n")
 			}
@@ -242,8 +255,10 @@ programa
 			 * Confirmação de voto
 			 */
 		
-			se (verificador_voto_valido){
-				enquanto (verdadeiro){
+			se (verificador_voto_valido)
+			{
+				enquanto (verdadeiro)
+				{
 					escreva("\n=============== Confirmação de voto ===============",
 					"\n[ / ] Opção | ", opcao_de_voto_escolhida,
 					"\n[ / ] Número | ", voto_usuario,
@@ -253,19 +268,22 @@ programa
 					"\n[ > ] ")
 					leia(confirmacao_voto)
 					
-					se (confirmacao_voto == "S" ou confirmacao_voto == "s"){
+					se (confirmacao_voto == "S" ou confirmacao_voto == "s")
+					{
 						voto_validado = verdadeiro
 						escreva("\n[ / ] Voto validado\n\n")
 						pare
 					}
 
-					senao se (confirmacao_voto == "N" ou confirmacao_voto == "n"){
+					senao se (confirmacao_voto == "N" ou confirmacao_voto == "n")
+					{
 						voto_validado = falso
 						escreva("\n[ / ] Voto cancelado\n\n")
 						pare
 					}
 
-					senao {
+					senao
+					{
 						voto_validado = falso
 						escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n")
 					}
@@ -275,30 +293,37 @@ programa
 				 * Se o voto for validado pelo usuário, o voto será computado
 				 */
 				 
-				se (voto_validado){
+				se (voto_validado)
+				{
 					quantidade_total_votos++
 
-					se (inteiro_voto_usuario == numero_joao){
+					se (inteiro_voto_usuario == numero_joao)
+					{
 						votos_candidato_joao++
 					}
 					
-					senao se (inteiro_voto_usuario == numero_maria){
+					senao se (inteiro_voto_usuario == numero_maria)
+					{
 						votos_candidato_maria++
 					}
 
-					senao se (inteiro_voto_usuario == numero_francisco){
+					senao se (inteiro_voto_usuario == numero_francisco)
+					{
 						votos_candidato_francisco++
 					}
 
-					senao se (inteiro_voto_usuario == numero_raimunda){
+					senao se (inteiro_voto_usuario == numero_raimunda)
+					{
 						votos_candidato_raimunda++
 					}
 
-					senao se (inteiro_voto_usuario == numero_nulo){
+					senao se (inteiro_voto_usuario == numero_nulo)
+					{
 						votos_nulo++
 					}
 
-					senao {
+					senao
+					{
 						votos_branco++
 					}
 
