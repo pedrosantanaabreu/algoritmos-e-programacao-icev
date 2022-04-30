@@ -1,0 +1,65 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+7. Faça um programa que receba um conjunto de valores inteiros e positivos,
+calcule e mostre o maior e o menor valor do conjunto. Considere que:
+
+d) para encerrar a entrada de dados, deve ser digitado o valor zero;
+
+e) para valores negativos, deve ser enviada uma mensagem;
+
+f) os valores negativos ou iguais a zero não entrarão nos cálculos.
+*/
+ 
+programa
+{
+	
+	funcao inicio()
+	{
+		inteiro numero_usuario = 0
+		inteiro menor_numero = 0
+		inteiro maior_numero = 0
+		
+		inteiro contador_numero = 1
+		enquanto (verdadeiro)
+		{
+			escreva("[ / ] Digite o , ", contador_numero, "º inteiro positivo ou 0 para sair\n[ > ] ")
+			leia(numero_usuario)
+
+			se (numero_usuario > 0)
+			{
+				se (numero_usuario < menor_numero ou contador_numero == 1)
+				{
+					menor_numero = numero_usuario
+				}
+
+				se (numero_usuario > maior_numero ou contador_numero == 1)
+				{
+					maior_numero = numero_usuario
+				}
+	
+				contador_numero++
+			}
+			
+			senao
+			{
+				se (numero_usuario == 0)
+				{
+					pare
+				}
+				
+				senao
+				{
+					escreva("\n[ ! ] Número inválido, tente novamente.\n")
+				}
+			}
+			
+			escreva("\n")
+		}
+
+		escreva("\n[ ", maior_numero," ] Maior número",
+		"\n[ ", menor_numero," ] Menor número")
+	}
+}
