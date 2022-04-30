@@ -226,6 +226,7 @@ programa
 						inteiro_votos_candidato_raimunda = Tipos.real_para_inteiro(votos_candidato_raimunda)
 						inteiro_votos_nulo = Tipos.real_para_inteiro(votos_nulo)
 						inteiro_votos_branco = Tipos.real_para_inteiro(votos_branco)
+						inteiro_quantidade_total_votos = Tipos.real_para_inteiro(quantidade_total_votos)
 					}
 					
 					pare
@@ -239,7 +240,7 @@ programa
 
 			se (verificador_voto_valido){
 				enquanto (verdadeiro){
-					escreva("\n[ ? ] Confirmação de voto",
+					escreva("\n=============== Confirmação de voto ===============",
 					"\n[ / ] Opção | ", opcao_de_voto_escolhida,
 					"\n[ / ] Número | ", voto_usuario,
 					"\n",
@@ -298,7 +299,9 @@ programa
 			}
 		}
 
-		escreva("\n[ ", inteiro_votos_candidato_joao," ] | [ ", porcentagem_joao, "% ] | João",
+		escreva("\n=============== Resultados ===============",
+		"\n[ ", inteiro_quantidade_total_votos, " ] | Total de votos\n",
+		"\n[ ", inteiro_votos_candidato_joao," ] | [ ", porcentagem_joao, "% ] | João",
 		"\n[ ", inteiro_votos_candidato_maria," ] | [ ", porcentagem_maria, "% ] | Maria",
 		"\n[ ", inteiro_votos_candidato_francisco," ] | [ ", porcentagem_francisco, "% ] | Francisco",
 		"\n[ ", inteiro_votos_candidato_raimunda," ] | [ ", porcentagem_raimunda, "% ] | Raimunda",
