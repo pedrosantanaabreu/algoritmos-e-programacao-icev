@@ -103,22 +103,14 @@ programa
 		 * Logo em seguida todos serão transformados para inteiros para ser exibido no escreva final
 		 */
 		 
-		real votos_candidato_joao = 0.0
-		real votos_candidato_maria = 0.0
-		real votos_candidato_francisco = 0.0
-		real votos_candidato_raimunda = 0.0
-		real votos_nulo = 0.0
-		real votos_branco = 0.0
-		real quantidade_total_votos = 0.0
-
-		inteiro inteiro_votos_candidato_joao = 0
-		inteiro inteiro_votos_candidato_maria = 0
-		inteiro inteiro_votos_candidato_francisco = 0
-		inteiro inteiro_votos_candidato_raimunda = 0
-		inteiro inteiro_votos_nulo = 0
-		inteiro inteiro_votos_branco = 0
-		inteiro inteiro_quantidade_total_votos = 0
+		inteiro votos_candidato_joao = 0
+		inteiro votos_candidato_maria = 0
+		inteiro votos_candidato_francisco = 0
+		inteiro votos_candidato_raimunda = 0
+		inteiro votos_nulo = 0
+		inteiro votos_branco = 0
 		
+		real quantidade_total_votos = 0.0
 		real porcentagem_joao = 0.0
 		real porcentagem_maria = 0.0
 		real porcentagem_francisco = 0.0
@@ -130,7 +122,7 @@ programa
 		 * 'contador_voto' Representa em que voto estamos
 		 */
 		 
-		inteiro contador_voto = 1
+		inteiro contador_voto = 0
 
 		/*
 		 * Usa-se enquanto (verdadeiro) para entrar pelo menos uma vez no loop...
@@ -150,7 +142,7 @@ programa
 			"\n", "[ ", numero_sair, " ]", " Sair",
 			"\n")
 
-			escreva("\n[ / ] ", contador_voto, "º voto",
+			escreva("\n[ / ] ", contador_voto + 1, "º voto",
 			"\n[ ? ] Digite o número da opção",
 			"\n[ > ] ")
 			leia(voto_usuario)
@@ -251,17 +243,6 @@ programa
 						porcentagem_nulo = Matematica.arredondar(porcentagem_nulo, 2)
 						porcentagem_branco = Matematica.arredondar(porcentagem_branco, 2)
 
-						/*
-						 * Convertendo valores reais para inteiros
-						 */
-						 
-						inteiro_votos_candidato_joao = Tipos.real_para_inteiro(votos_candidato_joao)
-						inteiro_votos_candidato_maria = Tipos.real_para_inteiro(votos_candidato_maria)
-						inteiro_votos_candidato_francisco = Tipos.real_para_inteiro(votos_candidato_francisco)
-						inteiro_votos_candidato_raimunda = Tipos.real_para_inteiro(votos_candidato_raimunda)
-						inteiro_votos_nulo = Tipos.real_para_inteiro(votos_nulo)
-						inteiro_votos_branco = Tipos.real_para_inteiro(votos_branco)
-						inteiro_quantidade_total_votos = Tipos.real_para_inteiro(quantidade_total_votos)
 					}
 					
 					pare
@@ -360,12 +341,12 @@ programa
 		 */
 		 
 		escreva("\n=============== Resultados ===============",
-		"\n[ ", inteiro_quantidade_total_votos, " ] | Total de votos\n",
-		"\n[ ", inteiro_votos_candidato_joao," ] | [ ", porcentagem_joao, "% ] | João",
-		"\n[ ", inteiro_votos_candidato_maria," ] | [ ", porcentagem_maria, "% ] | Maria",
-		"\n[ ", inteiro_votos_candidato_francisco," ] | [ ", porcentagem_francisco, "% ] | Francisco",
-		"\n[ ", inteiro_votos_candidato_raimunda," ] | [ ", porcentagem_raimunda, "% ] | Raimunda",
-		"\n[ ", inteiro_votos_nulo," ] | [ ", porcentagem_nulo, "% ] | Nulo",
-		"\n[ ", inteiro_votos_branco," ] | [ ", porcentagem_branco, "% ] | Branco")
+		"\n[ ", contador_voto, " ] | Total de votos\n",
+		"\n[ ", votos_candidato_joao," ] | [ ", porcentagem_joao, "% ] | João",
+		"\n[ ", votos_candidato_maria," ] | [ ", porcentagem_maria, "% ] | Maria",
+		"\n[ ", votos_candidato_francisco," ] | [ ", porcentagem_francisco, "% ] | Francisco",
+		"\n[ ", votos_candidato_raimunda," ] | [ ", porcentagem_raimunda, "% ] | Raimunda",
+		"\n[ ", votos_nulo," ] | [ ", porcentagem_nulo, "% ] | Nulo",
+		"\n[ ", votos_branco," ] | [ ", porcentagem_branco, "% ] | Branco")
 	}
 }
