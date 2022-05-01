@@ -1,0 +1,146 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Desenvolva um programa para ser usado na eleição para
+presidente do Centro Acadêmico de Engenharia de Software do
+iCEV. O programa deve permitir que os alunos votem nos
+candidatos de acordo com os números apresentados na tabela
+abaixo. Caso o aluno queira votar nulo, ele deve informar o
+número 98. Por outro lado, se ele quiser votar em branco, deve
+informar o número 99.
+Ao final da votação, o programa deve exibir:
+• o total de votos para cada candidato;
+• o total de votos nulos;
+• o total de votos em branco;
+• a porcentagem de votos nulos sobre o
+total de votos; e
+• a porcentagem de votos em branco
+sobre o total de votos.
+Para finalizar a votação, o mesário tem que informar o valor
+99999 e, para números inválidos de candidato, o programa
+deverá mostrar uma mensagem.
+
+Número candidato
+10 - João
+20 - Maria
+30 - Francisco
+40 - Raimunda
+*/
+
+ 
+programa
+{
+	
+	funcao inicio()
+	{
+		 
+		cadeia voto_usuario = ""
+
+		inteiro votos_candidato_joao = 0
+		inteiro votos_candidato_maria = 0
+		inteiro votos_candidato_francisco = 0
+		inteiro votos_candidato_raimunda = 0
+		inteiro votos_nulo = 0
+		inteiro votos_branco = 0
+
+		real quantidade_total_votos = 0.0
+		real porcentagem_joao = 0.0
+		real porcentagem_maria = 0.0
+		real porcentagem_francisco = 0.0
+		real porcentagem_raimunda = 0.0
+		real porcentagem_nulo = 0.0
+		real porcentagem_branco = 0.0
+		
+		inteiro contador_voto = 1
+		 
+		enquanto (verdadeiro)
+		{
+			escreva("=============== Tabela candidatos ===============",
+			"\n", "[ 10 ] João",
+			"\n", "[ 20 ] Maria",
+			"\n", "[ 30 ] Francisco",
+			"\n", "[ 40 ] Raimunda",
+			"\n", "[ 98 ] Nulo",
+			"\n", "[ 99 ] Branco",
+			"\n",
+			"\n", "[ 99999 ] Sair",
+			"\n")
+
+			escreva("\n[ / ] ", contador_voto, "º voto",
+			"\n[ ? ] Digite o número da opção",
+			"\n[ > ] ")
+			leia(voto_usuario)
+			escreva("\n")
+
+			se (voto_usuario == "10" ou voto_usuario == "20" ou voto_usuario == "30" ou voto_usuario == "40" ou voto_usuario == "98" ou voto_usuario == "99")
+			{
+				quantidade_total_votos++
+				contador_voto++
+
+				se (voto_usuario == "10")
+				{
+					votos_candidato_joao++
+				}
+				
+				senao se (voto_usuario == "20")
+				{
+					votos_candidato_maria++
+				}
+				
+				senao se (voto_usuario == "30")
+				{
+					votos_candidato_francisco++
+				}
+				
+				senao se (voto_usuario == "40")
+				{
+					votos_candidato_raimunda++
+				}
+				
+				senao se (voto_usuario == "98")
+				{
+					votos_nulo++
+				}
+				
+				senao
+				{
+					votos_branco++
+				}
+			}
+			
+			senao
+			{
+				se (voto_usuario == "99999")
+				{
+					se (quantidade_total_votos > 0)
+					{
+						porcentagem_joao =  votos_candidato_joao / quantidade_total_votos * 100
+						porcentagem_maria = votos_candidato_maria / quantidade_total_votos * 100
+						porcentagem_francisco = votos_candidato_francisco / quantidade_total_votos * 100
+						porcentagem_raimunda = votos_candidato_raimunda / quantidade_total_votos * 100
+						porcentagem_nulo = votos_nulo / quantidade_total_votos * 100
+						porcentagem_branco = votos_branco / quantidade_total_votos * 100
+					}
+
+					pare
+				}
+
+				senao
+				{
+					escreva("\n[ ! ] Valor inserido inválido, tente novamente.\n\n")
+				}
+			}
+		}
+
+		escreva("\n=============== Resultados ===============",
+		"\n[ ", contador_voto, " ] | Total de votos\n",
+		"\n[ ", votos_candidato_joao," ] | [ ", porcentagem_joao, "% ] | João",
+		"\n[ ", votos_candidato_maria," ] | [ ", porcentagem_maria, "% ] | Maria",
+		"\n[ ", votos_candidato_francisco," ] | [ ", porcentagem_francisco, "% ] | Francisco",
+		"\n[ ", votos_candidato_raimunda," ] | [ ", porcentagem_raimunda, "% ] | Raimunda",
+		"\n[ ", votos_nulo," ] | [ ", porcentagem_nulo, "% ] | Nulo",
+		"\n[ ", votos_branco," ] | [ ", porcentagem_branco, "% ] | Branco")
+	}
+}
