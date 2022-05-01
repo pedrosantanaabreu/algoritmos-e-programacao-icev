@@ -28,7 +28,6 @@ Número candidato
 30 - Francisco
 40 - Raimunda
 */
-
  
 programa
 {
@@ -135,7 +134,7 @@ programa
 		}
 
 		escreva("\n=============== Resultados ===============",
-		"\n[ ", contador_voto, " ] | Total de votos\n",
+		"\n[ ", contador_voto - 1, " ] | Total de votos\n",
 		"\n[ ", votos_candidato_joao," ] | [ ", porcentagem_joao, "% ] | João",
 		"\n[ ", votos_candidato_maria," ] | [ ", porcentagem_maria, "% ] | Maria",
 		"\n[ ", votos_candidato_francisco," ] | [ ", porcentagem_francisco, "% ] | Francisco",
