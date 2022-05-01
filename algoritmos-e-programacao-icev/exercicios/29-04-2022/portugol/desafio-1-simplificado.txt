@@ -28,6 +28,7 @@ Número candidato
 30 - Francisco
 40 - Raimunda
 */
+
  
 programa
 {
@@ -52,7 +53,7 @@ programa
 		real porcentagem_nulo = 0.0
 		real porcentagem_branco = 0.0
 		
-		inteiro contador_voto = 1
+		inteiro contador_voto = 0
 		 
 		enquanto (verdadeiro)
 		{
@@ -67,7 +68,7 @@ programa
 			"\n", "[ 99999 ] Sair",
 			"\n")
 
-			escreva("\n[ / ] ", contador_voto, "º voto",
+			escreva("\n[ / ] ", contador_voto + 1, "º voto",
 			"\n[ ? ] Digite o número da opção",
 			"\n[ > ] ")
 			leia(voto_usuario)
@@ -134,7 +135,7 @@ programa
 		}
 
 		escreva("\n=============== Resultados ===============",
-		"\n[ ", contador_voto - 1, " ] | Total de votos\n",
+		"\n[ ", contador_voto, " ] | Total de votos\n",
 		"\n[ ", votos_candidato_joao," ] | [ ", porcentagem_joao, "% ] | João",
 		"\n[ ", votos_candidato_maria," ] | [ ", porcentagem_maria, "% ] | Maria",
 		"\n[ ", votos_candidato_francisco," ] | [ ", porcentagem_francisco, "% ] | Francisco",
