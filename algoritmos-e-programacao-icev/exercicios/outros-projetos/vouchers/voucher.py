@@ -463,6 +463,8 @@ def atualizar_linha(numero_linha_deletar, novo_cadastro):
 
 
 def ver_vouchers(conta_logada):
+    limpar_terminal()
+
     email_registrado = conta_logada["email_registrado"]
 
     with open("banco-de-dados.txt", 'r') as f:
