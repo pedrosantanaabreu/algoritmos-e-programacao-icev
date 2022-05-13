@@ -22,6 +22,21 @@ arquivo = open("banco-de-dados.txt", "a+")
 arquivo.close()
 
 
+"""
+- Funções úteis
+
+1. limpar_terminal()
+Busca qual o sistema operacional que o computador está usando e usa o comando para limpar o terminal
+
+2. memsagem_carregando()
+Recebe como parametro mensagem e segundos
+Exibi a mensagem na duração de segundos requirida uma "animação" de carregamento
+
+3. verificar_opcao()
+Confere se o input do usuario é equivalente a alguma opção, deve-se passar as opções em formato de lista
+"""
+
+
 def limpar_terminal():
     sistema_operacional = platform.system().upper()
 
@@ -60,13 +75,47 @@ def verificar_opcao(input, lista_opcoes):
                 continue
 
 
-def menu_principal():
-    limpar_terminal()
+"""
+- Menu principal
 
+[ / ] Menu principal
+
+[ 1 ] Entrar
+[ 2 ] Registrar
+[ 3 ] Sair
+[ > ] 
+
+1. Entrar
+
+entrar()
+Solicita e-mail e senha e confere se existe no banco de dados
+Logo depois confere se a senha inserida é a mesma cadastrada
+Caso tudo esteja correto a função direciona o usuario para outro menu
+menu_logado()
+
+2. Registrar
+
+registrar()
+Solicita o usuario e-mail e senha válidos
+Confere se nenhuma conta já foi criada com aquele e-mail
+Caso tudo esteja correto, ele envia todos os dados para o banco de dados e volta ao menu_principal
+
+
+3. Sair
+
+sair()
+Exibi uma mensagem de saindo
+Fecha o porgrama
+"""
+
+
+def menu_principal():
     lista_opcoes = [1, 2, 3]
 
     while True:
-        print("[ 1 ] Entrar\n[ 2 ] Registrar\n[ 3 ] Sair")
+        limpar_terminal()
+        print("[ / ] Menu principal")
+        print("\n[ 1 ] Entrar\n[ 2 ] Registrar\n[ 3 ] Sair")
         menu_principal_opcao_usuario = input("[ > ] ").strip()
 
         if verificar_opcao(menu_principal_opcao_usuario, lista_opcoes):
@@ -93,89 +142,11 @@ def menu_principal():
             continue
 
 
-def registrar():
-    email_registrado = registrar_email()
-    senha_registrada = registrar_senha()
-    vouchers = []
+"""
+1. Seção ENTRAR
 
-    conta_registrada = {
-        "email_registrado" : email_registrado,
-        "senha_registrada" : senha_registrada,
-        "vouchers" : vouchers
-    }
-
-    mensagem_carregando("Estamos armazenando seus dados", 2)
-
-    armazenar_no_banco_de_dados(conta_registrada)
-
-    mensagem_carregando("Conta registrada com sucesso", 2)
-
-
-def conferir_email_banco_de_dados(email_registrado):
-    with open("banco-de-dados.txt", 'r') as f:
-        texto = f.readlines()
-
-    for dicionario in texto:
-        dicionario = ast.literal_eval(dicionario)
-
-        if email_registrado == dicionario["email_registrado"]:
-            return True
-
-    return False
-    
-
-def registrar_email():
-    limpar_terminal()
-
-    while True:
-        print("[ / ] Registrar")
-        email_registrado = input("\n[ @ ] Digite seu e-mail\n[ > ] ").replace(" ", "").lower()
-
-        if validar_email(email_registrado) and not conferir_email_banco_de_dados(email_registrado):
-            return email_registrado
-
-        else:
-            mensagem_carregando("E-mail inválido ou já cadastrado, tente novamente", 2)
-            continue
-
-
-def registrar_senha():
-    limpar_terminal()
-
-    while True:
-        print("[ / ] Registrar")
-        senha_registrada = pwinput.pwinput("\n[ ? ] Digite sua senha\n[ > ] ").strip()
-
-        if validar_senha(senha_registrada):
-            return senha_registrada
-
-        else:
-            mensagem_carregando("Senha inválida, tente novamente", 2)
-            continue
-
-
-def validar_email(email_registrado):
-    regex_email = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
-
-    if re.fullmatch(regex_email, email_registrado):
-      return True
-
-    else:
-      return False
-
-
-def validar_senha(senha_registrada):
-    if senha_registrada != "":
-        return True
-
-    else:
-        return False
-
-
-def armazenar_no_banco_de_dados(conta_registrada):
-    arquivo = open("banco-de-dados.txt", "a+")
-    arquivo.write(str(conta_registrada) + "\n")
-    arquivo.close()
+Futuras atualizaçãos: Seção esqueci a senha
+"""
 
 
 def entrar():
@@ -230,12 +201,146 @@ def validar_senha_entrar(email_usuario):
                     continue
 
 
+"""
+2. Seção REGISTRAR
+"""
+
+
+def registrar():
+    email_registrado = registrar_email()
+    senha_registrada = registrar_senha()
+    vouchers = []
+
+    conta_registrada = {
+        "email_registrado" : email_registrado,
+        "senha_registrada" : senha_registrada,
+        "vouchers" : vouchers
+    }
+
+    mensagem_carregando("Estamos armazenando seus dados", 2)
+
+    armazenar_no_banco_de_dados(conta_registrada)
+
+    mensagem_carregando("Conta registrada com sucesso", 2)
+
+
+def conferir_email_banco_de_dados(email_registrado):
+    with open("banco-de-dados.txt", 'r') as f:
+        texto = f.readlines()
+
+    for dicionario in texto:
+        dicionario = ast.literal_eval(dicionario)
+
+        if email_registrado == dicionario["email_registrado"]:
+            return True
+
+    return False
+    
+
+def registrar_email():
+    limpar_terminal()
+
+    while True:
+        print("[ / ] Registrar")
+        email_registrado = input("\n[ @ ] Digite seu e-mail\n[ > ] ").replace(" ", "").lower()
+
+        if validar_email_registar(email_registrado) and not conferir_email_banco_de_dados(email_registrado):
+            return email_registrado
+
+        else:
+            mensagem_carregando("E-mail inválido ou já cadastrado, tente novamente", 2)
+            continue
+
+
+def registrar_senha():
+    limpar_terminal()
+
+    while True:
+        print("[ / ] Registrar")
+        senha_registrada = pwinput.pwinput("\n[ ? ] Digite sua senha\n[ > ] ").strip()
+
+        if validar_senha_registar(senha_registrada):
+            return senha_registrada
+
+        else:
+            mensagem_carregando("Senha inválida, tente novamente", 2)
+            continue
+
+
+def validar_email_registar(email_registrado):
+    regex_email = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+
+    if re.fullmatch(regex_email, email_registrado):
+      return True
+
+    else:
+      return False
+
+
+def validar_senha_registar(senha_registrada):
+    if senha_registrada != "":
+        return True
+
+    else:
+        return False
+
+
+def armazenar_no_banco_de_dados(conta_registrada):
+    arquivo = open("banco-de-dados.txt", "a+")
+    arquivo.write(str(conta_registrada) + "\n")
+    arquivo.close()
+
+
+"""
+3. Seção SAIR
+"""
+
+
+def sair():
+    mensagem_carregando("Saindo", 2)
+    exit()
+
+
+"""
+- Menu Logado
+
+[ / ] Menu logado
+
+[ 1 ] Criar voucher
+[ 2 ] Ver meus vouchers
+[ 3 ] Desconectar
+
+1. Criar voucher
+
+criar_voucher()
+Cria uma sequencia de 3 letras no inicio e 3 numeros no final
+Depois de criado, precisamos adicionar o voucher no banco de dados
+Para isso o programa remove os dados anteriores no banco de dados e sobre escreve os novos
+
+2. Ver meus vouchers
+
+ver_vouchers()
+Deve ser passado o dicionario contendo os dados do cliente
+O programa busca no banco de dados alguma conta com o e-mail do usuario
+Caso encontre, retorna o lista contendo os vouchers
+
+3. Desconectar
+Manda o usuario novamente ao menu principal
+
+Futuras atualizações:
+Mudar E-mail cadastrado
+Mudar senha cadastrada
+Remover vouchers
+"""
+
+
 def menu_logado(lista_conta_registrada):
     lista_opcoes = [1, 2, 3]
 
     while True:
         limpar_terminal()
-        print(f'[ / ] Bem-vindo(a) {lista_conta_registrada["email_registrado"]}\n',
+        print("[ / ] Menu logado")
+        print(f'\n[ / ] Bem-vindo(a) {lista_conta_registrada["email_registrado"]}\n',
         "\n[ 1 ] Criar voucher",
         "\n[ 2 ] Ver meus vouchers",
         "\n[ 3 ] Desconectar")
@@ -259,11 +364,17 @@ def menu_logado(lista_conta_registrada):
                 continue
 
             else:
-                desconectar()
+                mensagem_carregando("Desconectando", 2)
+                menu_principal()
 
         else:
             mensagem_carregando("Valor inválido, tente novamente", 2)
             continue
+
+
+"""
+1. Seção CRIAR VOUCHER
+"""
 
 
 def criar_voucher():
@@ -287,22 +398,6 @@ def criar_voucher():
     continuar_input = input("\n[ Enter ] Para continuar\n")
 
     return voucher
-
-
-def ver_vouchers(conta_logada):
-    email_registrado = conta_logada["email_registrado"]
-
-    with open("banco-de-dados.txt", 'r') as f:
-        texto = f.readlines()
-    for dicionario in texto:
-        dicionario = ast.literal_eval(dicionario)
-
-        if email_registrado == dicionario["email_registrado"]:
-            print('-' * 10)
-    
-            for indice, voucher in enumerate(dicionario["vouchers"]):
-                print(f"| {voucher} | {indice + 1}º")
-                print('-' * 10)
 
 
 def adicionar_voucher_no_banco_de_dados(voucher, conta_logada):
@@ -355,14 +450,30 @@ def atualizar_linha(numero_linha_deletar, novo_cadastro):
                 f.write(i)
 
 
-def sair():
-    mensagem_carregando("Saindo", 2)
-    exit()
+"""
+2. Seção VER VOUCHERS
+"""
 
 
-def desconectar():
-    mensagem_carregando("Desconectando", 2)
-    exit()
+def ver_vouchers(conta_logada):
+    email_registrado = conta_logada["email_registrado"]
+
+    with open("banco-de-dados.txt", 'r') as f:
+        texto = f.readlines()
+    for dicionario in texto:
+        dicionario = ast.literal_eval(dicionario)
+
+        if email_registrado == dicionario["email_registrado"]:
+            print('-' * 10)
+    
+            for indice, voucher in enumerate(dicionario["vouchers"]):
+                print(f"| {voucher} | {indice + 1}º")
+                print('-' * 10)
+
+
+"""
+- Função principal
+"""
 
 
 def principal():
