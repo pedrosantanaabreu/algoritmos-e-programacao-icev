@@ -18,6 +18,11 @@ import re
 import pwinput  # pip install pwinput
 
 
+# Abrindo bando de dados
+arquivo = open("banco-de-dados.txt", "a+")
+arquivo.close()
+
+
 def limpar_terminal():
     sistema_operacional = platform.system().upper()
 
