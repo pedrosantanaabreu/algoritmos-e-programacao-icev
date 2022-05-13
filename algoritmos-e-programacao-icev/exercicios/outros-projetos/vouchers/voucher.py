@@ -17,7 +17,6 @@ import re
 # Bibliotecas externas
 import pwinput  # pip install pwinput
 
-
 # Abrindo bando de dados
 arquivo = open("banco-de-dados.txt", "a+")
 arquivo.close()
