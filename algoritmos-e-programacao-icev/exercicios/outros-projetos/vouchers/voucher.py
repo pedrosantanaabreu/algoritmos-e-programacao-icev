@@ -143,6 +143,29 @@ def menu_principal():
 
 
 """
+- Validadores
+"""
+
+
+def validar_email(email_registrado):
+    regex_email = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+
+    if re.fullmatch(regex_email, email_registrado):
+      return True
+
+    else:
+      return False
+
+
+def validar_senha(senha_registrada):
+    if senha_registrada != "":
+        return True
+
+    else:
+        return False
+
+
+"""
 1. Seção ENTRAR
 
 Futuras atualizaçãos: Seção esqueci a senha
@@ -244,7 +267,7 @@ def registrar_email():
         print("[ / ] Registrar")
         email_registrado = input("\n[ @ ] Digite seu e-mail\n[ > ] ").replace(" ", "").lower()
 
-        if validar_email_registar(email_registrado) and not conferir_email_banco_de_dados(email_registrado):
+        if validar_email(email_registrado) and not conferir_email_banco_de_dados(email_registrado):
             return email_registrado
 
         else:
@@ -259,7 +282,7 @@ def registrar_senha():
         print("[ / ] Registrar")
         senha_registrada = pwinput.pwinput("\n[ ? ] Digite sua senha\n[ > ] ").strip()
 
-        if validar_senha_registar(senha_registrada):
+        if validar_senha(senha_registrada):
             return senha_registrada
 
         else:
@@ -267,22 +290,6 @@ def registrar_senha():
             continue
 
 
-def validar_email_registar(email_registrado):
-    regex_email = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
-
-    if re.fullmatch(regex_email, email_registrado):
-      return True
-
-    else:
-      return False
-
-
-def validar_senha_registar(senha_registrada):
-    if senha_registrada != "":
-        return True
-
-    else:
-        return False
 
 
 def armazenar_no_banco_de_dados(conta_registrada):
