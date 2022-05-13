@@ -366,7 +366,7 @@ def menu_logado(lista_conta_registrada):
                 limpar_terminal()
 
                 ver_vouchers(lista_conta_registrada)
-                continuar_input = input("\n[ Enter ] Para continuar\n")
+                continuar_input = input("[ Enter ] Para continuar\n")
 
                 continue
 
@@ -473,10 +473,15 @@ def ver_vouchers(conta_logada):
         dicionario = ast.literal_eval(dicionario)
 
         if email_registrado == dicionario["email_registrado"]:
+            contador_vouchers = 0
             for indice, voucher in enumerate(dicionario["vouchers"]):
+                contador_vouchers += 1
                 print('-' * 10)
-                print(f"| {voucher} | {indice + 1}º")
+                print(f"| {voucher} | --- {indice + 1}º")
                 print('-' * 10)
+
+            if contador_vouchers != 0:
+                print()
 
 
 """
