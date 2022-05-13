@@ -471,9 +471,8 @@ def ver_vouchers(conta_logada):
         dicionario = ast.literal_eval(dicionario)
 
         if email_registrado == dicionario["email_registrado"]:
-            print('-' * 10)
-    
             for indice, voucher in enumerate(dicionario["vouchers"]):
+                print('-' * 10)
                 print(f"| {voucher} | {indice + 1}º")
                 print('-' * 10)
 
