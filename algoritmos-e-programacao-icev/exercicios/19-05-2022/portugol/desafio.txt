@@ -1,0 +1,341 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+O iCEV montou, por meio de sua Escola de Tecnologia Aplicada e em
+parceria com a Escola de Negócios e Gestão, uma Fábrica de Software que
+permitirá aos alunos desenvolver ações voltadas à validação de suas
+habilidades, troca de conhecimento e experiência, além de permitir um
+intenso networking entre os participantes do projeto.
+Dentre os projetos que estão sendo desenvolvidos por meio da incubadora,
+existe uma startup que pretende desenvolver um software que facilite o
+cálculo da folha de pagamento para micro e pequenas empresas.
+
+Desenvolva um algoritmo que receba as informações necessárias, calcule e
+exiba os valores indicados no menu abaixo:
+Calculadora Prática
+1. Contribuição INSS
+2. Imposto de renda
+3. Salário líquido
+4. Sair
+
+Para calcular o valor do imposto para a previdência social (INSS), o sistema
+deve considerar as faixas apresentadas na tabela a seguir:
+
+Para calcular o valor do imposto de renda, o sistema deve considerar uma
+base de cálculo que deduz o valor de contribuição para o INSS e o valor de
+R$ 189,59 por dependente. A partir dessa base, o cálculo é feito de acordo
+com a tabela abaixo:
+
+O cálculo do salário líquido deve ser feito considerando o valor bruto inicial
+e descontar o valor da contribuição para o INSS e o valor do imposto de
+renda, para, então, exibir o valor resultante.
+
+O desenvolvimento do programa deve considerar as seguintes diretrizes:
+a) Criar uma rotina para limpar a tela e exibir o menu principal.
+b) Criar uma função para calcular o valor da contribuição para o INSS.
+c) Criar uma função para calcular o valor do imposto de renda, que chame
+a função que calcula o INSS.
+d) Criar uma função para calcular o valor líquido, que chame as demais
+funções.
+*/
+
+programa
+{
+	inclua biblioteca Tipos
+	inclua biblioteca Matematica
+	inclua biblioteca Util
+	
+	// Principal
+	funcao inicio()
+	{
+		inteiro opcaoMenu = 0
+		
+		exibirMenu()
+		opcaoMenu = validarOpcaoMenu(obterOpcaoMenu())
+
+		chamarFuncao(opcaoMenu)
+	}
+
+	// Menu
+	funcao exibirMenu()
+	{
+		limpa()
+		escreva("[ / ] Calculadora Prática\n",
+		"[ 1 ] Contribuição INSS\n",
+		"[ 2 ] Imposto de renda\n",
+		"[ 3 ] Salário líquido\n",
+		"[ 4 ] Sair\n",
+		"[ > ] ")
+	}
+
+	funcao chamarFuncao(inteiro opcaoMenu)
+	{
+		real salarioBruto = 0.0
+		real inss = 0.0
+		real irrf = 0.0
+		real salarioLiquido = 0.0
+		
+		inteiro dependentes = 0
+
+		enquanto (opcaoMenu != 4)
+		{
+			salarioBruto = validarSalario(obterSalario())
+
+			se (opcaoMenu == 1)
+			{
+				inss = calcularInss(salarioBruto)
+				inss = Matematica.arredondar(inss, 2)
+
+				limpa()
+				escreva("[ / ] Contribuição INSS\n",
+				"[ $ ] R$ ", inss, "\n")
+				mensagemContinuar()	
+			}
+			senao se (opcaoMenu == 2)
+			{
+				limpa()
+				dependentes = validarDependentes(obterDependentes())
+				irrf = calcularIrrf(salarioBruto, dependentes)
+				irrf = Matematica.arredondar(irrf, 2)
+
+				limpa()
+				escreva("[ / ] Contribuição IRRF\n",
+				"[ $ ] R$ ", irrf, "\n")
+				mensagemContinuar()	
+			}
+			senao
+			{
+				limpa()
+				
+				salarioLiquido = calcularSalarioLiquido(salarioBruto)
+				inss = calcularInss(salarioBruto)
+				irrf = calcularIrrf(salarioBruto, dependentes)
+	
+				salarioLiquido = Matematica.arredondar(salarioLiquido, 2)
+				salarioBruto = Matematica.arredondar(salarioBruto, 2)
+				inss = Matematica.arredondar(inss, 2)
+				irrf = Matematica.arredondar(irrf, 2)
+	
+				limpa()
+				escreva("[ + ] Salário bruto | R$ ", salarioBruto, "\n",
+				"[ - ] INSS | R$ ", inss, "\n",
+				"[ - ] IRRF | R$ ", irrf, "\n",
+				"[ = ] Salário líquido | R$ ", salarioLiquido, "\n")
+				mensagemContinuar()
+			}
+
+			exibirMenu()
+			opcaoMenu = validarOpcaoMenu(obterOpcaoMenu())
+		}
+
+		sair()
+	}
+
+	funcao real calcularSalarioLiquido(real salarioBruto)
+	{
+		inteiro dependentes = validarDependentes(obterDependentes())
+		real inss = calcularInss(salarioBruto)
+		real irrf = calcularIrrf(salarioBruto, dependentes)
+		real salarioLiquido = salarioBruto - inss - irrf
+
+		retorne salarioLiquido
+	}
+
+	funcao real calcularIrrf(real salarioBruto, inteiro dependentes)
+	{
+		real irrf = 0.0
+		real inss = calcularInss(salarioBruto)
+		real base_de_calculo = salarioBruto - inss - dependentes * 189.59
+
+		se (base_de_calculo <= 1903.98)
+		{
+			irrf  = base_de_calculo * (0.0 / 100) - 0
+		}
+		senao se (base_de_calculo <= 2826.65)
+		{
+			irrf  = base_de_calculo * (7.5 / 100) - 142.80
+		}
+		senao se (base_de_calculo <= 3751.05)
+		{
+			irrf  = base_de_calculo * (15.0 / 100) - 354.80
+		}
+		senao se (base_de_calculo <= 4664.68)
+		{
+			irrf  = base_de_calculo * (22.5 / 100) - 636.13
+		}
+		senao
+		{
+			irrf  = base_de_calculo * (27.5 / 100) - 869.36
+		}
+
+		retorne irrf
+	}
+
+	funcao real calcularInss(real salarioBruto)
+	{
+		real valorInss = 0.0
+
+		se (salarioBruto <= 1212.00)
+		{
+			valorInss = salarioBruto * (7.5 / 100.0)
+		}
+		senao se (salarioBruto <= 2427.35)
+		{
+			valorInss = salarioBruto * (9.0 / 100.0) 
+		}
+		senao se (salarioBruto <= 3641.03)
+		{
+			valorInss = salarioBruto * (12.0 / 100.0) 
+		}
+		senao se (salarioBruto <= 7087.22)
+		{
+			valorInss = salarioBruto * (14.0 / 100.0) 
+		}
+		senao
+		{
+			valorInss = 828.39
+		}
+
+		retorne valorInss
+	}
+	
+	funcao sair()
+	{
+		mensagemCarregamento(2, "Saindo")
+		escreva("[ / ] Programa finalizado")
+	}
+
+	// Obter dados
+	funcao cadeia obterOpcaoMenu()
+	{
+		cadeia opcaoMenu = ""
+		leia(opcaoMenu)
+		retorne opcaoMenu
+	}
+	
+	funcao cadeia obterSalario()
+	{
+		cadeia salario = ""
+
+		limpa()
+		escreva("[ ? ] Informe o valor do salário\n",
+		"[ $ ] R$ ")
+		leia(salario)
+
+		retorne salario	
+	}
+
+	funcao cadeia obterDependentes()
+	{
+		cadeia dependentes = ""
+
+		escreva("[ ? ] Informe a quantidade de dependente(s)\n",
+		"[ > ] ")
+		leia(dependentes)
+
+		retorne dependentes	
+	}
+
+	// Validar dados
+	funcao inteiro validarOpcaoMenu(cadeia opcaoMenu)
+	{
+		inteiro opcaoMenuInteiro = 0
+		logico validador = falso
+
+		enquanto (nao validador)
+		{
+			se (Tipos.cadeia_e_inteiro(opcaoMenu, 10))
+			{
+				opcaoMenuInteiro = Tipos.cadeia_para_inteiro(opcaoMenu, 10)
+
+				para (inteiro i = 1; i <= 4; i++)
+				{
+					se (opcaoMenuInteiro == i)
+					{
+						validador = verdadeiro
+						pare
+					}
+				}
+			}
+
+			se (nao validador)
+			{
+				mensagemCarregamento(2, "Opção inválida, tente novamente!")
+				exibirMenu()
+				opcaoMenu = obterOpcaoMenu()
+			}
+		}
+
+		retorne opcaoMenuInteiro
+	}
+	
+	funcao real validarSalario(cadeia salario)
+	{
+		real salarioReal = 0.0
+
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_real(salario) ou Tipos.cadeia_e_inteiro(salario, 10))
+			{
+				salarioReal = Tipos.cadeia_para_real(salario)
+				pare
+			}
+
+			mensagemCarregamento(2, "Salário inválido, tente novamente!")
+			salario = obterSalario()	
+		}
+		
+		retorne salarioReal
+	}
+
+	funcao inteiro validarDependentes(cadeia dependentes)
+	{
+		inteiro dependentesInteiro = 0
+	
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(dependentes, 10))
+			{
+				dependentesInteiro = Tipos.cadeia_para_inteiro(dependentes, 10)
+				pare
+			}
+			
+			mensagemCarregamento(2, "Valor de dependentes inválido, tente novamente!")
+			dependentes = obterDependentes()
+		}
+
+		retorne dependentesInteiro
+	}
+
+	// Funções estéticas
+	funcao mensagemCarregamento(inteiro ciclos, cadeia mensagem)
+	{
+		cadeia simboloCarregamento[4]
+		simboloCarregamento[0] = "|"
+		simboloCarregamento[1] = "\\"
+		simboloCarregamento[2] = "-"
+		simboloCarregamento[3] = "/"
+
+		para (inteiro i = 1; i <= ciclos; i++)
+		{
+			para (inteiro j = 0; j <= 3; j++)
+			{
+				limpa()
+				escreva("[ ", simboloCarregamento[j]," ] ", mensagem)
+				Util.aguarde(100)			
+			}
+		}
+
+		limpa()
+	}
+
+	funcao mensagemContinuar()
+	{
+		cadeia continuar = ""
+		escreva("\n",
+		"[ Enter ] Para continuar\n")
+		leia(continuar)
+	}
+}
