@@ -50,11 +50,10 @@ programa
 	// Principal
 	funcao inicio()
 	{
-		inteiro opcaoMenu = 0
-		
 		exibirMenu()
-		opcaoMenu = validarOpcaoMenu(obterOpcaoMenu())
 
+		inteiro opcaoMenu = validarOpcaoMenu(obterOpcaoMenu())
+		
 		chamarFuncao(opcaoMenu)
 	}
 
@@ -211,7 +210,9 @@ programa
 	funcao cadeia obterOpcaoMenu()
 	{
 		cadeia opcaoMenu = ""
+		
 		leia(opcaoMenu)
+		
 		retorne opcaoMenu
 	}
 	
@@ -222,6 +223,7 @@ programa
 		limpa()
 		escreva("[ ? ] Informe o valor do salário\n",
 		"[ $ ] R$ ")
+		
 		leia(salario)
 
 		retorne salario	
@@ -231,6 +233,7 @@ programa
 	{
 		cadeia dependentes = ""
 
+		limpa()
 		escreva("[ ? ] Informe a quantidade de dependente(s)\n",
 		"[ > ] ")
 		leia(dependentes)
@@ -263,6 +266,7 @@ programa
 			se (nao validador)
 			{
 				mensagemCarregamento(2, "Opção inválida, tente novamente!")
+			
 				exibirMenu()
 				opcaoMenu = obterOpcaoMenu()
 			}
