@@ -150,23 +150,23 @@ programa
 
 		se (base_de_calculo <= 1903.98)
 		{
-			irrf  = base_de_calculo * (0.0 / 100) - 0
+			irrf  = salarioBruto * (0.0 / 100) - 0
 		}
 		senao se (base_de_calculo <= 2826.65)
 		{
-			irrf  = base_de_calculo * (7.5 / 100) - 142.80
+			irrf  = salarioBruto * (7.5 / 100) - 142.80
 		}
 		senao se (base_de_calculo <= 3751.05)
 		{
-			irrf  = base_de_calculo * (15.0 / 100) - 354.80
+			irrf  = salarioBruto * (15.0 / 100) - 354.80
 		}
 		senao se (base_de_calculo <= 4664.68)
 		{
-			irrf  = base_de_calculo * (22.5 / 100) - 636.13
+			irrf  = salarioBruto * (22.5 / 100) - 636.13
 		}
 		senao
 		{
-			irrf  = base_de_calculo * (27.5 / 100) - 869.36
+			irrf  = salarioBruto * (27.5 / 100) - 869.36
 		}
 
 		retorne irrf
