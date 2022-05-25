@@ -1,0 +1,306 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+O seguro desemprego é um auxílio temporário, na forma de pagamentos
+mensais, com o objetivo de prover alguma assistência financeira ao
+trabalhador até que ele consiga outro emprego. Esse auxílio é concedido
+por um período de 3 a 5 meses, dependendo do tempo de trabalho, e cujos
+valores dependem de seus últimos salários.
+
+O valor da parcela do seguro desemprego é calculado a partir da média dos
+últimos três salários de mês inteiro, antes da dispensa. A partir dessa
+média, a tabela a seguir é utilizada para calcular o valor do seguro
+desemprego
+
+A quantidade de parcelas depende de dois fatores: 1) quantas vezes você já
+obteve o seguro desemprego; e 2) quanto tempo você trabalhou nos últimos
+três anos. O trabalhador precisa ter trabalhado nos últimos 6 meses para ter
+direito ao benefício. Além disso, é possível calcular a quantidade de
+parcelas com base na tabela a seguir:
+
+Desenvolver um programa no Portugol Studio para ler os dados a seguir e
+informar quantas parcelas e o valor de cada parcela do seguro desemprego
+que deve ser concedido ao trabalhador.
+• Valor dos três últimos salários;
+• Quantas vezes solicitou o seguro desemprego;
+• Quantos meses trabalhou nos últimos 6 meses; e
+• Quantos meses trabalhou nos últimos 36 meses.
+
+O programa deve ter uma função para calcular a quantidade de parcelas,
+utilizando apenas parâmetros de entrada, e outra para calcular o valor de
+cada parcela, utilizando parâmetros de saída
+*/
+
+programa
+{
+	inclua biblioteca Matematica
+	inclua biblioteca Tipos
+	inclua biblioteca Util
+	
+	funcao inicio()
+	{
+
+		// Recebendo e calculando salários
+		cadeia salarioCadeia = ""
+		real salarioReal = 0.0
+
+		real mediaSalarios = 0.0
+		real somaSalarios = 0.0
+
+		para (inteiro i = 1; i <= 3; i++)
+		{
+			enquanto (verdadeiro)
+			{
+				limpa()
+				escreva("[ / ] Informe o valor do ", i, "º salário\n[ $ ] R$ ")
+				leia(salarioCadeia)
+
+				se (Tipos.cadeia_e_real(salarioCadeia) ou Tipos.cadeia_e_inteiro(salarioCadeia, 10))
+				{
+					salarioReal = Tipos.cadeia_para_real(salarioCadeia)
+
+					se (salarioReal > 0)
+					{
+						somaSalarios += salarioReal
+						
+						pare
+					}
+					senao
+					{
+						limpa()
+						escreva("[ / ] O salário precisa ser maior que R$ 0, tente novamente!")
+						mensagemContinuar()
+					}
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Salário inválido, tente novamente!")
+				}
+			}
+		}
+
+		// Calculando valor da parcela
+		real ValorParcelaSeguroDesemprego = 0.0
+
+		mediaSalarios = somaSalarios / 3.0
+		ValorParcelaSeguroDesemprego = calcularValorParcelaSeguroDesemprego(mediaSalarios)
+
+		// Recebendo valor referente a quantidade de vezes que solicitou o seguro desemprego
+		cadeia quantidadeVezesSolicitouSeguroCadeia = ""
+		inteiro quantidadeVezesSolicitouSeguroInteiro = 0
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ / ] Informe a quantidade de vezes que foi solicitado o seguro desemprego\n[ > ] ")
+			leia(quantidadeVezesSolicitouSeguroCadeia)
+
+			se (Tipos.cadeia_e_inteiro(quantidadeVezesSolicitouSeguroCadeia, 10))
+			{
+				quantidadeVezesSolicitouSeguroInteiro = Tipos.cadeia_para_inteiro(quantidadeVezesSolicitouSeguroCadeia, 10)
+
+				pare
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente!")	
+			}
+		}
+
+		// Recebendo valor referente a quantidade de meses trabalhados nos ultimos 6 meses
+		cadeia mesesTrabalhadosUltimos6MesesCadeia = ""
+		inteiro mesesTrabalhadosUltimos6MesesInteiro = 0
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ / ] Informe os meses trabalhados nos ultimos 6 meses\n[ > ] ")
+			leia(mesesTrabalhadosUltimos6MesesCadeia)
+
+			se (Tipos.cadeia_e_inteiro(mesesTrabalhadosUltimos6MesesCadeia, 10))
+			{
+				mesesTrabalhadosUltimos6MesesInteiro = Tipos.cadeia_para_inteiro(mesesTrabalhadosUltimos6MesesCadeia, 10)
+
+				se (mesesTrabalhadosUltimos6MesesInteiro == 6)
+				{
+					pare
+				}
+				senao
+				{
+					limpa()
+					escreva("[ / ] O trabalhador precisa ter trabalhado nos últimos 6 meses para ter direito ao benefício!\n")
+					mensagemContinuar()
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente!")	
+			}
+		}
+
+		// Recebendo valor referente a quantidade de meses trabalhados nos ultimos 36 meses
+		cadeia mesesTrabalhadosUltimos36MesesCadeia = ""
+		inteiro mesesTrabalhadosUltimos36MesesInteiro = 0
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ / ] Informe os meses trabalhados nos ultimos 36 meses\n[ > ] ")
+			leia(mesesTrabalhadosUltimos36MesesCadeia)
+
+			se (Tipos.cadeia_e_inteiro(mesesTrabalhadosUltimos36MesesCadeia, 10))
+			{
+				mesesTrabalhadosUltimos36MesesInteiro = Tipos.cadeia_para_inteiro(mesesTrabalhadosUltimos36MesesCadeia, 10)
+
+				pare
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente!")	
+			}
+		}
+
+		// Calculando quantidade de parcelas
+		inteiro quantidadeParcelas
+		quantidadeParcelas = calcularQuantidadeParcelas(quantidadeVezesSolicitouSeguroInteiro, mesesTrabalhadosUltimos36MesesInteiro)
+
+		// Realizando calculos finais
+		real valorTotalSeguro = quantidadeParcelas * ValorParcelaSeguroDesemprego
+
+		valorTotalSeguro = Matematica.arredondar(valorTotalSeguro, 2)
+		ValorParcelaSeguroDesemprego = Matematica.arredondar(ValorParcelaSeguroDesemprego, 2)
+
+		// Exibindo resultado
+		limpa()
+		escreva("[ $ ] Valor do seguro desemprego | R$ ", valorTotalSeguro, "\n",
+		"[ / ] Quantidade de parcelas | ", quantidadeParcelas, "\n",
+		"[ $ ] Valor de cada parcela | R$ ", ValorParcelaSeguroDesemprego, "\n")
+		mensagemContinuar()
+
+		// Pergunta para continuar
+		cadeia sair = ""
+
+		limpa()
+		escreva("[ / ] Deseja continuar?\n",
+		"[ Qualquer tecla ] Para continuar\n",
+		"[ Enter ] Para sair\n",
+		"[ > ] ")
+		leia(sair)
+
+		se (sair == "")
+		{
+			mensagemCarregamento(2, "Saindo")
+			escreva("[ / ] Programa finalizado")
+		}
+		senao
+		{
+			inicio()
+		}
+	}
+
+	// Processando dados
+	funcao inteiro calcularQuantidadeParcelas(inteiro quantidadeVezesSolicitouSeguro, inteiro quantidadeMesesTrabalhados)
+	{
+		inteiro quantidadeParcelas = 0
+
+		se (quantidadeVezesSolicitouSeguro <= 1)
+		{
+			se (quantidadeMesesTrabalhados <= 11)
+			{
+				quantidadeParcelas = 1
+			}
+			senao se (quantidadeMesesTrabalhados <= 23)
+			{
+				quantidadeParcelas = 4
+			}
+			senao
+			{
+				quantidadeParcelas = 5
+			}
+		}
+		senao se (quantidadeVezesSolicitouSeguro == 2)
+		{
+			se (quantidadeMesesTrabalhados <= 11)
+			{
+				quantidadeParcelas = 3
+			}
+			senao se (quantidadeMesesTrabalhados <= 23)
+			{
+				quantidadeParcelas = 4
+			}
+			senao
+			{
+				quantidadeParcelas = 5
+			}
+		}
+		senao
+		{
+			se (quantidadeMesesTrabalhados <= 11)
+			{
+				quantidadeParcelas = 3
+			}
+			senao se (quantidadeMesesTrabalhados <= 23)
+			{
+				quantidadeParcelas = 4
+			}
+			senao
+			{
+				quantidadeParcelas = 5
+			}	
+		}
+
+		retorne quantidadeParcelas
+	}
+
+	funcao real calcularValorParcelaSeguroDesemprego(real mediaSalarios)
+	{
+		real valorParcelaSeguroDesemprego = 0.0
+
+		se (mediaSalarios <= 1608.85)
+		{
+			valorParcelaSeguroDesemprego = mediaSalarios * 0.8
+		}
+		senao se (mediaSalarios <= 2681.69)
+		{
+			valorParcelaSeguroDesemprego = ((mediaSalarios - 1608.85) * 0.5) + 1287.08
+		}
+		senao
+		{
+			valorParcelaSeguroDesemprego = 1823.60
+		}
+
+		retorne valorParcelaSeguroDesemprego
+	}
+	
+	// Funções estéticas
+	funcao mensagemCarregamento(inteiro ciclos, cadeia mensagem)
+	{
+		cadeia simboloCarregamento[4]
+		simboloCarregamento[0] = "|"
+		simboloCarregamento[1] = "\\"
+		simboloCarregamento[2] = "-"
+		simboloCarregamento[3] = "/"
+
+		para (inteiro i = 1; i <= ciclos; i++)
+		{
+			para (inteiro j = 0; j <= 3; j++)
+			{
+				limpa()
+				escreva("[ ", simboloCarregamento[j]," ] ", mensagem)
+				Util.aguarde(100)			
+			}
+		}
+
+		limpa()
+	}
+
+	funcao mensagemContinuar()
+	{
+		cadeia continuar = ""
+		escreva("\n",
+		"[ Enter ] Para continuar\n")
+		leia(continuar)
+	}
+}
