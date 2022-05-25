@@ -85,7 +85,7 @@ programa
 		real ValorParcelaSeguroDesemprego = 0.0
 
 		mediaSalarios = somaSalarios / 3.0
-		ValorParcelaSeguroDesemprego = calcularValorParcelaSeguroDesemprego(mediaSalarios)
+		calcularValorParcelaSeguroDesemprego(mediaSalarios, ValorParcelaSeguroDesemprego)
 
 		// Recebendo valor referente a quantidade de vezes que solicitou o seguro desemprego
 		cadeia quantidadeVezesSolicitouSeguroCadeia = ""
@@ -254,9 +254,8 @@ programa
 		retorne quantidadeParcelas
 	}
 
-	funcao real calcularValorParcelaSeguroDesemprego(real mediaSalarios)
+	funcao calcularValorParcelaSeguroDesemprego(real mediaSalarios, real &valorParcelaSeguroDesemprego)
 	{
-		real valorParcelaSeguroDesemprego = 0.0
 
 		se (mediaSalarios <= 1608.85)
 		{
@@ -270,8 +269,6 @@ programa
 		{
 			valorParcelaSeguroDesemprego = 1823.60
 		}
-
-		retorne valorParcelaSeguroDesemprego
 	}
 	
 	// Funções estéticas
