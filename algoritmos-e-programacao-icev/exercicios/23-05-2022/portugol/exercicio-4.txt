@@ -1,0 +1,74 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Elabore uma sub-rotina que leia um número não determinado de valores
+positivos e retorne a média aritmética desses valores. Terminar a
+entrada de dados com o valor zero.
+*/
+
+programa
+{
+	
+	inclua biblioteca Matematica
+	inclua biblioteca Util
+	inclua biblioteca Tipos
+	
+	funcao inicio()
+	{
+		real numero = 0.0
+		real somaNumeros = 0.0
+		real mediaNumero = 0.0
+
+		inteiro quantidadeNumeros = 0
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ / ] Informe o ", quantidadeNumeros + 1, "º número\n[ > ] ")
+			leia(numero)
+
+			se (numero == 0)
+			{
+				se (quantidadeNumeros != 0)
+				{
+					mediaNumero = somaNumeros / quantidadeNumeros
+				}
+		
+				pare
+			}
+			senao
+			{
+				somaNumeros += numero
+				quantidadeNumeros++
+			}
+		}
+
+		limpa()
+		mediaNumero = Matematica.arredondar(mediaNumero, 2)
+		escreva("[ / ] A média é: ", mediaNumero)
+	}
+
+	// Funções estéticas
+	funcao mensagemCarregamento(inteiro ciclos, cadeia mensagem)
+	{
+		cadeia simboloCarregamento[4]
+		simboloCarregamento[0] = "|"
+		simboloCarregamento[1] = "\\"
+		simboloCarregamento[2] = "-"
+		simboloCarregamento[3] = "/"
+
+		para (inteiro i = 1; i <= ciclos; i++)
+		{
+			para (inteiro j = 0; j <= 3; j++)
+			{
+				limpa()
+				escreva("[ ", simboloCarregamento[j]," ] ", mensagem)
+				Util.aguarde(100)			
+			}
+		}
+
+		limpa()
+	}
+}
