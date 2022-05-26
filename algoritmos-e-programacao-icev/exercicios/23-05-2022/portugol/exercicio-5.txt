@@ -1,0 +1,118 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+A prefeitura de uma cidade fez uma pesquisa entre seus habitantes,
+coletando dados sobre o salário e o número de filhos. Elabore uma subrotina que leia esses dados para um número não determinado de
+pessoas e retorne a média de salário da população, a média do número
+de filhos, o maior salário e o percentual de pessoas com salário inferior
+a R$ 1.320,00.
+*/
+
+programa
+{
+	
+	inclua biblioteca Matematica
+	inclua biblioteca Util
+	inclua biblioteca Tipos
+	
+	funcao inicio()
+	{
+		coletarInformacoes()
+
+	}
+
+	funcao coletarInformacoes()
+	{
+		inteiro quantidadeHabitantes = 0
+		real somaFilhos = 0.0
+		real mediaFilhos = 0.0
+		real somaSalarios = 0.0
+		real mediaSalarios = 0.0
+		real salario = 0.0
+		inteiro filho = 0
+		inteiro opcaoMenu
+		real maiorSalario = 0.0
+
+		real quantidadePessoasSalarioInferior1320 = 0.0
+		real percentualQuantidadePessoasSalarioInferior1320 = 0.0
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ / ] Informe o ",quantidadeHabitantes + 1, "º salário\n[ $ ] ")
+			leia(salario)
+			
+			limpa()
+			escreva("[ / ] Informe a quantidade de filhos do ",quantidadeHabitantes + 1, "º habitante\n[ > ] ")
+			leia(filho)
+
+			somaFilhos += filho
+			somaSalarios += salario
+			quantidadeHabitantes++
+
+			se (salario > maiorSalario ou maiorSalario == 0)
+			{
+				maiorSalario = salario
+			}
+
+			se (salario < 1320)
+			{
+				quantidadePessoasSalarioInferior1320++	
+			}
+
+			limpa()
+			escreva("[ / ] Menu\n[ 1 ] Para sair\n[ 2 ] Para continuar\n")
+			leia(opcaoMenu)
+
+			se (opcaoMenu == 1)
+			{
+				se (quantidadeHabitantes != 0)
+				{
+					mediaSalarios = somaSalarios / quantidadeHabitantes
+					percentualQuantidadePessoasSalarioInferior1320 = quantidadePessoasSalarioInferior1320 / quantidadeHabitantes * 100
+
+					se (somaFilhos != 0)
+					{
+						mediaFilhos = somaFilhos / quantidadeHabitantes
+					}
+				}
+			
+				pare
+			}
+		}
+
+
+		limpa()
+		mediaSalarios = Matematica.arredondar(mediaSalarios, 2)
+		mediaFilhos = Matematica.arredondar(mediaFilhos, 2)
+		percentualQuantidadePessoasSalarioInferior1320 = Matematica.arredondar(percentualQuantidadePessoasSalarioInferior1320, 2)
+		
+		escreva("[ $ ] Média salário da população | R$ ", mediaSalarios, "\n",
+		"[ / ] Média número de filhos | ", mediaFilhos, "\n",
+		"[ % ] Percentual de pessoas com salário inferior a R$ 1.320,00 | ", percentualQuantidadePessoasSalarioInferior1320, "%")
+	}
+
+	// Funções estéticas
+	funcao mensagemCarregamento(inteiro ciclos, cadeia mensagem)
+	{
+		cadeia simboloCarregamento[4]
+		simboloCarregamento[0] = "|"
+		simboloCarregamento[1] = "\\"
+		simboloCarregamento[2] = "-"
+		simboloCarregamento[3] = "/"
+
+		para (inteiro i = 1; i <= ciclos; i++)
+		{
+			para (inteiro j = 0; j <= 3; j++)
+			{
+				limpa()
+				escreva("[ ", simboloCarregamento[j]," ] ", mensagem)
+				Util.aguarde(100)			
+			}
+		}
+
+		limpa()
+	}
+}
