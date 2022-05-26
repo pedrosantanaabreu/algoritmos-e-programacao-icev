@@ -1,0 +1,404 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Escreva uma função que retorne o valor por extenso de um valor
+informado como parâmetro e utilize-a em um programa que realize a
+leitura do valor e exiba o valor por extenso.
+*/
+
+programa
+{
+	inclua biblioteca Texto
+	inclua biblioteca Tipos
+	inclua biblioteca Util
+	
+	funcao inicio()
+	{
+		inteiro numero
+
+		escreva("Programa ainda não terminado, leitura de números até 999")
+		mensagemContinuar()
+
+		menu()
+		numero = validarNumero(obterNumero())
+
+		limpa()
+		escreva("[ / ] ", numero, " em extenso é: ",formarCentenaCadeia(numero))
+		
+		/*
+		 	print((112500 % 1000000))
+			print(112500 % 1000000 / 1000)
+			print(112500 % 1000 / 1)
+		 */
+	}
+
+	funcao menu()
+	{
+		limpa()
+		escreva("[ / ] Informe o valor que será transformado em extenso\n[ > ] ")
+	}
+
+	funcao inteiro validarNumero(cadeia numeroCadeia)
+	{
+		inteiro numeroInteiro = 0
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(numeroCadeia, 10))
+			{
+				numeroInteiro = Tipos.cadeia_para_inteiro(numeroCadeia, 10)
+				pare
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Número inválido, tente novamente.")
+				menu()
+				numeroCadeia = obterNumero()
+			}
+		}
+
+		retorne numeroInteiro
+	}
+
+	funcao cadeia obterNumero()
+	{
+		cadeia numeroCadeia
+		leia(numeroCadeia)
+		retorne numeroCadeia
+	}
+
+	funcao cadeia formarCentenaCadeia(inteiro centenaInteiro)
+	{
+		cadeia resutado = ""
+
+		cadeia tamanhoCentenaCadeia = Tipos.inteiro_para_cadeia(centenaInteiro, 10)
+		inteiro tamanhoCentenaInteiro = Texto.numero_caracteres(tamanhoCentenaCadeia)
+
+		cadeia centenaCadeia = ""
+		cadeia dezenaCadeia = ""
+		cadeia unidadeCadeia = ""
+
+		se (tamanhoCentenaInteiro == 1)
+		{
+			unidadeCadeia = unidade(centenaInteiro % 100, falso)
+			resutado += unidadeCadeia
+		}
+		senao se (tamanhoCentenaInteiro == 2)
+		{
+			se (centenaInteiro % 100 >= 20)
+			{
+				se ((centenaInteiro % 100 % 10) != 0)
+				{
+					dezenaCadeia = dezena(centenaInteiro % 100)
+					resutado += dezenaCadeia
+
+					resutado += " e "
+
+					unidadeCadeia = unidade(centenaInteiro % 100 % 10, verdadeiro)
+					resutado += unidadeCadeia
+				}
+				senao
+				{
+					dezenaCadeia = dezena(centenaInteiro % 100)
+					resutado += dezenaCadeia
+				}
+			}
+			senao
+			{
+				dezenaCadeia = dezena(centenaInteiro % 100)
+				resutado += dezenaCadeia
+			}
+		}
+		senao
+		{
+			se (centenaInteiro % 100 == 0)
+			{
+				centenaCadeia = centena(centenaInteiro, falso)
+				resutado += centenaCadeia
+			}
+			senao
+			{
+				se (centenaInteiro % 100 > 9)
+				{
+					centenaCadeia = centena(centenaInteiro, verdadeiro)
+					resutado += centenaCadeia
+					resutado += " e "
+
+					se (centenaInteiro % 100 >= 20)
+					{
+						se ((centenaInteiro % 100 % 10) != 0)
+						{
+							dezenaCadeia = dezena(centenaInteiro % 100)
+							resutado += dezenaCadeia
+		
+							resutado += " e "
+		
+							unidadeCadeia = unidade(centenaInteiro % 100 % 10, verdadeiro)
+							resutado += unidadeCadeia
+						}
+						senao
+						{
+							dezenaCadeia = dezena(centenaInteiro % 100)
+							resutado += dezenaCadeia
+						}
+					}
+					senao
+					{
+						dezenaCadeia = dezena(centenaInteiro % 100)
+						resutado += dezenaCadeia
+					}
+				}
+				senao
+				{
+					centenaCadeia = centena(centenaInteiro, verdadeiro)
+					resutado += centenaCadeia
+	
+					resutado += " e "
+	
+					unidadeCadeia = unidade(centenaInteiro % 100 % 10, verdadeiro)
+					resutado += unidadeCadeia
+				}
+			}
+		}
+
+		retorne resutado
+	}
+
+	funcao cadeia unidade(inteiro numero, logico temDezena)
+	{
+		cadeia unidadeExtenso = ""
+
+		se (numero == 0)
+		{
+			se (temDezena)
+			{
+				unidadeExtenso = ""
+			}
+			senao
+			{
+				unidadeExtenso = "zero"
+			}
+		}
+		senao se (numero == 1)
+		{
+			unidadeExtenso = "um"
+		}
+		senao se (numero == 2)
+		{
+			unidadeExtenso = "dois"
+		}
+		senao se (numero == 3)
+		{
+			unidadeExtenso = "três"
+		}
+		senao se (numero == 4)
+		{
+			unidadeExtenso = "quatro"
+		}
+		senao se (numero == 5)
+		{
+			unidadeExtenso = "cinco"
+		}
+		senao se (numero == 6)
+		{
+			unidadeExtenso = "seis"
+		}
+		senao se (numero == 7)
+		{
+			unidadeExtenso = "sete"
+		}
+		senao se (numero == 8)
+		{
+			unidadeExtenso = "oito"
+		}
+		senao se (numero == 9)
+		{
+			unidadeExtenso = "nove"
+		}
+		senao
+		{
+			unidadeExtenso = ""
+		}
+
+		retorne unidadeExtenso
+	}
+	
+	funcao cadeia dezena(inteiro numero)
+	{
+		cadeia dezenaExtenso = ""
+		
+		se (numero < 20)
+		{
+			se(numero == 10)
+			{
+				dezenaExtenso = "dez"
+			}
+			senao se (numero == 11)
+			{
+				dezenaExtenso = "onze"
+			}
+			senao se (numero == 12)
+			{
+				dezenaExtenso = "doze"
+			}
+			senao se (numero == 13)
+			{
+				dezenaExtenso = "treze"
+			}
+			senao se (numero == 14)
+			{
+				dezenaExtenso = "quatorze"
+			}
+			senao se (numero == 15)
+			{
+				dezenaExtenso = "quinze"
+			}
+			senao se (numero == 16)
+			{
+				dezenaExtenso = "dezesseis"
+			}
+			senao se (numero == 17)
+			{
+				dezenaExtenso = "dezessete"
+			}
+			senao se (numero == 18)
+			{
+				dezenaExtenso = "dezoito"
+			}
+			senao
+			{
+				dezenaExtenso = "dezenove"
+			}
+		}
+		senao
+		{
+			numero = numero / 10
+
+			se(numero == 2)
+			{
+				dezenaExtenso = "vinte"
+			}
+			senao se (numero == 3)
+			{
+				dezenaExtenso = "trinta"
+			}
+			senao se (numero == 4)
+			{
+				dezenaExtenso = "quarenta"
+			}
+			senao se (numero == 5)
+			{
+				dezenaExtenso = "cinquenta"
+			}
+			senao se (numero == 6)
+			{
+				dezenaExtenso = "sessenta"
+			}
+			senao se (numero == 7)
+			{
+				dezenaExtenso = "setenta"
+			}
+			senao se (numero == 8)
+			{
+				dezenaExtenso = "oitenta"
+			}
+			senao se (numero == 9)
+			{
+				dezenaExtenso = "noventa"
+			}
+			senao
+			{
+				dezenaExtenso = ""
+			}
+		}
+
+		retorne dezenaExtenso
+	}
+
+	funcao cadeia centena(inteiro numero, logico temDezena)
+	{
+		cadeia centenaExtenso = ""
+		numero = numero / 100
+
+		se (numero == 1)
+		{
+			se (temDezena)
+			{
+				centenaExtenso = "cento"
+			}
+			senao
+			{
+				centenaExtenso = "cem"
+			}
+		}
+		senao se(numero == 2)
+		{
+			centenaExtenso = "duzentos"
+		}
+		senao se (numero == 3)
+		{
+			centenaExtenso = "trezentos"
+		}
+		senao se (numero == 4)
+		{
+			centenaExtenso = "quatrocentos"
+		}
+		senao se (numero == 5)
+		{
+			centenaExtenso = "quinhentos"
+		}
+		senao se (numero == 6)
+		{
+			centenaExtenso = "seiscentos"
+		}
+		senao se (numero == 7)
+		{
+			centenaExtenso = "setecentos"
+		}
+		senao se (numero == 8)
+		{
+			centenaExtenso = "oitocentos"
+		}
+		senao se (numero == 9)
+		{
+			centenaExtenso = "novicentos"
+		}
+		senao
+		{
+			centenaExtenso = ""
+		}
+
+		retorne centenaExtenso
+	}
+	
+	// Funções estéticas
+	funcao mensagemCarregamento(inteiro ciclos, cadeia mensagem)
+	{
+		cadeia simboloCarregamento[4]
+		simboloCarregamento[0] = "|"
+		simboloCarregamento[1] = "\\"
+		simboloCarregamento[2] = "-"
+		simboloCarregamento[3] = "/"
+
+		para (inteiro i = 1; i <= ciclos; i++)
+		{
+			para (inteiro j = 0; j <= 3; j++)
+			{
+				limpa()
+				escreva("[ ", simboloCarregamento[j]," ] ", mensagem)
+				Util.aguarde(100)			
+			}
+		}
+
+		limpa()
+	}
+
+	funcao mensagemContinuar()
+	{
+		cadeia continuar = ""
+		escreva("\n",
+		"[ Enter ] Para continuar\n")
+		leia(continuar)
+	}
+}
