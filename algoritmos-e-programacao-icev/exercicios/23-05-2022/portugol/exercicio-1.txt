@@ -1,0 +1,109 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça uma sub-rotina que leia cinco valores inteiros, determine e mostre
+o maior e o menor deles.
+*/
+
+programa
+{
+	inclua biblioteca Tipos
+	inclua biblioteca Util
+	
+	funcao inicio()
+	{
+		inteiro menorNumero = 0
+		inteiro maiorNumero = 0
+
+		maiorMenorNumero(menorNumero, maiorNumero)
+
+		limpa()
+		escreva("[ / ] Resultado\n",
+		"[ Menor ] ", menorNumero, "\n",
+		"[ Maior ] ", maiorNumero)
+	}
+
+	funcao maiorMenorNumero(inteiro &menorNumero, inteiro &maiorNumero)
+	{
+		cadeia numeroCadeia = ""
+		inteiro numeroInteiro = 0
+
+		para (inteiro i = 1; i <= 5; i++)
+		{	
+			enquanto (verdadeiro)
+			{
+				limpa()
+				escreva("[ / ] Informe o ", i, "º número\n[ > ] ")
+				leia(numeroCadeia)
+
+				se (validarNumero(numeroCadeia))
+				{
+					numeroInteiro = Tipos.cadeia_para_inteiro(numeroCadeia, 10)
+					
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor inválido, tente novamente.")
+				}
+			}
+
+			se (numeroInteiro < menorNumero ou menorNumero == 0)
+			{
+				menorNumero = numeroInteiro
+			}
+
+			se (numeroInteiro > maiorNumero ou maiorNumero == 0)
+			{
+				maiorNumero = numeroInteiro
+			}
+		}
+	}
+
+	// Validar
+	funcao logico validarNumero(cadeia numeroCadeia)
+	{
+		inteiro numeroInteiro = 0
+
+		se (Tipos.cadeia_e_inteiro(numeroCadeia, 10))
+		{
+			retorne verdadeiro
+		}
+		senao
+		{
+			retorne falso
+		}
+	}
+
+	// Funções estéticas
+	funcao mensagemCarregamento(inteiro ciclos, cadeia mensagem)
+	{
+		cadeia simboloCarregamento[4]
+		simboloCarregamento[0] = "|"
+		simboloCarregamento[1] = "\\"
+		simboloCarregamento[2] = "-"
+		simboloCarregamento[3] = "/"
+
+		para (inteiro i = 1; i <= ciclos; i++)
+		{
+			para (inteiro j = 0; j <= 3; j++)
+			{
+				limpa()
+				escreva("[ ", simboloCarregamento[j]," ] ", mensagem)
+				Util.aguarde(100)			
+			}
+		}
+
+		limpa()
+	}
+
+	funcao mensagemContinuar()
+	{
+		cadeia continuar = ""
+		escreva("\n",
+		"[ Enter ] Para continuar\n")
+		leia(continuar)
+	}
+}
