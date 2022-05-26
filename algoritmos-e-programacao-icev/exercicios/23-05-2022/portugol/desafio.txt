@@ -101,7 +101,14 @@ programa
 			{
 				quantidadeVezesSolicitouSeguroInteiro = Tipos.cadeia_para_inteiro(quantidadeVezesSolicitouSeguroCadeia, 10)
 
-				pare
+				se (quantidadeVezesSolicitouSeguroInteiro > 0)
+				{
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor fora dos limites, tente novamente!")
+				}
 			}
 			senao
 			{
@@ -154,11 +161,18 @@ programa
 			{
 				mesesTrabalhadosUltimos36MesesInteiro = Tipos.cadeia_para_inteiro(mesesTrabalhadosUltimos36MesesCadeia, 10)
 
-				pare
+				se (mesesTrabalhadosUltimos36MesesInteiro < 36 e mesesTrabalhadosUltimos36MesesInteiro >= 0)
+				{
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor fora dos limites, tente novamente!")
+				}
 			}
 			senao
 			{
-				mensagemCarregamento(2, "Valor inválido, tente novamente!")	
+				mensagemCarregamento(2, "Valor inválido, tente novamente!")
 			}
 		}
 
@@ -205,26 +219,11 @@ programa
 	{
 		inteiro quantidadeParcelas = 0
 
-		se (quantidadeVezesSolicitouSeguro <= 1)
+		se (quantidadeVezesSolicitouSeguro == 1)
 		{
 			se (quantidadeMesesTrabalhados <= 11)
 			{
 				quantidadeParcelas = 1
-			}
-			senao se (quantidadeMesesTrabalhados <= 23)
-			{
-				quantidadeParcelas = 4
-			}
-			senao
-			{
-				quantidadeParcelas = 5
-			}
-		}
-		senao se (quantidadeVezesSolicitouSeguro == 2)
-		{
-			se (quantidadeMesesTrabalhados <= 11)
-			{
-				quantidadeParcelas = 3
 			}
 			senao se (quantidadeMesesTrabalhados <= 23)
 			{
@@ -248,7 +247,7 @@ programa
 			senao
 			{
 				quantidadeParcelas = 5
-			}	
+			}
 		}
 
 		retorne quantidadeParcelas
