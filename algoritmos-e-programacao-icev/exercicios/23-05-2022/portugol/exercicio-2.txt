@@ -1,0 +1,113 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Crie uma sub-rotina que receba como parâmetro a altura (ALT) e o sexo
+de uma pessoa e retorne seu peso ideal. Para homens, deverá calcular o
+peso ideal usando a fórmula: peso ideal = 72.7 * ALT − 58; para
+mulheres: peso ideal = 62.1 * ALT − 44.7. 
+*/
+
+programa
+{
+	inclua biblioteca Matematica
+	inclua biblioteca Tipos
+	inclua biblioteca Util
+	
+	funcao inicio()
+	{
+		real pesoIdeal = 0.0
+
+		cadeia alturaCadeia = ""
+		real alturaReal = 0.0
+
+		cadeia sexo = ""
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ / ] Informe a altura (M)\n[ > ] ")
+			leia(alturaCadeia)
+	
+			se (Tipos.cadeia_e_inteiro(alturaCadeia, 10) ou Tipos.cadeia_e_real(alturaCadeia))
+			{
+				alturaReal = Tipos.cadeia_para_real(alturaCadeia)
+				pare
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Altura inválida, tente novamente!")
+			}
+		}
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ / ] Informe o sexo\n[ M ] Masculino\n[ F ] Feminino\n[ > ] ")
+			leia(sexo)
+	
+			se (sexo == "M" ou sexo == "m" ou sexo == "F" ou sexo == "f")
+			{
+				alturaReal = Tipos.cadeia_para_real(alturaCadeia)
+				pare
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Sexo inválido, tente novamente!")
+			}
+		}
+
+		pesoIdeal = calcularPesoIdeal(alturaReal, sexo)
+		pesoIdeal = Matematica.arredondar(pesoIdeal, 2)
+
+		limpa()
+		escreva("[ / ] Peso ideal | ", pesoIdeal, "kg")
+	}
+
+	funcao real calcularPesoIdeal(real altura, cadeia sexo)
+	{
+		real pesoIdeal = 0.0
+
+		se (sexo == "M" ou sexo == "m")
+		{
+			pesoIdeal = 72.7 * altura - 58
+		}
+		senao
+		{
+			pesoIdeal = 62.1 * altura - 44.7
+		}
+
+		retorne pesoIdeal
+	}
+
+	// Funções estéticas
+	funcao mensagemCarregamento(inteiro ciclos, cadeia mensagem)
+	{
+		cadeia simboloCarregamento[4]
+		simboloCarregamento[0] = "|"
+		simboloCarregamento[1] = "\\"
+		simboloCarregamento[2] = "-"
+		simboloCarregamento[3] = "/"
+
+		para (inteiro i = 1; i <= ciclos; i++)
+		{
+			para (inteiro j = 0; j <= 3; j++)
+			{
+				limpa()
+				escreva("[ ", simboloCarregamento[j]," ] ", mensagem)
+				Util.aguarde(100)			
+			}
+		}
+
+		limpa()
+	}
+
+	funcao mensagemContinuar()
+	{
+		cadeia continuar = ""
+		escreva("\n",
+		"[ Enter ] Para continuar\n")
+		leia(continuar)
+	}
+}
