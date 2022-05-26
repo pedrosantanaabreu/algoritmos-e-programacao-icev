@@ -38,7 +38,7 @@ programa
 				escreva("[ / ] Informe o ", i, "º número\n[ > ] ")
 				leia(numeroCadeia)
 
-				se (validarNumero(numeroCadeia))
+				se (Tipos.cadeia_e_inteiro(numeroCadeia, 10))
 				{
 					numeroInteiro = Tipos.cadeia_para_inteiro(numeroCadeia, 10)
 					
@@ -59,21 +59,6 @@ programa
 			{
 				maiorNumero = numeroInteiro
 			}
-		}
-	}
-
-	// Validar
-	funcao logico validarNumero(cadeia numeroCadeia)
-	{
-		inteiro numeroInteiro = 0
-
-		se (Tipos.cadeia_e_inteiro(numeroCadeia, 10))
-		{
-			retorne verdadeiro
-		}
-		senao
-		{
-			retorne falso
 		}
 	}
 
