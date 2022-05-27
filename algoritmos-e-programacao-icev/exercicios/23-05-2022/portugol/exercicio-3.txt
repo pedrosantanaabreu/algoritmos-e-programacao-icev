@@ -23,8 +23,64 @@ programa
 		numero = validarNumero(obterNumero())
 		
 		limpa()
-		escreva("[ / ] ", numero, " em extenso é: ",unificarNumeroMaisSufixo(numero))
+		escreva("[ / ] ", numero, " em extenso é: \n",unificarNumeroMaisSufixo(numero), "\n")
+		mensagemContinuar()
+
+		enquanto (verdadeiro)
+		{
+			menuContinuar()
+			inteiro opcaoMenu = validarOpcaoMenu(obterOpcaoMenu())
+
+			se (opcaoMenu == 1)
+			{
+				inicio()
+			}
+			senao se (opcaoMenu == 2)
+			{
+				mensagemCarregamento(2, "Saindo")
+				pare
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente")	
+			}
+		}
+	}
+
+	funcao inteiro validarOpcaoMenu(cadeia opcaoMenu)
+	{
+		inteiro opcaoMenuInteiro = 0
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(opcaoMenu, 10))
+			{
+				opcaoMenuInteiro = Tipos.cadeia_para_inteiro(opcaoMenu, 10)
+				pare
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+				opcaoMenu = obterOpcaoMenu()
+			}
+		}
 		
+		retorne opcaoMenuInteiro
+	}
+
+	funcao cadeia obterOpcaoMenu()
+	{
+		cadeia opcaoMenu
+		leia(opcaoMenu)
+		retorne opcaoMenu
+	}
+
+	funcao menuContinuar()
+	{
+		limpa()
+		escreva("[ / ] Deseja continuar?\n",
+		"[ 1 ] Para continuar\n",
+		"[ 2 ] Para sair\n",
+		"[ > ] ")
 	}
 
 	funcao menu()
@@ -71,7 +127,6 @@ programa
 		enquanto (tamanhoNumero % 3 != 0)
 		{
 			tamanhoNumero++
-			escreva(tamanhoNumero)
 		}
 
 		cadeia textoFinal = ""
@@ -92,21 +147,21 @@ programa
 			}
 
 			inteiro centenaConverter = (numero % potenciaModulo) / potenciaDivisao
-			cadeia centenaConvertidaCadeia = centena(centenaConverter)
 
-			textoFinal += centenaConvertidaCadeia
-			textoFinal += sufixo(i, centenaConverter)
-
-			se (i != 3)
+			se (centenaConverter != 0 e tamanhoNumero != i)
 			{
 				textoFinal += " e "
 			}
-			escreva(i, centenaConverter)
-			escreva(textoFinal)
-			mensagemContinuar()
-			
+
+			se (nao (centenaConverter == 0 e i == 3))
+			{
+				cadeia centenaConvertidaCadeia = centena(centenaConverter)
+				textoFinal += centenaConvertidaCadeia
+				textoFinal += sufixo(i, centenaConverter)
+			}
 		}
-		retorne ""
+
+		retorne textoFinal
 	}
 
 	funcao cadeia sufixo(inteiro tamanhoNumero, inteiro centenaNumero)
@@ -340,7 +395,7 @@ programa
 			}
 			senao
 			{
-				se (numero % 100 == 0)
+				se (numero == 0)
 				{
 					retorne ""
 				}
