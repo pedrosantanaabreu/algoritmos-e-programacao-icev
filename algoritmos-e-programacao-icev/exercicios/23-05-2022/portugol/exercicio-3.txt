@@ -87,7 +87,7 @@ programa
 	{
 		limpa()
 		escreva("[ / ] Informe o valor que será transformado em extenso\n",
-		"[ ! ] Limite de 4 bilhões\n",
+		"[ ! ] Limite do Portugol Studio 999.999.999\n",
 		"[ > ] ")
 	}
 
@@ -185,7 +185,6 @@ programa
 				cadeia sufixoNumero[3]
 				sufixoNumero[0] = " mil"
 				sufixoNumero[1] = " milhão"
-				sufixoNumero[2] = " bilhão"
 
 				retorne sufixoNumero[tamanhoNumero / 3 - 2]
 			}
@@ -194,7 +193,6 @@ programa
 				cadeia sufixoNumero[3]
 				sufixoNumero[0] = " mil"
 				sufixoNumero[1] = " milhões"
-				sufixoNumero[2] = " bilhões"
 
 				retorne sufixoNumero[tamanhoNumero / 3 - 2]
 			}
@@ -230,7 +228,7 @@ programa
 		 * Então o programa não deverá retorna nada
 		 */
 
-		se (nao (numero % 10 == 0 e numero > 9))
+		se (numero <= 9)
 		{
 			retorne unidadeTexto[numero % 10]
 		}
