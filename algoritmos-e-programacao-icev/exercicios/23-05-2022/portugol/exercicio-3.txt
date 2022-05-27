@@ -10,34 +10,29 @@ leitura do valor e exiba o valor por extenso.
 
 programa
 {
+	inclua biblioteca Matematica
 	inclua biblioteca Texto
 	inclua biblioteca Tipos
 	inclua biblioteca Util
 	
 	funcao inicio()
 	{
-		inteiro numero
+		inteiro numero = 0
 
-		//escreva("Programa ainda não terminado, leitura de números até 999")
-		//mensagemContinuar()
-
-		//menu()
-		//numero = validarNumero(obterNumero())
-		escreva(centena(101))
-		//limpa()
-		//escreva("[ / ] ", numero, " em extenso é: ",formarCentenaCadeia(numero))
+		menu()
+		numero = validarNumero(obterNumero())
 		
-		/*
-		 	print((112500 % 1000000))
-			print(112500 % 1000000 / 1000)
-			print(112500 % 1000 / 1)
-		 */
+		limpa()
+		escreva("[ / ] ", numero, " em extenso é: ",unificarNumeroMaisSufixo(numero))
+		
 	}
 
 	funcao menu()
 	{
 		limpa()
-		escreva("[ / ] Informe o valor que será transformado em extenso\n[ > ] ")
+		escreva("[ / ] Informe o valor que será transformado em extenso\n",
+		"[ ! ] Limite de 4 bilhões\n",
+		"[ > ] ")
 	}
 
 	funcao inteiro validarNumero(cadeia numeroCadeia)
@@ -68,101 +63,79 @@ programa
 		retorne numeroCadeia
 	}
 
-	funcao cadeia formarCentenaCadeia(inteiro centenaInteiro)
+	funcao cadeia unificarNumeroMaisSufixo(inteiro numero)
 	{
-		cadeia resutado = ""
+		cadeia textoNumeroParaContarCaracter = Tipos.inteiro_para_cadeia(numero, 10)
+		inteiro tamanhoNumero = Texto.numero_caracteres(textoNumeroParaContarCaracter)
 
-		cadeia tamanhoCentenaCadeia = Tipos.inteiro_para_cadeia(centenaInteiro, 10)
-		inteiro tamanhoCentenaInteiro = Texto.numero_caracteres(tamanhoCentenaCadeia)
-
-		cadeia centenaCadeia = ""
-		cadeia dezenaCadeia = ""
-		cadeia unidadeCadeia = ""
-
-		se (tamanhoCentenaInteiro == 1)
+		enquanto (tamanhoNumero % 3 != 0)
 		{
-			unidadeCadeia = unidade(centenaInteiro % 100)
-			resutado += unidadeCadeia
+			tamanhoNumero++
+			escreva(tamanhoNumero)
 		}
-		senao se (tamanhoCentenaInteiro == 2)
+
+		cadeia textoFinal = ""
+
+		para (inteiro i = tamanhoNumero; i >= 3; i -= 3)
 		{
-			se (centenaInteiro % 100 >= 20)
+			inteiro potenciaModulo = 1
+			inteiro potenciaDivisao = 1
+
+			para (inteiro j = 1; j <= i; j++)
 			{
-				se ((centenaInteiro % 100 % 10) != 0)
-				{
-					dezenaCadeia = dezena(centenaInteiro % 100)
-					resutado += dezenaCadeia
+				potenciaModulo *= 10
+			}
+			
+			para (inteiro k = 1; k <= i - 3; k++)
+			{
+				potenciaDivisao *= 10
+			}
 
-					resutado += " e "
+			inteiro centenaConverter = (numero % potenciaModulo) / potenciaDivisao
+			cadeia centenaConvertidaCadeia = centena(centenaConverter)
 
-					unidadeCadeia = unidade(centenaInteiro % 100 % 10)
-					resutado += unidadeCadeia
-				}
-				senao
-				{
-					dezenaCadeia = dezena(centenaInteiro % 100)
-					resutado += dezenaCadeia
-				}
+			textoFinal += centenaConvertidaCadeia
+			textoFinal += sufixo(i, centenaConverter)
+
+			se (i != 3)
+			{
+				textoFinal += " e "
+			}
+			escreva(i, centenaConverter)
+			escreva(textoFinal)
+			mensagemContinuar()
+			
+		}
+		retorne ""
+	}
+
+	funcao cadeia sufixo(inteiro tamanhoNumero, inteiro centenaNumero)
+	{
+		se (tamanhoNumero > 3)
+		{
+			se (centenaNumero == 1)
+			{
+				cadeia sufixoNumero[3]
+				sufixoNumero[0] = " mil"
+				sufixoNumero[1] = " milhão"
+				sufixoNumero[2] = " bilhão"
+
+				retorne sufixoNumero[tamanhoNumero / 3 - 2]
 			}
 			senao
 			{
-				dezenaCadeia = dezena(centenaInteiro % 100)
-				resutado += dezenaCadeia
+				cadeia sufixoNumero[3]
+				sufixoNumero[0] = " mil"
+				sufixoNumero[1] = " milhões"
+				sufixoNumero[2] = " bilhões"
+
+				retorne sufixoNumero[tamanhoNumero / 3 - 2]
 			}
 		}
 		senao
 		{
-			se (centenaInteiro % 100 == 0)
-			{
-				centenaCadeia = centena(centenaInteiro)
-				resutado += centenaCadeia
-			}
-			senao
-			{
-				se (centenaInteiro % 100 > 9)
-				{
-					centenaCadeia = centena(centenaInteiro)
-					resutado += centenaCadeia
-					resutado += " e "
-
-					se (centenaInteiro % 100 >= 20)
-					{
-						se ((centenaInteiro % 100 % 10) != 0)
-						{
-							dezenaCadeia = dezena(centenaInteiro % 100)
-							resutado += dezenaCadeia
-		
-							resutado += " e "
-		
-							unidadeCadeia = unidade(centenaInteiro % 100 % 10)
-							resutado += unidadeCadeia
-						}
-						senao
-						{
-							dezenaCadeia = dezena(centenaInteiro % 100)
-							resutado += dezenaCadeia
-						}
-					}
-					senao
-					{
-						dezenaCadeia = dezena(centenaInteiro % 100)
-						resutado += dezenaCadeia
-					}
-				}
-				senao
-				{
-					centenaCadeia = centena(centenaInteiro)
-					resutado += centenaCadeia
-	
-					resutado += " e "
-	
-					unidadeCadeia = unidade(centenaInteiro % 100 % 10)
-					resutado += unidadeCadeia
-				}
-			}
+			retorne ""
 		}
-
-		retorne resutado
 	}
 
 	funcao cadeia unidade(inteiro numero)
@@ -367,7 +340,14 @@ programa
 			}
 			senao
 			{
-				retorne centenaTexto[numero / 100 - 1]
+				se (numero % 100 == 0)
+				{
+					retorne ""
+				}
+				senao
+				{
+					retorne centenaTexto[numero / 100 - 1]
+				}
 			}
 		}
 	}
