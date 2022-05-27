@@ -148,16 +148,28 @@ programa
 
 			inteiro centenaConverter = (numero % potenciaModulo) / potenciaDivisao
 
-			se (centenaConverter != 0 e tamanhoNumero != i)
+			se (centenaConverter != 0)
 			{
-				textoFinal += " e "
+				se (tamanhoNumero != i)
+				{
+					textoFinal += " e "
+				}
+	
+				se (nao (centenaConverter == 0 e i == 3))
+				{
+					cadeia centenaConvertidaCadeia = centena(centenaConverter)
+					textoFinal += centenaConvertidaCadeia
+					textoFinal += sufixo(i, centenaConverter)
+				}	
 			}
-
-			se (nao (centenaConverter == 0 e i == 3))
+			senao
 			{
-				cadeia centenaConvertidaCadeia = centena(centenaConverter)
-				textoFinal += centenaConvertidaCadeia
-				textoFinal += sufixo(i, centenaConverter)
+				se (i == tamanhoNumero)
+				{
+					cadeia centenaConvertidaCadeia = centena(centenaConverter)
+					textoFinal += centenaConvertidaCadeia
+					textoFinal += sufixo(i, centenaConverter)
+				}
 			}
 		}
 
