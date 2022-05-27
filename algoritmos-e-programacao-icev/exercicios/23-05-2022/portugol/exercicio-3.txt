@@ -150,13 +150,27 @@ programa
 
 			se (centenaConverter != 0)
 			{
+				/*
+				 * Aqui conferimos se o tamanho do numero é diferente de i
+				 * Pois caso seja, significa que teremos mais numeros
+				 * Então devemos colocar o " e "
+				 */
+
 				se (tamanhoNumero != i)
 				{
 					textoFinal += " e "
 				}
-	
-				se (nao (centenaConverter == 0 e i == 3))
+				senao
 				{
+					textoFinal += ""
+				}
+	
+				se (i != 3)
+				{
+					/*
+					 * Aqui conferimos se teremos sufixo no final
+					 */
+
 					cadeia centenaConvertidaCadeia = centena(centenaConverter)
 					textoFinal += centenaConvertidaCadeia
 					textoFinal += sufixo(i, centenaConverter)
@@ -164,11 +178,22 @@ programa
 			}
 			senao
 			{
+				/*
+				 * Ao entrar aqui significa que o número é 0
+				 * Logo abaixo iremos comparar se i == tamanhoNumero para saber se é a primeira repetição
+				 * Caso seja, ele deve retornar o valor = "zero"
+				 * Caso contrario ele não retornara nada
+				 */
+
 				se (i == tamanhoNumero)
 				{
 					cadeia centenaConvertidaCadeia = centena(centenaConverter)
 					textoFinal += centenaConvertidaCadeia
 					textoFinal += sufixo(i, centenaConverter)
+				}
+				senao
+				{
+					textoFinal += ""
 				}
 			}
 		}
@@ -469,6 +494,7 @@ programa
 		cadeia continuar = ""
 		escreva("\n",
 		"[ Enter ] Para continuar\n")
+
 		leia(continuar)
 	}
 }
