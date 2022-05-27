@@ -18,14 +18,14 @@ programa
 	{
 		inteiro numero
 
-		escreva("Programa ainda não terminado, leitura de números até 999")
-		mensagemContinuar()
+		//escreva("Programa ainda não terminado, leitura de números até 999")
+		//mensagemContinuar()
 
-		menu()
-		numero = validarNumero(obterNumero())
-
-		limpa()
-		escreva("[ / ] ", numero, " em extenso é: ",formarCentenaCadeia(numero))
+		//menu()
+		//numero = validarNumero(obterNumero())
+		escreva(unidade(10))
+		//limpa()
+		//escreva("[ / ] ", numero, " em extenso é: ",formarCentenaCadeia(numero))
 		
 		/*
 		 	print((112500 % 1000000))
@@ -81,7 +81,7 @@ programa
 
 		se (tamanhoCentenaInteiro == 1)
 		{
-			unidadeCadeia = unidade(centenaInteiro % 100, falso)
+			unidadeCadeia = unidade(centenaInteiro % 100)
 			resutado += unidadeCadeia
 		}
 		senao se (tamanhoCentenaInteiro == 2)
@@ -95,7 +95,7 @@ programa
 
 					resutado += " e "
 
-					unidadeCadeia = unidade(centenaInteiro % 100 % 10, verdadeiro)
+					unidadeCadeia = unidade(centenaInteiro % 100 % 10)
 					resutado += unidadeCadeia
 				}
 				senao
@@ -134,7 +134,7 @@ programa
 		
 							resutado += " e "
 		
-							unidadeCadeia = unidade(centenaInteiro % 100 % 10, verdadeiro)
+							unidadeCadeia = unidade(centenaInteiro % 100 % 10)
 							resutado += unidadeCadeia
 						}
 						senao
@@ -156,7 +156,7 @@ programa
 	
 					resutado += " e "
 	
-					unidadeCadeia = unidade(centenaInteiro % 100 % 10, verdadeiro)
+					unidadeCadeia = unidade(centenaInteiro % 100 % 10)
 					resutado += unidadeCadeia
 				}
 			}
@@ -165,65 +165,39 @@ programa
 		retorne resutado
 	}
 
-	funcao cadeia unidade(inteiro numero, logico temDezena)
-	{
-		cadeia unidadeExtenso = ""
+	funcao cadeia unidade(inteiro numero)
+	{	
+		
+		cadeia unidadeTexto[10]
+		unidadeTexto[0] = "zero"
+		unidadeTexto[1] = "um"
+		unidadeTexto[2] = "dois"
+		unidadeTexto[3] = "três"
+		unidadeTexto[4] = "quatro"
+		unidadeTexto[5] = "cinco"
+		unidadeTexto[6] = "seis"
+		unidadeTexto[7] = "sete"
+		unidadeTexto[8] = "oito"
+		unidadeTexto[9] = "nove"
 
-		se (numero == 0)
+		/*
+		 * Caso a unidade seja 0 temos duas opções possiveis:
+		 * 1. Se for apenas 0
+		 * Então devemos retornar "zero"
+		 * 
+		 * 2. Se for 0 e o número for maior que 9
+		 * Exemplo: 10
+		 * Então o programa não deverá retorna nada
+		 */
+
+		se (nao (numero % 10 == 0 e numero > 9))
 		{
-			se (temDezena)
-			{
-				unidadeExtenso = ""
-			}
-			senao
-			{
-				unidadeExtenso = "zero"
-			}
-		}
-		senao se (numero == 1)
-		{
-			unidadeExtenso = "um"
-		}
-		senao se (numero == 2)
-		{
-			unidadeExtenso = "dois"
-		}
-		senao se (numero == 3)
-		{
-			unidadeExtenso = "três"
-		}
-		senao se (numero == 4)
-		{
-			unidadeExtenso = "quatro"
-		}
-		senao se (numero == 5)
-		{
-			unidadeExtenso = "cinco"
-		}
-		senao se (numero == 6)
-		{
-			unidadeExtenso = "seis"
-		}
-		senao se (numero == 7)
-		{
-			unidadeExtenso = "sete"
-		}
-		senao se (numero == 8)
-		{
-			unidadeExtenso = "oito"
-		}
-		senao se (numero == 9)
-		{
-			unidadeExtenso = "nove"
-		}
-		senao
-		{
-			unidadeExtenso = ""
+			retorne unidadeTexto[numero % 10]
 		}
 
-		retorne unidadeExtenso
+		retorne ""
 	}
-	
+
 	funcao cadeia dezena(inteiro numero)
 	{
 		cadeia dezenaExtenso = ""
@@ -319,7 +293,7 @@ programa
 	funcao cadeia centena(inteiro numero, logico temDezena)
 	{
 		cadeia centenaExtenso = ""
-		numero = numero / 100
+		numero = numero % 100
 
 		se (numero == 1)
 		{
