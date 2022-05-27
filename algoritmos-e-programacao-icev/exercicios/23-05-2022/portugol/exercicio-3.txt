@@ -17,32 +17,44 @@ programa
 	
 	funcao inicio()
 	{
-		inteiro numero = 0
-
-		menu()
-		numero = validarNumero(obterNumero())
-		
-		limpa()
-		escreva("[ / ] ", numero, " em extenso é: \n",unificarNumeroMaisSufixo(numero), "\n")
-		mensagemContinuar()
-
 		enquanto (verdadeiro)
 		{
-			menuContinuar()
-			inteiro opcaoMenu = validarOpcaoMenu(obterOpcaoMenu())
+			inteiro numero = 0
+			logico continuar = falso
 
-			se (opcaoMenu == 1)
+			menu()
+			numero = validarNumero(obterNumero())
+			
+			limpa()
+			escreva("[ / ] ", numero, " em extenso é: \n",unificarNumeroMaisSufixo(numero), "\n")
+			mensagemContinuar()
+	
+			
+			enquanto (verdadeiro)
 			{
-				inicio()
+				menuContinuar()
+				inteiro opcaoMenu = validarOpcaoMenu(obterOpcaoMenu())
+				
+	
+				se (opcaoMenu == 1)
+				{
+					continuar = verdadeiro
+					pare
+				}
+				senao se (opcaoMenu == 2)
+				{
+					mensagemCarregamento(2, "Saindo")
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor inválido, tente novamente")	
+				}
 			}
-			senao se (opcaoMenu == 2)
+
+			se (nao continuar)
 			{
-				mensagemCarregamento(2, "Saindo")
 				pare
-			}
-			senao
-			{
-				mensagemCarregamento(2, "Valor inválido, tente novamente")	
 			}
 		}
 	}
@@ -174,7 +186,12 @@ programa
 					cadeia centenaConvertidaCadeia = centena(centenaConverter)
 					textoFinal += centenaConvertidaCadeia
 					textoFinal += sufixo(i, centenaConverter)
-				}	
+				}
+				senao
+				{
+					cadeia centenaConvertidaCadeia = centena(centenaConverter)
+					textoFinal += centenaConvertidaCadeia
+				}
 			}
 			senao
 			{
@@ -264,7 +281,7 @@ programa
 		 * Então o programa não deverá retorna nada
 		 */
 
-		se (numero <= 9)
+		se (numero % 10 <= 9)
 		{
 			retorne unidadeTexto[numero % 10]
 		}
