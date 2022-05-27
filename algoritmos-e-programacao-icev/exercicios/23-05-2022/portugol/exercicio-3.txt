@@ -338,7 +338,22 @@ programa
 				dezenaTexto[5] = "sessenta"
 				dezenaTexto[6] = "oitenta"
 				dezenaTexto[7] = "noventa"
-	
+
+				/*
+				 * Aqui iremos pegar o valor de número
+				 * Fazer uma divisão inteira por 10
+				 * E depois diminuir 2
+				 * Assim se adequando aos números da tabela
+				 * Exemplo:
+				 * 
+				 * numero = 22
+				 * 22 / 10 = 2
+				 * 2 - 2
+				 * 0
+				 * 
+				 * 0 = Vinte
+				 */
+
 				dezenaTextoFinal += dezenaTexto[numero % 100 / 10 - 2]
 	
 				/*
