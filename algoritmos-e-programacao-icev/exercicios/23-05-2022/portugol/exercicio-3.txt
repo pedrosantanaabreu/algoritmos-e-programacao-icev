@@ -178,6 +178,17 @@ programa
 
 	funcao cadeia sufixo(inteiro tamanhoNumero, inteiro centenaNumero)
 	{
+
+		/*
+		 * Caso o tamanho do numero seja 3
+		 * Então não devemos inserir sufixo, pois é o final da string
+		 * Exemplo:
+		 * 101
+		 * 
+		 * Tamanho 3
+		 * Não existe sufixo para número de tamanho 3
+		 */
+
 		se (tamanhoNumero > 3)
 		{
 			se (centenaNumero == 1)
@@ -396,6 +407,20 @@ programa
 				{
 					centenaTexto[0] = "cento"
 				}
+
+				/*
+				 * Para acessar o valor da string dentro do vetor, usa-se o calculo
+				 * Divisão inteira por 100 - 1
+				 * Ou seja:
+				 * Exemplo:
+				 * inteiro numero = 211
+				 * 
+				 * Divisão inteira = numero / 100 = 2
+				 * 2 - 1
+				 * 1
+				 * 
+				 * 1 = duzentos
+				 */
 
 				centenaTextoFinal += centenaTexto[numero / 100 - 1]
 				centenaTextoFinal += " e "
