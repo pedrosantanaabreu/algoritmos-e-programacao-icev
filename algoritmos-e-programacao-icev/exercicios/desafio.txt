@@ -48,7 +48,14 @@ programa
 	
 	funcao inicio()
 	{
-		
+		inteiro codigo = 0
+		real saldo = 0.0
+
+		para (inteiro i = 1; i <= 10; i++)
+		{
+			criarConta(codigo, saldo)
+		}
+
 		exibirMenu()
 		validarOpcao(obterOpcao())
 	}
