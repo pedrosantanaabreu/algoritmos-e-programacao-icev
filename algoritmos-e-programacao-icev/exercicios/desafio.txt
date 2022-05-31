@@ -1,0 +1,202 @@
+/*
+@Pedro Santana Abreu (https://linktr.ee/pedrosantanaabreu)
+@Icev (https://somosicev.com)
+
+PT-BR:
+Faça um programa que simule um controle bancário. Para tanto, devem ser
+lidos os códigos de dez contas e seus respectivos saldos. Os códigos devem
+ser armazenados em um vetor de dez número inteiros (não pode haver mais de
+uma conta com o mesmo código) e os saldos devem ser armazenados em um
+vetor de números reais. O saldo deverá ser cadastrado na mesma posição do
+código. Por exemplo, se a conta 504 foi armazenada na quinta posição do vetor
+de códigos, seu saldo deverá ficar na quinta posição do vetor de saldos. Depois
+de fazer a leitura dos valores, deverá aparecer o seguinte menu na tela:
+Menu Principal
+
+1. Efetuar depósito
+2. Efetuar saque
+3. Consultar ativo bancário
+4. Relatório de contas
+5. Finalizar o programa
+
+• Para efetuar depósito, deve-se solicitar o código da conta e o valor a ser
+depositado. Se a conta não estiver cadastrada, deverá ser exibida uma
+mensagem correspondente e voltar ao menu. Se a conta existir, o saldo
+deve ser atualizado
+
+• Para efetuar saque, deve-se solicitar o código da conta e valor a ser
+sacado. Se a conta não estiver cadastrada, deverá ser exibida uma
+mensagem ao usuário e voltar ao menu. Se a conta existir, o programa deve
+verificar se o saldo é suficiente para o valor do saque. Se o saldo for
+suficiente, realizar o saque, atualizar o saldo e voltar ao menu. Caso
+contrário, mostrar uma mensagem de saldo insuficiente e voltar ao menu
+
+• Para consultar o ativo bancário, deve-se somar o saldo de todas as contas
+do banco. Depois de mostrar esse valor, voltar ao menu
+
+• O relatório de contas deve listar o código das contas e os respectivos
+saldos
+
+• O programa só termina quanto for digitada a opção 5.
+*/
+
+programa
+{
+	inclua biblioteca Tipos
+	inclua biblioteca Matematica
+	inclua biblioteca Util
+	
+	funcao inicio()
+	{
+		
+		exibirMenu()
+		validarOpcao(obterOpcao())
+	}
+
+	// Menu
+	funcao exibirMenu()
+	{
+		escreva("[ / ] Menu principal", "\n",
+		"[ 1 ] Efetuar depósito", "\n",
+		"[ 2 ] Efetuar saque", "\n",
+		"[ 3 ] Consultar ativo bancário", "\n",
+		"[ 4 ] Relatório de contas","\n",
+		"[ 5 ] Finalizar o programa", "\n",
+		"[ > ] ")
+	}
+
+	funcao criarConta(inteiro &codigo, real &saldo)
+	{
+		codigo = validarCodigo(obterCodigo())
+		saldo = validarSaldo(obterSaldo())
+	}
+
+	// Obter valores
+	funcao cadeia obterOpcao()
+	{
+		cadeia opcao
+
+		leia(opcao)
+
+		retorne opcao
+	}
+
+	funcao cadeia obterSaldo()
+	{
+		cadeia saldo = ""
+
+		limpa()
+		escreva("[ / ] Criação de conta", "\n",
+		"[ ? ] Informe o saldo da conta", "\n",
+		"[ > ] ")
+		leia(saldo)
+		
+		retorne saldo
+	}
+
+	funcao cadeia obterCodigo()
+	{
+		cadeia codigo = ""
+
+		limpa()
+		escreva("[ / ] Criação de conta", "\n",
+		"[ ? ] Informe o código da conta", "\n",
+		"[ > ] ")
+		leia(codigo)
+		
+		retorne codigo
+	}
+
+	// Validações
+	funcao real validarSaldo(cadeia saldo)
+	{
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(saldo, 10) ou Tipos.cadeia_e_real(saldo))
+			{
+				pare
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tnete novamente.")
+				saldo = obterCodigo()
+			}
+		}
+
+		retorne Tipos.cadeia_para_real(saldo)
+	}
+
+	funcao inteiro validarCodigo(cadeia codigo)
+	{
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(codigo, 10))
+			{
+				pare
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tnete novamente.")
+				codigo = obterCodigo()
+			}
+		}
+
+		retorne Tipos.cadeia_para_inteiro(codigo, 10)
+	}
+
+	funcao inteiro validarOpcao(cadeia opcao)
+	{
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(opcao, 10))
+			{
+				se (Tipos.cadeia_para_inteiro(opcao, 10) >= 1 e Tipos.cadeia_para_inteiro(opcao, 10) <= 5)
+				{
+					 pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Opção inválida, tnete novamente.")
+					opcao = obterOpcao()
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tnete novamente.")
+				opcao = obterCodigo()
+			}
+		}
+
+		retorne Tipos.cadeia_para_inteiro(opcao, 10)
+	}
+
+	// Funções estéticas
+	funcao mensagemCarregamento(inteiro ciclos, cadeia mensagem)
+	{
+		cadeia simboloCarregamento[4]
+		simboloCarregamento[0] = "|"
+		simboloCarregamento[1] = "\\"
+		simboloCarregamento[2] = "-"
+		simboloCarregamento[3] = "/"
+
+		para (inteiro i = 1; i <= ciclos; i++)
+		{
+			para (inteiro j = 0; j <= 3; j++)
+			{
+				limpa()
+				escreva("[ ", simboloCarregamento[j]," ] ", mensagem)
+				Util.aguarde(100)			
+			}
+		}
+
+		limpa()
+	}
+
+	funcao mensagemContinuar()
+	{
+		cadeia continuar = ""
+		escreva("\n",
+		"[ Enter ] Para continuar\n")
+		leia(continuar)
+	}
+}
