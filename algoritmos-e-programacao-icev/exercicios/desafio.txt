@@ -48,14 +48,14 @@ programa
 	
 	funcao inicio()
 	{
-		inteiro codigo = 0
-		real saldo = 0.0
+		// Área de variáveis
+		inteiro codigos[10]
+		real saldos[10]
 
-		para (inteiro i = 1; i <= 10; i++)
-		{
-			criarConta(codigo, saldo)
-		}
+		// Registrando contas
+		registrarConta(codigos, saldos)
 
+		// Exbindo menu de opções
 		exibirMenu()
 		validarOpcao(obterOpcao())
 	}
@@ -78,6 +78,83 @@ programa
 		saldo = validarSaldo(obterSaldo())
 	}
 
+	funcao registrarConta(inteiro &codigos[], real &saldos[])
+	{
+		inteiro quantidadeDeContas = 3
+		inteiro codigo = 0
+		real saldo = 0.0
+
+		para (inteiro i = 0; i < quantidadeDeContas; i++)
+		{
+			enquanto (verdadeiro)
+			{
+				criarConta(codigo, saldo)
+				
+				codigos[i] = codigo
+				saldos[i] = saldo
+	
+				// Confirmação
+				se (confirmarRegistrarConta(codigo, saldo, i))
+				{
+					pare
+				}
+			}
+		}
+	}
+
+	funcao logico confirmarRegistrarConta(inteiro codigo, real saldo, inteiro numeroConta)
+	{
+		cadeia confirmacao = ""
+		logico confirmacaoConta = falso
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ / ] ", numeroConta + 1, "ª conta", "\n",
+			"[ # ] Código | ", codigo, "\n",
+			"[ $ ] Saldo | R$ ", saldo, "\n",
+			"\n",
+			"[ 1 ] Confirmar", "\n",
+			"[ 2 ] Cancelar", "\n",
+			"[ > ] ")
+			leia(confirmacao)
+
+			se (confirmacao == "1")
+			{
+				confirmacaoConta = verdadeiro
+				pare
+			}
+			senao se (confirmacao == "2")
+			{
+				pare
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente")
+			}
+		}
+
+		retorne confirmacaoConta
+	}
+
+	// Funcionalidades extras
+	funcao inteiro encontrarIndex(inteiro codigo, inteiro &codigos[])
+	{
+		inteiro tamanhoVetor = 10
+		inteiro index = 0
+
+		para (inteiro i = 0; i < tamanhoVetor; i++)
+		{
+			se (codigos[i] == codigo)
+			{
+				index = i
+				pare
+			}
+		}
+
+		retorne index
+	}
+
 	// Obter valores
 	funcao cadeia obterOpcao()
 	{
@@ -95,7 +172,7 @@ programa
 		limpa()
 		escreva("[ / ] Criação de conta", "\n",
 		"[ ? ] Informe o saldo da conta", "\n",
-		"[ > ] ")
+		"[ $ ] R$ ")
 		leia(saldo)
 		
 		retorne saldo
