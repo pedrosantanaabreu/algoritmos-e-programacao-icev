@@ -157,13 +157,15 @@ programa
 				senao
 				{
 					mensagemCarregamento(2, "Opção inválida, tnete novamente.")
+					exibirMenu()
 					opcao = obterOpcao()
 				}
 			}
 			senao
 			{
 				mensagemCarregamento(2, "Valor inválido, tnete novamente.")
-				opcao = obterCodigo()
+				exibirMenu()
+				opcao = obterOpcao()
 			}
 		}
 
