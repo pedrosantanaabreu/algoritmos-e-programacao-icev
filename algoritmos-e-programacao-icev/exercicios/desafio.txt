@@ -111,7 +111,8 @@ programa
 						escreva("[ / ] Depósito concluído com sucesso", "\n",
 						"[ $ ] R$ ", saldoAntigo, "\n",
 						"[ + ] R$ ", valorDeposito, "\n",
-						"[ = ] R$ ", valorResultante, "\n")
+						"[ = ] R$ ", valorResultante, "\n",
+						"\n")
 			
 						mensagemContinuar()
 
@@ -266,12 +267,11 @@ programa
 					escreva("[ / ] Criação de conta", "\n")
 					saldo = validarSaldo(obterSaldo())
 
-					codigos[i] = codigo
-					saldos[i] = saldo
-
 					// Confirmação
 					se (confirmarRegistrarConta(codigo, saldo, i))
 					{
+						codigos[i] = codigo
+						saldos[i] = saldo
 						pare
 					}
 				}
