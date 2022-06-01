@@ -51,7 +51,7 @@ programa
 		// Área de variáveis
 		inteiro codigos[10]
 		real saldos[10]
-		inteiro quantidadeContas = 3
+		inteiro quantidadeContas = 2
 		inteiro opcaoMenu = 0
 
 		// Registrando contas
@@ -77,6 +77,7 @@ programa
 		"[ 5 ] Finalizar o programa", "\n",
 		"[ > ] ")
 	}
+	
 	// Funções relacionada ao menu
 	funcao chamarFuncaoMenu(inteiro opcao, inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
 	{
@@ -157,6 +158,7 @@ programa
 			// Relatório de contas
 			senao se (opcao == 4)
 			{
+				// Exibindo resultado
 				limpa()
 				relatorioContas(codigos, saldos, quantidadeContas)
 				mensagemContinuar()
@@ -177,7 +179,6 @@ programa
 		}
 	}
 
-	// Funções relacionadas ao depósito
 	funcao depositar(real &saldos[], real valorDeposito, inteiro index)
 	{
 		saldos[index] += valorDeposito
@@ -212,17 +213,6 @@ programa
 	}
 
 	// Funções para criação de conta
-	funcao criarConta(inteiro &codigo, real &saldo)
-	{
-		limpa()
-		escreva("[ / ] Criação de conta", "\n")
-		codigo = validarCodigo(obterCodigo())
-
-		limpa()
-		escreva("[ / ] Criação de conta", "\n")
-		saldo = validarSaldo(obterSaldo())
-	}
-
 	funcao registrarConta(inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
 	{
 		inteiro codigo = 0
@@ -232,15 +222,28 @@ programa
 		{
 			enquanto (verdadeiro)
 			{
-				criarConta(codigo, saldo)
-				
-				codigos[i] = codigo
-				saldos[i] = saldo
-	
-				// Confirmação
-				se (confirmarRegistrarConta(codigo, saldo, i))
+				limpa()
+				escreva("[ / ] Criação de conta", "\n")
+				codigo = validarCodigo(obterCodigo())
+
+				se (conferirCodigoExistente(codigo, codigos, quantidadeContas))
 				{
-					pare
+					mensagemCarregamento(2, "Código já registrado")	
+				}
+				senao
+				{
+					limpa()
+					escreva("[ / ] Criação de conta", "\n")
+					saldo = validarSaldo(obterSaldo())
+
+					codigos[i] = codigo
+					saldos[i] = saldo
+
+					// Confirmação
+					se (confirmarRegistrarConta(codigo, saldo, i))
+					{
+						pare
+					}
 				}
 			}
 		}
@@ -299,6 +302,22 @@ programa
 		retorne index
 	}
 
+	funcao logico conferirCodigoExistente(inteiro codigo, inteiro &codigos[], inteiro &quantidadeContas)
+	{
+		logico validado = falso
+
+		para (inteiro i = 0; i < quantidadeContas; i++)
+		{
+			se (codigos[i] == codigo)
+			{
+				validado = verdadeiro
+				pare
+			}
+		}
+
+		retorne validado
+	}
+	
 	// Obter valores
 	funcao cadeia obterOpcao()
 	{
@@ -324,7 +343,6 @@ programa
 	{
 		cadeia codigo = ""
 
-		limpa()
 		escreva("[ ? ] Informe o código da conta", "\n",
 		"[ # ] ")
 		leia(codigo)
