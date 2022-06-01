@@ -51,7 +51,7 @@ programa
 	{
 		// Área de variáveis
 		inteiro opcaoMenu = 0
-		inteiro quantidadeContas = 2
+		inteiro quantidadeContas = 10
 		inteiro codigos[10]
 		real saldos[10]
 
