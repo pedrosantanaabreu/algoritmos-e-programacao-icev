@@ -51,18 +51,24 @@ programa
 		// Área de variáveis
 		inteiro codigos[10]
 		real saldos[10]
+		inteiro quantidadeContas = 3
+		inteiro opcaoMenu = 0
 
 		// Registrando contas
-		registrarConta(codigos, saldos)
+		registrarConta(codigos, saldos, quantidadeContas)
 
-		// Exbindo menu de opções
+		// Exbindo menu de opções e recebendo opção
 		exibirMenu()
-		validarOpcao(obterOpcao())
+		opcaoMenu = validarOpcao(obterOpcao())
+
+		// Chamando funções
+		chamarFuncaoMenu(opcaoMenu, codigos, saldos, quantidadeContas)
 	}
 
 	// Menu
 	funcao exibirMenu()
 	{
+		limpa()
 		escreva("[ / ] Menu principal", "\n",
 		"[ 1 ] Efetuar depósito", "\n",
 		"[ 2 ] Efetuar saque", "\n",
@@ -71,20 +77,158 @@ programa
 		"[ 5 ] Finalizar o programa", "\n",
 		"[ > ] ")
 	}
+	// Funções relacionada ao menu
+	funcao chamarFuncaoMenu(inteiro opcao, inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
+	{
+		enquanto (verdadeiro)
+		{
+			// Depositar
+			se (opcao == 1)
+			{
+				real valorDeposito = validarValorDeposito(obterValorDeposito())
+				inteiro codigo = validarCodigo(obterCodigo())
+				inteiro indexConta = encontrarIndex(codigo, codigos)
+	
+				// Depositando
+				depositar(saldos, valorDeposito, indexConta)
+	
+				// Exibindo resultado
+				real saldoAntigo = saldos[indexConta] - valorDeposito
+				real valorResultante = saldos[indexConta]
+		
+				saldoAntigo = Matematica.arredondar(saldoAntigo, 2)
+				valorDeposito = Matematica.arredondar(valorDeposito, 2)
+				valorResultante = Matematica.arredondar(valorResultante, 2)
+	
+				limpa()
+				escreva("[ / ] Depósito concluído com sucesso", "\n",
+				"[ $ ] R$ ", saldoAntigo, "\n",
+				"[ + ] R$ ", valorDeposito, "\n",
+				"[ = ] R$ ", valorResultante, "\n")
+	
+				mensagemContinuar()
+			}
+			
+			// Saque
+			senao se (opcao == 2)
+			{
+				inteiro codigo = validarCodigo(obterCodigo())
+				inteiro indexConta = encontrarIndex(codigo, codigos)
+	
+				real saldo = saldos[indexConta]
+				real valorSaque = validarValorSaque(obterValorSaque(), saldo)
+	
+				// Sacando
+				sacar(saldos, valorSaque, indexConta)
+	
+				// Escrevendo resultado
+				real saldoAntigo = saldos[indexConta] + valorSaque
+				real valorResultante = saldos[indexConta]
+		
+				saldoAntigo = Matematica.arredondar(saldoAntigo, 2)
+				valorSaque = Matematica.arredondar(valorSaque, 2)
+				valorResultante = Matematica.arredondar(valorResultante, 2)
+				
+				limpa()
+				escreva("[ / ] Saque concluído com sucesso", "\n",
+				"[ $ ] R$ ", saldoAntigo, "\n",
+				"[ - ] R$ ", valorSaque, "\n",
+				"[ = ] R$ ", valorResultante, "\n")
+	
+				mensagemContinuar()
+			}
 
+			// Consultar ativo bancário
+			senao se (opcao == 3)
+			{
+				// Consultando
+				real ativoBancario = consultarAtivoBancario(saldos, quantidadeContas)
+	
+				// Exibindo resultado
+				ativoBancario = Matematica.arredondar(ativoBancario, 2)
+	
+				limpa()
+				escreva("[ / ] Ativo bancário", "\n",
+				"[ $ ] R$ ", ativoBancario, "\n")
+	
+				mensagemContinuar()
+			}
+
+			// Relatório de contas
+			senao se (opcao == 4)
+			{
+				limpa()
+				relatorioContas(codigos, saldos, quantidadeContas)
+				mensagemContinuar()
+			}
+			senao se (opcao == 5)
+			{
+				mensagemCarregamento(2, "Saindo")
+				pare
+			}
+			senao
+			{
+				limpa()
+				escreva("[ ! ] Opção inválida")
+			}
+
+			exibirMenu()
+			opcao = validarOpcao(obterOpcao())
+		}
+	}
+
+	// Funções relacionadas ao depósito
+	funcao depositar(real &saldos[], real valorDeposito, inteiro index)
+	{
+		saldos[index] += valorDeposito
+	}
+
+	funcao sacar(real &saldos[], real valorSaque, inteiro index)
+	{
+		saldos[index] -= valorSaque
+	}
+
+	funcao real consultarAtivoBancario(real &saldos[], inteiro &quantidadeContas)
+	{
+		real somaAtivoBancario = 0.0
+
+		para (inteiro i = 0; i < quantidadeContas; i++)
+		{
+			somaAtivoBancario += saldos[i]
+		}
+
+		retorne somaAtivoBancario
+	}
+
+	funcao relatorioContas(inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
+	{
+		para (inteiro i = 0; i < quantidadeContas; i++)
+		{
+			escreva("[ / ] ", i + 1, "ª conta", "\n",
+			"[ # ] Código | ", codigos[i], "\n",
+			"[ $ ] Saldo | R$ ", Matematica.arredondar(saldos[i], 2), "\n",
+			"\n")
+		}
+	}
+
+	// Funções para criação de conta
 	funcao criarConta(inteiro &codigo, real &saldo)
 	{
+		limpa()
+		escreva("[ / ] Criação de conta", "\n")
 		codigo = validarCodigo(obterCodigo())
+
+		limpa()
+		escreva("[ / ] Criação de conta", "\n")
 		saldo = validarSaldo(obterSaldo())
 	}
 
-	funcao registrarConta(inteiro &codigos[], real &saldos[])
+	funcao registrarConta(inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
 	{
-		inteiro quantidadeDeContas = 3
 		inteiro codigo = 0
 		real saldo = 0.0
 
-		para (inteiro i = 0; i < quantidadeDeContas; i++)
+		para (inteiro i = 0; i < quantidadeContas; i++)
 		{
 			enquanto (verdadeiro)
 			{
@@ -169,9 +313,7 @@ programa
 	{
 		cadeia saldo = ""
 
-		limpa()
-		escreva("[ / ] Criação de conta", "\n",
-		"[ ? ] Informe o saldo da conta", "\n",
+		escreva("[ ? ] Informe o valor", "\n",
 		"[ $ ] R$ ")
 		leia(saldo)
 		
@@ -183,12 +325,37 @@ programa
 		cadeia codigo = ""
 
 		limpa()
-		escreva("[ / ] Criação de conta", "\n",
-		"[ ? ] Informe o código da conta", "\n",
-		"[ > ] ")
+		escreva("[ ? ] Informe o código da conta", "\n",
+		"[ # ] ")
 		leia(codigo)
 		
 		retorne codigo
+	}
+
+	funcao cadeia obterValorDeposito()
+	{
+		cadeia valorDepostio = ""
+
+		limpa()
+		escreva("[ / ] Depósito", "\n",
+		"[ ? ] Informe o valor do depósito", "\n",
+		"[ $ ] R$ ")
+		leia(valorDepostio)
+		
+		retorne valorDepostio
+	}
+
+	funcao cadeia obterValorSaque()
+	{
+		cadeia valorSaque = ""
+
+		limpa()
+		escreva("[ / ] Saque", "\n",
+		"[ ? ] Informe o valor do saque", "\n",
+		"[ $ ] R$ ")
+		leia(valorSaque)
+		
+		retorne valorSaque
 	}
 
 	// Validações
@@ -202,7 +369,7 @@ programa
 			}
 			senao
 			{
-				mensagemCarregamento(2, "Valor inválido, tnete novamente.")
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
 				saldo = obterCodigo()
 			}
 		}
@@ -220,7 +387,7 @@ programa
 			}
 			senao
 			{
-				mensagemCarregamento(2, "Valor inválido, tnete novamente.")
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
 				codigo = obterCodigo()
 			}
 		}
@@ -240,20 +407,80 @@ programa
 				}
 				senao
 				{
-					mensagemCarregamento(2, "Opção inválida, tnete novamente.")
+					mensagemCarregamento(2, "Opção inválida, tente novamente.")
 					exibirMenu()
 					opcao = obterOpcao()
 				}
 			}
 			senao
 			{
-				mensagemCarregamento(2, "Valor inválido, tnete novamente.")
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
 				exibirMenu()
 				opcao = obterOpcao()
 			}
 		}
 
 		retorne Tipos.cadeia_para_inteiro(opcao, 10)
+	}
+
+	funcao real validarValorDeposito(cadeia valorDeposito)
+	{
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(valorDeposito, 10) ou Tipos.cadeia_e_real(valorDeposito))
+			{
+				se (Tipos.cadeia_para_real(valorDeposito) > 0.0)
+				{
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor deve ser maior que R$ 0, tente novamente.")
+					valorDeposito = obterValorDeposito()
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+				valorDeposito = obterValorDeposito()
+			}
+		}
+
+		retorne Tipos.cadeia_para_real(valorDeposito)
+	}
+
+	funcao real validarValorSaque(cadeia valorSaque, real saldo)
+	{
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(valorSaque, 10) ou Tipos.cadeia_e_real(valorSaque))
+			{
+				se (Tipos.cadeia_para_real(valorSaque) > 0.0)
+				{
+					se (saldo >= Tipos.cadeia_para_real(valorSaque))
+					{
+						pare
+					}
+					senao
+					{
+						mensagemCarregamento(2, "Valor de saque maior que saldo, tente novamente.")
+						valorSaque = obterValorSaque()
+					}
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor deve ser maior que R$ 0, tente novamente.")
+					valorSaque = obterValorSaque()
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+				valorSaque = obterValorSaque()
+			}
+		}
+
+		retorne Tipos.cadeia_para_real(valorSaque)	
 	}
 
 	// Funções estéticas
@@ -281,8 +508,7 @@ programa
 	funcao mensagemContinuar()
 	{
 		cadeia continuar = ""
-		escreva("\n",
-		"[ Enter ] Para continuar\n")
+		escreva("[ Enter ] Para continuar\n")
 		leia(continuar)
 	}
 }
