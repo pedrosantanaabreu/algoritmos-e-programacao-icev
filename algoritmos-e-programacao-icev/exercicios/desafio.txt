@@ -45,14 +45,15 @@ programa
 	inclua biblioteca Tipos
 	inclua biblioteca Matematica
 	inclua biblioteca Util
-	
+
+	// Inicio
 	funcao inicio()
 	{
 		// Área de variáveis
+		inteiro opcaoMenu = 0
+		inteiro quantidadeContas = 2
 		inteiro codigos[10]
 		real saldos[10]
-		inteiro quantidadeContas = 2
-		inteiro opcaoMenu = 0
 
 		// Registrando contas
 		registrarConta(codigos, saldos, quantidadeContas)
@@ -90,7 +91,10 @@ programa
 				{
 					limpa()
 					inteiro codigo = validarCodigo(obterCodigo())
-		
+					
+					/*
+					 * Conferindo se o código já existe
+					 */
 					se (conferirCodigoExistente(codigo, codigos, quantidadeContas))
 					{
 						real valorDeposito = validarValorDeposito(obterValorDeposito())
@@ -132,7 +136,10 @@ programa
 				{
 					limpa()
 					inteiro codigo = validarCodigo(obterCodigo())
-	
+
+					/*
+					 * Conferindo se o código já existe
+					 */
 					se (conferirCodigoExistente(codigo, codigos, quantidadeContas))
 					{
 						inteiro indexConta = encontrarIndex(codigo, codigos)
@@ -192,17 +199,23 @@ programa
 				// Exibindo resultado
 				limpa()
 				relatorioContas(codigos, saldos, quantidadeContas)
+
 				mensagemContinuar()
 			}
+
+			// Saindo
 			senao se (opcao == 5)
 			{
 				mensagemCarregamento(2, "Saindo")
 				pare
 			}
+
+			// Caso a opção não esteja no menu
 			senao
 			{
 				limpa()
-				escreva("[ ! ] Opção inválida")
+
+				mensagemCarregamento(2, "Opção inválida")
 			}
 
 			exibirMenu()
@@ -247,6 +260,7 @@ programa
 	funcao registrarConta(inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
 	{
 		inteiro codigo = 0
+
 		real saldo = 0.0
 
 		para (inteiro i = 0; i < quantidadeContas; i++)
@@ -282,7 +296,10 @@ programa
 	funcao logico confirmarRegistrarConta(inteiro codigo, real saldo, inteiro numeroConta)
 	{
 		cadeia confirmacao = ""
+
 		logico confirmacaoConta = falso
+
+		inteiro opcaoConfirmacaoInteiro = 0
 
 		enquanto (verdadeiro)
 		{
@@ -296,14 +313,23 @@ programa
 			"[ > ] ")
 			leia(confirmacao)
 
-			se (confirmacao == "1")
+			se (Tipos.cadeia_e_inteiro(confirmacao, 10))
 			{
-				confirmacaoConta = verdadeiro
-				pare
-			}
-			senao se (confirmacao == "2")
-			{
-				pare
+				opcaoConfirmacaoInteiro = Tipos.cadeia_para_inteiro(confirmacao, 10)
+				
+				se (opcaoConfirmacaoInteiro == 1)
+				{
+					confirmacaoConta = verdadeiro
+					pare
+				}
+				senao se (opcaoConfirmacaoInteiro == 2)
+				{
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor inválido, tente novamente")
+				}
 			}
 			senao
 			{
@@ -342,6 +368,10 @@ programa
 			{
 				validado = verdadeiro
 				pare
+			}
+			senao
+			{
+				validado = falso
 			}
 		}
 
@@ -418,6 +448,7 @@ programa
 			senao
 			{
 				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+				
 				saldo = obterCodigo()
 			}
 		}
@@ -436,6 +467,7 @@ programa
 			senao
 			{
 				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+				
 				codigo = obterCodigo()
 			}
 		}
@@ -456,6 +488,7 @@ programa
 				senao
 				{
 					mensagemCarregamento(2, "Opção inválida, tente novamente.")
+					
 					exibirMenu()
 					opcao = obterOpcao()
 				}
@@ -463,6 +496,7 @@ programa
 			senao
 			{
 				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+				
 				exibirMenu()
 				opcao = obterOpcao()
 			}
@@ -535,6 +569,7 @@ programa
 	funcao mensagemCarregamento(inteiro ciclos, cadeia mensagem)
 	{
 		cadeia simboloCarregamento[4]
+		
 		simboloCarregamento[0] = "|"
 		simboloCarregamento[1] = "\\"
 		simboloCarregamento[2] = "-"
@@ -546,6 +581,7 @@ programa
 			{
 				limpa()
 				escreva("[ ", simboloCarregamento[j]," ] ", mensagem)
+				
 				Util.aguarde(100)			
 			}
 		}
@@ -556,7 +592,9 @@ programa
 	funcao mensagemContinuar()
 	{
 		cadeia continuar = ""
+		
 		escreva("[ Enter ] Para continuar\n")
+		
 		leia(continuar)
 	}
 }
