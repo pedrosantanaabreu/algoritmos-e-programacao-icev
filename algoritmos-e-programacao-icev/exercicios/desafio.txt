@@ -86,57 +86,86 @@ programa
 			// Depositar
 			se (opcao == 1)
 			{
-				real valorDeposito = validarValorDeposito(obterValorDeposito())
-				inteiro codigo = validarCodigo(obterCodigo())
-				inteiro indexConta = encontrarIndex(codigo, codigos)
-	
-				// Depositando
-				depositar(saldos, valorDeposito, indexConta)
-	
-				// Exibindo resultado
-				real saldoAntigo = saldos[indexConta] - valorDeposito
-				real valorResultante = saldos[indexConta]
+				enquanto (verdadeiro)
+				{
+					limpa()
+					inteiro codigo = validarCodigo(obterCodigo())
 		
-				saldoAntigo = Matematica.arredondar(saldoAntigo, 2)
-				valorDeposito = Matematica.arredondar(valorDeposito, 2)
-				valorResultante = Matematica.arredondar(valorResultante, 2)
-	
-				limpa()
-				escreva("[ / ] Depósito concluído com sucesso", "\n",
-				"[ $ ] R$ ", saldoAntigo, "\n",
-				"[ + ] R$ ", valorDeposito, "\n",
-				"[ = ] R$ ", valorResultante, "\n")
-	
-				mensagemContinuar()
-			}
+					se (conferirCodigoExistente(codigo, codigos, quantidadeContas))
+					{
+						real valorDeposito = validarValorDeposito(obterValorDeposito())
+						inteiro indexConta = encontrarIndex(codigo, codigos)
 			
+						// Depositando
+						depositar(saldos, valorDeposito, indexConta)
+			
+						// Exibindo resultado
+						real saldoAntigo = saldos[indexConta] - valorDeposito
+						real valorResultante = saldos[indexConta]
+				
+						saldoAntigo = Matematica.arredondar(saldoAntigo, 2)
+						valorDeposito = Matematica.arredondar(valorDeposito, 2)
+						valorResultante = Matematica.arredondar(valorResultante, 2)
+			
+						limpa()
+						escreva("[ / ] Depósito concluído com sucesso", "\n",
+						"[ $ ] R$ ", saldoAntigo, "\n",
+						"[ + ] R$ ", valorDeposito, "\n",
+						"[ = ] R$ ", valorResultante, "\n")
+			
+						mensagemContinuar()
+
+						pare
+					}
+					senao
+					{
+						mensagemCarregamento(2, "Conta não cadastrada")	
+					}	
+				}
+			}
+
 			// Saque
 			senao se (opcao == 2)
 			{
-				inteiro codigo = validarCodigo(obterCodigo())
-				inteiro indexConta = encontrarIndex(codigo, codigos)
+				enquanto (verdadeiro)
+				{
+					limpa()
+					inteiro codigo = validarCodigo(obterCodigo())
 	
-				real saldo = saldos[indexConta]
-				real valorSaque = validarValorSaque(obterValorSaque(), saldo)
-	
-				// Sacando
-				sacar(saldos, valorSaque, indexConta)
-	
-				// Escrevendo resultado
-				real saldoAntigo = saldos[indexConta] + valorSaque
-				real valorResultante = saldos[indexConta]
-		
-				saldoAntigo = Matematica.arredondar(saldoAntigo, 2)
-				valorSaque = Matematica.arredondar(valorSaque, 2)
-				valorResultante = Matematica.arredondar(valorResultante, 2)
+					se (conferirCodigoExistente(codigo, codigos, quantidadeContas))
+					{
+						inteiro indexConta = encontrarIndex(codigo, codigos)
+			
+						real saldo = saldos[indexConta]
+						real valorSaque = validarValorSaque(obterValorSaque(), saldo)
+			
+						// Sacando
+						sacar(saldos, valorSaque, indexConta)
+			
+						// Escrevendo resultado
+						real saldoAntigo = saldos[indexConta] + valorSaque
+						real valorResultante = saldos[indexConta]
 				
-				limpa()
-				escreva("[ / ] Saque concluído com sucesso", "\n",
-				"[ $ ] R$ ", saldoAntigo, "\n",
-				"[ - ] R$ ", valorSaque, "\n",
-				"[ = ] R$ ", valorResultante, "\n")
-	
-				mensagemContinuar()
+						saldoAntigo = Matematica.arredondar(saldoAntigo, 2)
+						valorSaque = Matematica.arredondar(valorSaque, 2)
+						valorResultante = Matematica.arredondar(valorResultante, 2)
+						
+						limpa()
+						escreva("[ / ] Saque concluído com sucesso", "\n",
+						"[ $ ] R$ ", saldoAntigo, "\n",
+						"[ - ] R$ ", valorSaque, "\n",
+						"[ = ] R$ ", valorResultante, "\n",
+						"\n")
+			
+						mensagemContinuar()
+
+						pare
+					}
+					senao
+					{
+						mensagemCarregamento(2, "Conta não cadastrada")
+					}
+				}
 			}
 
 			// Consultar ativo bancário
@@ -150,7 +179,8 @@ programa
 	
 				limpa()
 				escreva("[ / ] Ativo bancário", "\n",
-				"[ $ ] R$ ", ativoBancario, "\n")
+				"[ $ ] R$ ", ativoBancario, "\n",
+				"\n")
 	
 				mensagemContinuar()
 			}
@@ -317,7 +347,7 @@ programa
 
 		retorne validado
 	}
-	
+
 	// Obter valores
 	funcao cadeia obterOpcao()
 	{
