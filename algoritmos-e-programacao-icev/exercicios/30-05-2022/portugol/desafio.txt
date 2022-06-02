@@ -432,6 +432,10 @@ programa
 				{
 					index++
 				}
+				senao
+				{
+					mensagemCarregamento(2, "Você chegou na última conta registrada no sistema")
+				}
 			}
 
 			// Voltar
@@ -443,6 +447,10 @@ programa
 				se ((index - 1) >= 0)
 				{
 					index--
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Você chegou na primeira conta registrada no sistema")
 				}
 			}
 
