@@ -66,7 +66,7 @@ programa
 		chamarFuncaoMenuPrincipal(opcaoMenu, codigos, saldos, quantidadeContas)
 	}
 
-	// Menu
+	// Menu principal
 	funcao exibirMenu()
 	{
 		limpa()
@@ -79,6 +79,7 @@ programa
 		"[ > ] ")
 	}
 
+	// Menu relatorio de contas
 	funcao menuRelatorioDeContas()
 	{
 		limpa()
@@ -90,7 +91,7 @@ programa
 		"[ > ] ")
 	}
 
-	// Funções relacionada ao menu
+	// Função principal relacionada ao menu principal
 	funcao chamarFuncaoMenuPrincipal(inteiro opcaoMenuPrincipal, inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
 	{
 		enquanto (verdadeiro)
@@ -232,6 +233,7 @@ programa
 			// Relatório de contas
 			senao se (opcaoMenuPrincipal == 4)
 			{
+				// Chamando função principal do relatorio de contas
 				relatorioDeContas(codigos, saldos, quantidadeContas)
 			}
 
@@ -250,11 +252,15 @@ programa
 				mensagemCarregamento(2, "Opção inválida")
 			}
 
+			/*
+			 * Obtendo nova opção
+			 */
 			exibirMenu()
 			opcaoMenuPrincipal = validarOpcaoMenuPrincipal(obterOpcaoMenuPrincipal())
 		}
 	}
 
+	// Função principal relacionada ao menu relatorio de contas
 	funcao chamarFuncaoMenuRelatorioContas(inteiro opcaoMenuRelatorioDeContas, inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
 	{
 		enquanto (verdadeiro)
@@ -293,7 +299,10 @@ programa
 
 				mensagemCarregamento(2, "Opção inválida")
 			}
-	
+			
+			/*
+			 * Obtendo nova opção
+			 */
 			menuRelatorioDeContas()
 			opcaoMenuRelatorioDeContas = validarOpcaoMenuRelatorioDeContas(obterOpcaoMenuRelatorioDeContas())
 		}
@@ -314,6 +323,7 @@ programa
 	{
 		real somaAtivoBancario = 0.0
 
+		// Somando todos os saldos
 		para (inteiro i = 0; i < quantidadeContas; i++)
 		{
 			somaAtivoBancario += saldos[i]
@@ -354,6 +364,10 @@ programa
 			limpa()
 			codigoParaBusca = validarCodigo(obterCodigo())
 
+			/*
+			 * Conferindo se o código foi registrado
+			 * Caso não esteja, exibe mensagem de erro e solicita o código novamente
+			 */
 			se (conferirCodigoExistente(codigoParaBusca, codigos, quantidadeContas))
 			{
 				pare
@@ -361,10 +375,13 @@ programa
 			senao
 			{
 				limpa()
-				mensagemCarregamento(2, "Conta não encontrada inválida")
+				mensagemCarregamento(2, "Conta não encontrada, tente novamente")
 			}
 		}
 
+		/*
+		 * Buscando index para obter as informações da conta
+		 */
 		index = encontrarIndex(codigoParaBusca, codigos)
 
 		codigo = codigos[index]
@@ -388,6 +405,12 @@ programa
 
 		enquanto (verdadeiro)
 		{
+			
+			/*
+			 * Exibindo informações das contas
+			 * 
+			 * Obs: Começa com zero para iniciar com a 1ª conta
+			 */
 			limpa()
 			escreva("[ / ] ", index + 1,"ª conta", "\n",
 			"[ # ] Código | ", codigos[index], "\n",
@@ -402,6 +425,9 @@ programa
 			// Avançar
 			se (opcaoNavegacaoMenuRelatorioContas == 1)
 			{
+				/*
+				 * Conferindo se existe conta na frente
+				 */
 				se ((index + 1) <= (quantidadeContas - 1))
 				{
 					index++
@@ -411,6 +437,9 @@ programa
 			// Voltar
 			senao se (opcaoNavegacaoMenuRelatorioContas == 2)
 			{
+				/*
+				 * Conferindo se existe conta atrás
+				 */
 				se ((index - 1) >= 0)
 				{
 					index--
@@ -433,6 +462,7 @@ programa
 
 	funcao visaoGeralMenuRelatorioContas(inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
 	{
+		// Exibindo resultado
 		para (inteiro i = 0; i < quantidadeContas; i++)
 		{
 			escreva("[ / ] ", i + 1, "ª conta", "\n",
@@ -453,10 +483,13 @@ programa
 		{
 			enquanto (verdadeiro)
 			{
+				
+				// Solicitando código
 				limpa()
 				escreva("[ / ] Criação de conta", "\n")
 				codigo = validarCodigo(obterCodigo())
 
+				// Conferindo se o código já foi criado
 				se (conferirCodigoExistente(codigo, codigos, quantidadeContas))
 				{
 					mensagemCarregamento(2, "Código já registrado")	
@@ -910,6 +943,9 @@ programa
 			{
 				se (Tipos.cadeia_para_real(valorSaque) > 0.0)
 				{
+					/*
+					 * Confere se a conta tem dinheiro suficiente para o saque
+					 */
 					se (saldo >= Tipos.cadeia_para_real(valorSaque))
 					{
 						pare
