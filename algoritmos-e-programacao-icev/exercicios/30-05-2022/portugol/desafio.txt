@@ -60,10 +60,10 @@ programa
 
 		// Exbindo menu de opções e recebendo opção
 		exibirMenu()
-		opcaoMenu = validarOpcao(obterOpcao())
+		opcaoMenu = validarOpcaoMenuPrincipal(obterOpcaoMenuPrincipal())
 
 		// Chamando funções
-		chamarFuncaoMenu(opcaoMenu, codigos, saldos, quantidadeContas)
+		chamarFuncaoMenuPrincipal(opcaoMenu, codigos, saldos, quantidadeContas)
 	}
 
 	// Menu
@@ -78,14 +78,25 @@ programa
 		"[ 5 ] Finalizar o programa", "\n",
 		"[ > ] ")
 	}
-	
+
+	funcao menuRelatorioDeContas()
+	{
+		limpa()
+		escreva("[ / ] Menu relatório de contas", "\n",
+		"[ 1 ] Buscar por código", "\n",
+		"[ 2 ] Navegação", "\n",
+		"[ 3 ] Visão geral", "\n",
+		"[ 4 ] Voltar para o menu principal", "\n",
+		"[ > ] ")
+	}
+
 	// Funções relacionada ao menu
-	funcao chamarFuncaoMenu(inteiro opcao, inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
+	funcao chamarFuncaoMenuPrincipal(inteiro opcaoMenuPrincipal, inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
 	{
 		enquanto (verdadeiro)
 		{
 			// Depositar
-			se (opcao == 1)
+			se (opcaoMenuPrincipal == 1)
 			{
 				enquanto (verdadeiro)
 				{
@@ -138,7 +149,7 @@ programa
 			}
 
 			// Saque
-			senao se (opcao == 2)
+			senao se (opcaoMenuPrincipal == 2)
 			{
 				enquanto (verdadeiro)
 				{
@@ -193,7 +204,7 @@ programa
 			}
 
 			// Consultar ativo bancário
-			senao se (opcao == 3)
+			senao se (opcaoMenuPrincipal == 3)
 			{
 				// Consultando
 				real ativoBancario = consultarAtivoBancario(saldos, quantidadeContas)
@@ -219,19 +230,15 @@ programa
 			}
 
 			// Relatório de contas
-			senao se (opcao == 4)
+			senao se (opcaoMenuPrincipal == 4)
 			{
-				// Exibindo resultado
-				limpa()
-				relatorioContas(codigos, saldos, quantidadeContas)
-
-				mensagemContinuar()
+				relatorioDeContas(codigos, saldos, quantidadeContas)
 			}
 
 			// Saindo
-			senao se (opcao == 5)
+			senao se (opcaoMenuPrincipal == 5)
 			{
-				mensagemCarregamento(2, "Saindo")
+				sair()
 				pare
 			}
 
@@ -244,10 +251,55 @@ programa
 			}
 
 			exibirMenu()
-			opcao = validarOpcao(obterOpcao())
+			opcaoMenuPrincipal = validarOpcaoMenuPrincipal(obterOpcaoMenuPrincipal())
 		}
 	}
 
+	funcao chamarFuncaoMenuRelatorioContas(inteiro opcaoMenuRelatorioDeContas, inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
+	{
+		enquanto (verdadeiro)
+		{
+			// Buscar por código
+			se (opcaoMenuRelatorioDeContas == 1)
+			{
+				buscarComCodigoMenuRelatorioContas(codigos, saldos, quantidadeContas)
+			}
+
+			// Navegação
+			senao se (opcaoMenuRelatorioDeContas == 2)
+			{
+				navegacaoMenuRelatorioContas(codigos, saldos, quantidadeContas)
+			}
+
+			// Visão geral
+			senao se (opcaoMenuRelatorioDeContas == 3)
+			{
+				limpa()
+				visaoGeralMenuRelatorioContas(codigos, saldos, quantidadeContas)
+
+				mensagemContinuar()
+			}
+			
+			// Voltar para o menu principal
+			senao se (opcaoMenuRelatorioDeContas == 4)
+			{
+				pare
+			}
+
+			// Caso não seja um código válido
+			senao
+			{
+				limpa()
+
+				mensagemCarregamento(2, "Opção inválida")
+			}
+	
+			menuRelatorioDeContas()
+			opcaoMenuRelatorioDeContas = validarOpcaoMenuRelatorioDeContas(obterOpcaoMenuRelatorioDeContas())
+		}
+	}
+
+	// Funções Menu principal
 	funcao depositar(real &saldos[], real valorDeposito, inteiro index)
 	{
 		saldos[index] += valorDeposito
@@ -270,7 +322,117 @@ programa
 		retorne somaAtivoBancario
 	}
 
-	funcao relatorioContas(inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
+	funcao relatorioDeContas(inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
+	{
+		inteiro opcaoMenuRelatorioDeContas = 0
+
+		// Exibindo menu relatório de contas
+		menuRelatorioDeContas()
+		opcaoMenuRelatorioDeContas = validarOpcaoMenuRelatorioDeContas(obterOpcaoMenuRelatorioDeContas())
+
+		// Chamando funções
+		chamarFuncaoMenuRelatorioContas(opcaoMenuRelatorioDeContas, codigos, saldos, quantidadeContas)
+	}
+
+	funcao sair()
+	{
+		mensagemCarregamento(2, "Saindo")
+	}
+
+	// Funções Menu relatório contas
+	funcao buscarComCodigoMenuRelatorioContas(inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
+	{
+		inteiro codigoParaBusca = 0
+		inteiro index = 0
+
+		inteiro codigo = 0
+		real saldo = 0.0
+
+		// Encontrando index e obtendo informações
+		enquanto (verdadeiro)
+		{
+			limpa()
+			codigoParaBusca = validarCodigo(obterCodigo())
+
+			se (conferirCodigoExistente(codigoParaBusca, codigos, quantidadeContas))
+			{
+				pare
+			}
+			senao
+			{
+				limpa()
+				mensagemCarregamento(2, "Conta não encontrada inválida")
+			}
+		}
+
+		index = encontrarIndex(codigoParaBusca, codigos)
+
+		codigo = codigos[index]
+		saldo = saldos[index]
+
+		// Exibindo resultado
+		saldo = Matematica.arredondar(saldo, 2)
+
+		limpa()
+		escreva("[ # ] Código | ", codigo, "\n",
+		"[ $ ] R$ ", saldo, "\n",
+		"\n")
+
+		mensagemContinuar()
+	}
+
+	funcao navegacaoMenuRelatorioContas(inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
+	{
+		inteiro index = 0
+		inteiro opcaoNavegacaoMenuRelatorioContas = 0
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ # ] Código | ", codigos[index], "\n",
+			"[ $ ] R$ ", Matematica.arredondar(saldos[index], 2), "\n",
+			"\n",
+			"[ 1 ] Avançar", "\n",
+			"[ 2 ] Voltar", "\n",
+			"[ 3 ] Voltar para o menu relatório de contas", "\n",
+			"[ > ] ")
+			opcaoNavegacaoMenuRelatorioContas = validarOpcaoNavegacaoMenuRelatorioContas(obterOpcaoNavegacaoMenuRelatorioContas())
+
+			// Avançar
+			se (opcaoNavegacaoMenuRelatorioContas == 1)
+			{
+				se ((index + 1) <= (quantidadeContas - 1))
+				{
+					index++
+					pare
+				}
+			}
+
+			// Voltar
+			senao se (opcaoNavegacaoMenuRelatorioContas == 2)
+			{
+				se ((index - 1) >= 0)
+				{
+					index--
+					pare
+				}
+			}
+
+			// Voltar para o menu relatório de contas
+			senao se (opcaoNavegacaoMenuRelatorioContas == 3)
+			{
+				pare
+			}
+
+			// Valor inválido
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+			}
+		}
+	}
+
+	funcao visaoGeralMenuRelatorioContas(inteiro &codigos[], real &saldos[], inteiro &quantidadeContas)
 	{
 		para (inteiro i = 0; i < quantidadeContas; i++)
 		{
@@ -318,6 +480,7 @@ programa
 		}
 	}
 
+	// Confirmações
 	funcao logico confirmarDeposito(inteiro codigo, real valorDeposito)
 	{
 		cadeia confirmacao = ""
@@ -496,13 +659,31 @@ programa
 	}
 
 	// Obter valores
-	funcao cadeia obterOpcao()
+	funcao cadeia obterOpcaoNavegacaoMenuRelatorioContas()
 	{
-		cadeia opcao
+		cadeia opcaoNavegacaoMenuRelatorioContas
 
-		leia(opcao)
+		leia(opcaoNavegacaoMenuRelatorioContas)
 
-		retorne opcao
+		retorne opcaoNavegacaoMenuRelatorioContas
+	}
+
+	funcao cadeia obterOpcaoMenuRelatorioDeContas()
+	{
+		cadeia opcaoMenuRelatorioDeContas
+
+		leia(opcaoMenuRelatorioDeContas)
+
+		retorne opcaoMenuRelatorioDeContas
+	}
+
+	funcao cadeia obterOpcaoMenuPrincipal()
+	{
+		cadeia opcaoMenuPrincipal
+
+		leia(opcaoMenuPrincipal)
+
+		retorne opcaoMenuPrincipal
 	}
 
 	funcao cadeia obterSaldo()
@@ -554,6 +735,66 @@ programa
 	}
 
 	// Validações
+	funcao inteiro validarOpcaoNavegacaoMenuRelatorioContas(cadeia opcaoNavegacaoMenuRelatorioContas)
+	{
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(opcaoNavegacaoMenuRelatorioContas, 10))
+			{
+				se (Tipos.cadeia_para_inteiro(opcaoNavegacaoMenuRelatorioContas, 10) >= 1 e Tipos.cadeia_para_inteiro(opcaoNavegacaoMenuRelatorioContas, 10) <= 2)
+				{
+					 pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Opção inválida, tente novamente.")
+					
+					exibirMenu()
+					opcaoNavegacaoMenuRelatorioContas = obterOpcaoNavegacaoMenuRelatorioContas()
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+				
+				exibirMenu()
+				opcaoNavegacaoMenuRelatorioContas = obterOpcaoNavegacaoMenuRelatorioContas()
+			}
+		}
+
+		retorne Tipos.cadeia_para_inteiro(opcaoNavegacaoMenuRelatorioContas, 10)
+	}
+
+	funcao inteiro validarOpcaoMenuRelatorioDeContas(cadeia opcaoMenuRelatorioDeContas)
+	{
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(opcaoMenuRelatorioDeContas, 10))
+			{
+				se (Tipos.cadeia_para_inteiro(opcaoMenuRelatorioDeContas, 10) >= 1 e Tipos.cadeia_para_inteiro(opcaoMenuRelatorioDeContas, 10) <= 4)
+				{
+					 pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Opção inválida, tente novamente.")
+					
+					exibirMenu()
+					opcaoMenuRelatorioDeContas = obterOpcaoMenuRelatorioDeContas()
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+				
+				exibirMenu()
+				opcaoMenuRelatorioDeContas = obterOpcaoMenuRelatorioDeContas()
+			}
+		}
+
+		retorne Tipos.cadeia_para_inteiro(opcaoMenuRelatorioDeContas, 10)
+	}
+
 	funcao real validarSaldo(cadeia saldo)
 	{
 		enquanto (verdadeiro)
@@ -609,13 +850,13 @@ programa
 		retorne Tipos.cadeia_para_inteiro(codigo, 10)
 	}
 
-	funcao inteiro validarOpcao(cadeia opcao)
+	funcao inteiro validarOpcaoMenuPrincipal(cadeia opcaoMenuPrincipal)
 	{
 		enquanto (verdadeiro)
 		{
-			se (Tipos.cadeia_e_inteiro(opcao, 10))
+			se (Tipos.cadeia_e_inteiro(opcaoMenuPrincipal, 10))
 			{
-				se (Tipos.cadeia_para_inteiro(opcao, 10) >= 1 e Tipos.cadeia_para_inteiro(opcao, 10) <= 5)
+				se (Tipos.cadeia_para_inteiro(opcaoMenuPrincipal, 10) >= 1 e Tipos.cadeia_para_inteiro(opcaoMenuPrincipal, 10) <= 5)
 				{
 					 pare
 				}
@@ -624,7 +865,7 @@ programa
 					mensagemCarregamento(2, "Opção inválida, tente novamente.")
 					
 					exibirMenu()
-					opcao = obterOpcao()
+					opcaoMenuPrincipal = obterOpcaoMenuPrincipal()
 				}
 			}
 			senao
@@ -632,11 +873,11 @@ programa
 				mensagemCarregamento(2, "Valor inválido, tente novamente.")
 				
 				exibirMenu()
-				opcao = obterOpcao()
+				opcaoMenuPrincipal = obterOpcaoMenuPrincipal()
 			}
 		}
 
-		retorne Tipos.cadeia_para_inteiro(opcao, 10)
+		retorne Tipos.cadeia_para_inteiro(opcaoMenuPrincipal, 10)
 	}
 
 	funcao real validarValorDeposito(cadeia valorDeposito)
