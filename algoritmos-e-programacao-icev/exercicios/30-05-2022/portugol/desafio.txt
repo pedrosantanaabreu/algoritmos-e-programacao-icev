@@ -389,12 +389,13 @@ programa
 		enquanto (verdadeiro)
 		{
 			limpa()
-			escreva("[ # ] Código | ", codigos[index], "\n",
+			escreva("[ / ] ", index + 1,"ª conta", "\n",
+			"[ # ] Código | ", codigos[index], "\n",
 			"[ $ ] R$ ", Matematica.arredondar(saldos[index], 2), "\n",
 			"\n",
 			"[ 1 ] Avançar", "\n",
 			"[ 2 ] Voltar", "\n",
-			"[ 3 ] Voltar para o menu relatório de contas", "\n",
+			"[ 3 ] Ir para o menu relatório de contas", "\n",
 			"[ > ] ")
 			opcaoNavegacaoMenuRelatorioContas = validarOpcaoNavegacaoMenuRelatorioContas(obterOpcaoNavegacaoMenuRelatorioContas())
 
@@ -404,7 +405,6 @@ programa
 				se ((index + 1) <= (quantidadeContas - 1))
 				{
 					index++
-					pare
 				}
 			}
 
@@ -414,7 +414,6 @@ programa
 				se ((index - 1) >= 0)
 				{
 					index--
-					pare
 				}
 			}
 
@@ -737,32 +736,29 @@ programa
 	// Validações
 	funcao inteiro validarOpcaoNavegacaoMenuRelatorioContas(cadeia opcaoNavegacaoMenuRelatorioContas)
 	{
+		inteiro opcaoNavegacaoMenuRelatorioContasInteiro = 0
+
 		enquanto (verdadeiro)
 		{
 			se (Tipos.cadeia_e_inteiro(opcaoNavegacaoMenuRelatorioContas, 10))
 			{
-				se (Tipos.cadeia_para_inteiro(opcaoNavegacaoMenuRelatorioContas, 10) >= 1 e Tipos.cadeia_para_inteiro(opcaoNavegacaoMenuRelatorioContas, 10) <= 2)
+				se (Tipos.cadeia_para_inteiro(opcaoNavegacaoMenuRelatorioContas, 10) >= 1 e Tipos.cadeia_para_inteiro(opcaoNavegacaoMenuRelatorioContas, 10) <= 3)
 				{
-					 pare
+					opcaoNavegacaoMenuRelatorioContasInteiro = Tipos.cadeia_para_inteiro(opcaoNavegacaoMenuRelatorioContas, 10)
+					pare
 				}
 				senao
 				{
-					mensagemCarregamento(2, "Opção inválida, tente novamente.")
-					
-					exibirMenu()
-					opcaoNavegacaoMenuRelatorioContas = obterOpcaoNavegacaoMenuRelatorioContas()
+					pare
 				}
 			}
 			senao
 			{
-				mensagemCarregamento(2, "Valor inválido, tente novamente.")
-				
-				exibirMenu()
-				opcaoNavegacaoMenuRelatorioContas = obterOpcaoNavegacaoMenuRelatorioContas()
+				pare
 			}
 		}
 
-		retorne Tipos.cadeia_para_inteiro(opcaoNavegacaoMenuRelatorioContas, 10)
+		retorne opcaoNavegacaoMenuRelatorioContasInteiro
 	}
 
 	funcao inteiro validarOpcaoMenuRelatorioDeContas(cadeia opcaoMenuRelatorioDeContas)
@@ -779,7 +775,7 @@ programa
 				{
 					mensagemCarregamento(2, "Opção inválida, tente novamente.")
 					
-					exibirMenu()
+					menuRelatorioDeContas()
 					opcaoMenuRelatorioDeContas = obterOpcaoMenuRelatorioDeContas()
 				}
 			}
@@ -787,7 +783,7 @@ programa
 			{
 				mensagemCarregamento(2, "Valor inválido, tente novamente.")
 				
-				exibirMenu()
+				menuRelatorioDeContas()
 				opcaoMenuRelatorioDeContas = obterOpcaoMenuRelatorioDeContas()
 			}
 		}
