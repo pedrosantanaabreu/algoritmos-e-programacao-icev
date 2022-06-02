@@ -99,28 +99,36 @@ programa
 					{
 						real valorDeposito = validarValorDeposito(obterValorDeposito())
 						inteiro indexConta = encontrarIndex(codigo, codigos)
-			
-						// Depositando
-						depositar(saldos, valorDeposito, indexConta)
-			
-						// Exibindo resultado
-						real saldoAntigo = saldos[indexConta] - valorDeposito
-						real valorResultante = saldos[indexConta]
-				
-						saldoAntigo = Matematica.arredondar(saldoAntigo, 2)
-						valorDeposito = Matematica.arredondar(valorDeposito, 2)
-						valorResultante = Matematica.arredondar(valorResultante, 2)
-			
-						limpa()
-						escreva("[ / ] Depósito concluído com sucesso", "\n",
-						"[ $ ] R$ ", saldoAntigo, "\n",
-						"[ + ] R$ ", valorDeposito, "\n",
-						"[ = ] R$ ", valorResultante, "\n",
-						"\n")
-			
-						mensagemContinuar()
 
-						pare
+						// Confirmando
+						se (confirmarDeposito(codigo, valorDeposito))
+						{
+							// Depositando
+							depositar(saldos, valorDeposito, indexConta)
+							
+							// Exibindo resultado
+							real saldoAntigo = saldos[indexConta] - valorDeposito
+							real valorResultante = saldos[indexConta]
+					
+							saldoAntigo = Matematica.arredondar(saldoAntigo, 2)
+							valorDeposito = Matematica.arredondar(valorDeposito, 2)
+							valorResultante = Matematica.arredondar(valorResultante, 2)
+							
+							limpa()
+							escreva("[ / ] Depósito concluído com sucesso", "\n",
+							"[ $ ] R$ ", saldoAntigo, "\n",
+							"[ + ] R$ ", valorDeposito, "\n",
+							"[ = ] R$ ", valorResultante, "\n",
+							"\n")
+				
+							mensagemContinuar()
+	
+							pare
+						}
+						senao
+						{
+							pare
+						}
 					}
 					senao
 					{
@@ -146,28 +154,36 @@ programa
 			
 						real saldo = saldos[indexConta]
 						real valorSaque = validarValorSaque(obterValorSaque(), saldo)
-			
-						// Sacando
-						sacar(saldos, valorSaque, indexConta)
-			
-						// Escrevendo resultado
-						real saldoAntigo = saldos[indexConta] + valorSaque
-						real valorResultante = saldos[indexConta]
-				
-						saldoAntigo = Matematica.arredondar(saldoAntigo, 2)
-						valorSaque = Matematica.arredondar(valorSaque, 2)
-						valorResultante = Matematica.arredondar(valorResultante, 2)
-						
-						limpa()
-						escreva("[ / ] Saque concluído com sucesso", "\n",
-						"[ $ ] R$ ", saldoAntigo, "\n",
-						"[ - ] R$ ", valorSaque, "\n",
-						"[ = ] R$ ", valorResultante, "\n",
-						"\n")
-			
-						mensagemContinuar()
 
-						pare
+						// Confirmação
+						se (confirmarSaque(codigo, valorSaque))
+						{
+							// Sacando
+							sacar(saldos, valorSaque, indexConta)
+				
+							// Escrevendo resultado
+							real saldoAntigo = saldos[indexConta] + valorSaque
+							real valorResultante = saldos[indexConta]
+					
+							saldoAntigo = Matematica.arredondar(saldoAntigo, 2)
+							valorSaque = Matematica.arredondar(valorSaque, 2)
+							valorResultante = Matematica.arredondar(valorResultante, 2)
+							
+							limpa()
+							escreva("[ / ] Saque concluído com sucesso", "\n",
+							"[ $ ] R$ ", saldoAntigo, "\n",
+							"[ - ] R$ ", valorSaque, "\n",
+							"[ = ] R$ ", valorResultante, "\n",
+							"\n")
+				
+							mensagemContinuar()
+	
+							pare	
+						}
+						senao
+						{
+							pare
+						}
 					}
 					senao
 					{
@@ -184,8 +200,17 @@ programa
 	
 				// Exibindo resultado
 				ativoBancario = Matematica.arredondar(ativoBancario, 2)
-	
+
+				// Exibindo valor das contas isoladamente
 				limpa()
+				para (inteiro h = 0; h < quantidadeContas; h++)
+				{
+					escreva("[ / ] ", h + 1, "ª conta", "\n",
+					"[ # ] Código da conta | ", codigos[h], "\n",
+					"[ $ ] Saldo | R$ ", Matematica.arredondar(saldos[h], 2), "\n",
+					"\n")
+				}
+				
 				escreva("[ / ] Ativo bancário", "\n",
 				"[ $ ] R$ ", ativoBancario, "\n",
 				"\n")
@@ -291,6 +316,98 @@ programa
 				}
 			}
 		}
+	}
+
+	funcao logico confirmarDeposito(inteiro codigo, real valorDeposito)
+	{
+		cadeia confirmacao = ""
+
+		logico confirmacaoDeposito = falso
+
+		inteiro opcaoConfirmacaoInteiro = 0
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ # ] Código da conta | ", codigo, "\n",
+			"[ $ ] Valor do depósito | R$ ", valorDeposito, "\n",
+			"\n",
+			"[ 1 ] Confirmar", "\n",
+			"[ 2 ] Cancelar", "\n",
+			"[ > ] ")
+			leia(confirmacao)
+
+			se (Tipos.cadeia_e_inteiro(confirmacao, 10))
+			{
+				opcaoConfirmacaoInteiro = Tipos.cadeia_para_inteiro(confirmacao, 10)
+				
+				se (opcaoConfirmacaoInteiro == 1)
+				{
+					confirmacaoDeposito = verdadeiro
+					pare
+				}
+				senao se (opcaoConfirmacaoInteiro == 2)
+				{
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor inválido, tente novamente")
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente")
+			}
+		}
+
+		retorne confirmacaoDeposito
+	}
+
+	funcao logico confirmarSaque(inteiro codigo, real valorSaque)
+	{
+		cadeia confirmacao = ""
+
+		logico confirmacaoSaque = falso
+
+		inteiro opcaoConfirmacaoInteiro = 0
+
+		enquanto (verdadeiro)
+		{
+			limpa()
+			escreva("[ # ] Código da conta | ", codigo, "\n",
+			"[ $ ] Valor do saque | R$ ", valorSaque, "\n",
+			"\n",
+			"[ 1 ] Confirmar", "\n",
+			"[ 2 ] Cancelar", "\n",
+			"[ > ] ")
+			leia(confirmacao)
+
+			se (Tipos.cadeia_e_inteiro(confirmacao, 10))
+			{
+				opcaoConfirmacaoInteiro = Tipos.cadeia_para_inteiro(confirmacao, 10)
+				
+				se (opcaoConfirmacaoInteiro == 1)
+				{
+					confirmacaoSaque = verdadeiro
+					pare
+				}
+				senao se (opcaoConfirmacaoInteiro == 2)
+				{
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor inválido, tente novamente")
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente")
+			}
+		}
+
+		retorne confirmacaoSaque
 	}
 
 	funcao logico confirmarRegistrarConta(inteiro codigo, real saldo, inteiro numeroConta)
@@ -443,13 +560,22 @@ programa
 		{
 			se (Tipos.cadeia_e_inteiro(saldo, 10) ou Tipos.cadeia_e_real(saldo))
 			{
-				pare
+				se (Tipos.cadeia_para_real(saldo) >= 0.0)
+				{
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor inválido, tente novamente.")
+					
+					saldo = obterSaldo()	
+				}
 			}
 			senao
 			{
 				mensagemCarregamento(2, "Valor inválido, tente novamente.")
 				
-				saldo = obterCodigo()
+				saldo = obterSaldo()
 			}
 		}
 
@@ -462,7 +588,15 @@ programa
 		{
 			se (Tipos.cadeia_e_inteiro(codigo, 10))
 			{
-				pare
+				se (Tipos.cadeia_para_inteiro(codigo, 10) > 0)
+				{
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Valor inválido, tente novamente.")
+					codigo = obterCodigo()
+				}
 			}
 			senao
 			{
