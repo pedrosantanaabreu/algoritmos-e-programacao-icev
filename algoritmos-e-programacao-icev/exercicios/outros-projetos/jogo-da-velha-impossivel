@@ -346,7 +346,7 @@ programa
 	{
 		inteiro fila = (posicao - 1) / 3
 		inteiro coluna  = (posicao - 1) % 3
-
+		
 		se (nao (tabuleiro[fila][coluna] == 'X') e nao (tabuleiro[fila][coluna] == 'O')) 
 		{
 			retorne verdadeiro
@@ -413,29 +413,31 @@ programa
 			escolha (verificacao)
 			{
 				caso 1:
-					posicaoComputador = obterPrimeiraJogadaComputador()
-					pare
-					
-				caso 2:
-					posicaoComputador = obterSegundaJogadaComputador()
-					pare
-
-				caso 3:
 					posicaoComputador = obterPosicaoVitoria(tabuleiro, simboloComputador)
 					pare
 					
-				caso 4:
+				caso 2:
 					posicaoComputador = obterPosicaoDefesa(tabuleiro, simboloOponente)
+					pare
+
+				caso 3:
+					posicaoComputador = obterPrimeiraJogadaComputador()
+					pare
+					
+				caso 4:
+					posicaoComputador = obterSegundaJogadaComputador()
 					pare
 					
 				caso 5:
-					obterPosicaoAleatoria(tabuleiro)
+					posicaoComputador = obterPosicaoAleatoria(tabuleiro)
 					pare
 			}
-
-			se (conferirDisponibilidadePosicao(tabuleiro, posicaoComputador))
+			se (posicaoComputador != 0)
 			{
-				pare
+				se (conferirDisponibilidadePosicao(tabuleiro, posicaoComputador))
+				{
+					pare
+				}
 			}
 		}
 
