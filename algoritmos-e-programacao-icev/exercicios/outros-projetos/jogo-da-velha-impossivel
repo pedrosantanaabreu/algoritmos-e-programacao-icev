@@ -45,10 +45,12 @@ programa
 			se (jogada % 2 == jogadorAtual)
 			{
 				// Recebendo posição do jogador, validando e colocando as opções no tabuleiro
+				// Recebendo posição do jogador, validando e colocando as opções no tabuleiro
 				escreva("\n",
 				"[ / ] Vez do jogador", "\n",
 				"[ > ] ")
 				posicaoJogador = validarPosicaoJogador(obterPosicaoJogador(), tabuleiro)
+				
 				
 				tabuleiro[(posicaoJogador - 1) / 3][(posicaoJogador - 1) % 3] = simboloJogador
 			}
@@ -59,7 +61,7 @@ programa
 				tabuleiro[(posicaoComputador - 1) / 3][(posicaoComputador - 1) % 3] = simboloComputador
 				
 				escreva("\n",
-				"[ / ] O compurador está pensando", "\n",
+				"[ / ] O 2º compurador está pensando", "\n",
 				"[ > ] ")
 				para (inteiro i = 0; i < 3; i++)
 				{
@@ -427,7 +429,7 @@ programa
 				caso 4:
 					se (posicaoJogador == 1 ou posicaoJogador == 3 ou posicaoJogador == 7 ou posicaoJogador == 9)
 					{
-						posicaoComputador = obterTerceiraJogada(tabuleiro)
+						posicaoComputador = obterQuartaJogada(tabuleiro, posicaoJogador)
 						pare
 					}
 					senao
@@ -452,22 +454,125 @@ programa
 
 		retorne posicaoComputador
 	}
-	
-	funcao inteiro obterTerceiraJogada(caracter tabuleiro[][])
+
+	funcao inteiro obterQuartaJogada(caracter tabuleiro[][], inteiro posicaoJogador)
 	{
-		inteiro lateralEscolhida[4]
-		inteiro index = Util.sorteia(0, 3)
-		lateralEscolhida[0] = 2
-		lateralEscolhida[1] = 4
-		lateralEscolhida[2] = 6
-		lateralEscolhida[3] = 8
-		
-		enquanto (nao conferirDisponibilidadePosicao(tabuleiro, lateralEscolhida[index]))
+		inteiro posicaoComputador = 0
+
+		se (posicaoJogador == 1)
 		{
-			index = Util.sorteia(1, 9)
+			se (conferirDisponibilidadePosicao(tabuleiro, 2))
+			{
+				posicaoComputador = 2
+			}
+			
+			se (conferirDisponibilidadePosicao(tabuleiro, 4))
+			{
+				posicaoComputador = 4
+			}
+		}
+		senao se (posicaoJogador == 3)
+		{
+			se (conferirDisponibilidadePosicao(tabuleiro, 2))
+			{
+				posicaoComputador = 2
+			}
+			
+			se (conferirDisponibilidadePosicao(tabuleiro, 6))
+			{
+				posicaoComputador = 6
+			}
+		}
+		senao se (posicaoJogador == 7)
+		{
+			se (conferirDisponibilidadePosicao(tabuleiro, 4))
+			{
+				posicaoComputador = 4
+			}
+			
+			se (conferirDisponibilidadePosicao(tabuleiro, 8))
+			{
+				posicaoComputador = 8
+			}	
+		}
+		senao se (posicaoJogador == 9)
+		{
+			se (conferirDisponibilidadePosicao(tabuleiro, 6))
+			{
+				posicaoComputador = 6
+			}
+			
+			se (conferirDisponibilidadePosicao(tabuleiro, 8))
+			{
+				posicaoComputador = 8
+			}
+		}
+		senao
+		{
+			posicaoComputador = 0
 		}
 
-		retorne lateralEscolhida[index]
+		retorne posicaoComputador
+	}
+
+	funcao inteiro obterTerceiraJogada(caracter tabuleiro[][], inteiro posicaoJogador)
+	{
+		inteiro posicaoComputador = 0
+
+		se (posicaoJogador == 1)
+		{
+			se (conferirDisponibilidadePosicao(tabuleiro, 3))
+			{
+				posicaoComputador = 3
+			}
+			
+			se (conferirDisponibilidadePosicao(tabuleiro, 7))
+			{
+				posicaoComputador = 7
+			}
+		}
+		senao se (posicaoJogador == 3)
+		{
+			se (conferirDisponibilidadePosicao(tabuleiro, 1))
+			{
+				posicaoComputador = 1
+			}
+			
+			se (conferirDisponibilidadePosicao(tabuleiro, 9))
+			{
+				posicaoComputador = 9
+			}
+		}
+		senao se (posicaoJogador == 7)
+		{
+			se (conferirDisponibilidadePosicao(tabuleiro, 1))
+			{
+				posicaoComputador = 1
+			}
+			
+			se (conferirDisponibilidadePosicao(tabuleiro, 9))
+			{
+				posicaoComputador = 9
+			}	
+		}
+		senao se (posicaoJogador == 9)
+		{
+			se (conferirDisponibilidadePosicao(tabuleiro, 3))
+			{
+				posicaoComputador = 3
+			}
+			
+			se (conferirDisponibilidadePosicao(tabuleiro, 7))
+			{
+				posicaoComputador = 7
+			}
+		}
+		senao
+		{
+			posicaoComputador = 0
+		}
+
+		retorne posicaoComputador
 	}
 
 	funcao inteiro obterPosicaoAleatoria(caracter tabuleiro[][])
