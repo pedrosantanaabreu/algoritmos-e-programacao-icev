@@ -413,11 +413,11 @@ programa
 			escolha (verificacao)
 			{
 				caso 1:
-					posicaoComputador = obterPosicaoVitoria(tabuleiro, simboloComputador)
+					posicaoComputador = obterPosicaoVitoria(tabuleiro, simboloComputador, simboloOponente)
 					pare
 					
 				caso 2:
-					posicaoComputador = obterPosicaoDefesa(tabuleiro, simboloOponente)
+					posicaoComputador = obterPosicaoDefesa(tabuleiro, simboloOponente, simboloComputador)
 					pare
 
 				caso 3:
@@ -432,6 +432,8 @@ programa
 					posicaoComputador = obterPosicaoAleatoria(tabuleiro)
 					pare
 			}
+
+			mensagemContinuar()
 			se (posicaoComputador != 0)
 			{
 				se (conferirDisponibilidadePosicao(tabuleiro, posicaoComputador))
@@ -456,12 +458,12 @@ programa
 		retorne posicaoAleatoria
 	}
 	
-	funcao inteiro obterPosicaoDefesa(caracter tabuleiro[][], caracter simboloOponente)
+	funcao inteiro obterPosicaoDefesa(caracter tabuleiro[][], caracter simboloOponente, caracter simboloVencedor)
 	{
-		retorne obterPosicaoVitoria(tabuleiro, simboloOponente)
+		retorne obterPosicaoVitoria(tabuleiro, simboloOponente, simboloVencedor)
 	}
 
-	funcao inteiro obterPosicaoVitoria(caracter tabuleiro[][], caracter simboloVencedor)
+	funcao inteiro obterPosicaoVitoria(caracter tabuleiro[][], caracter simboloVencedor, caracter simboloOponente)
 	{
 		// Área das variáveis
 		inteiro posicaoVitoria = 0
@@ -469,11 +471,11 @@ programa
 		// Verificação geral
 		se (posicaoVitoria == 0)
 		{
-			posicaoVitoria = obterPosicaoLinhaVitoria(tabuleiro, simboloVencedor)
+			posicaoVitoria = obterPosicaoLinhaVitoria(tabuleiro, simboloVencedor, simboloOponente)
 
 			se (posicaoVitoria == 0)
 			{
-				posicaoVitoria = obterPosicaoColunaVitoria(tabuleiro, simboloVencedor)
+				posicaoVitoria = obterPosicaoColunaVitoria(tabuleiro, simboloVencedor, simboloOponente)
 
 				se (posicaoVitoria == 0)
 				{
@@ -549,7 +551,7 @@ programa
 		retorne posicaoVitoria
 	}
 
-	funcao inteiro obterPosicaoLinhaVitoria(caracter tabuleiro[][], caracter simboloVencedor)
+	funcao inteiro obterPosicaoLinhaVitoria(caracter tabuleiro[][], caracter simboloVencedor, caracter simboloOponente)
 	{
 		inteiro quantidadeOcupados = 0
 		inteiro quantidadeVazios = 0
@@ -567,7 +569,10 @@ programa
 				}
 				senao
 				{
-					quantidadeVazios++
+					se (nao (tabuleiro[linha][coluna] == simboloOponente))
+					{
+						quantidadeVazios++
+					}
 
 					// Armazenando valor da posição vazia
 					posicaoVitoria = (linha * 3 + coluna % 3) + 1
@@ -589,7 +594,7 @@ programa
 		retorne posicaoVitoria
 	}
 
-	funcao inteiro obterPosicaoColunaVitoria(caracter tabuleiro[][], caracter simboloVencedor)
+	funcao inteiro obterPosicaoColunaVitoria(caracter tabuleiro[][], caracter simboloVencedor, caracter simboloOponente)
 	{
 		inteiro quantidadeOcupados = 0
 		inteiro quantidadeVazios = 0
@@ -607,7 +612,10 @@ programa
 				}
 				senao
 				{
-					quantidadeVazios++
+					se (nao (tabuleiro[linha][coluna] == simboloOponente))
+					{
+						quantidadeVazios++
+					}
 
 					// Armazenando valor da posição vazia
 					posicaoVitoria = (linha * 3 + coluna % 3) + 1
