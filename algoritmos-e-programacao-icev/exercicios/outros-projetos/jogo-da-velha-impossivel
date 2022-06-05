@@ -479,7 +479,7 @@ programa
 
 				se (posicaoVitoria == 0)
 				{
-					posicaoVitoria = obterPosicaoDiagonalVitoria(tabuleiro, simboloVencedor)
+					posicaoVitoria = obterPosicaoDiagonalVitoria(tabuleiro, simboloVencedor, simboloOponente)
 				}
 			}
 		}
@@ -487,7 +487,7 @@ programa
 		retorne posicaoVitoria
 	}
 
-	funcao inteiro obterPosicaoDiagonalVitoria(caracter tabuleiro[][], caracter simboloVencedor)
+	funcao inteiro obterPosicaoDiagonalVitoria(caracter tabuleiro[][], caracter simboloVencedor, caracter simboloOponente)
 	{
 		inteiro quantidadeOcupados = 0
 		inteiro quantidadeVazios = 0
@@ -502,7 +502,10 @@ programa
 			}
 			senao
 			{
-				quantidadeVazios++
+				se (nao (tabuleiro[diagonal][diagonal] == simboloOponente))
+				{
+					quantidadeVazios++
+				}
 			}
 
 			se (quantidadeVazios == 1)
@@ -531,7 +534,10 @@ programa
 				}
 				senao
 				{
-					quantidadeVazios++
+					se (nao (tabuleiro[diagonal][diagonal] == simboloOponente))
+					{
+						quantidadeVazios++
+					}
 				}
 	
 				se (quantidadeVazios == 1)
