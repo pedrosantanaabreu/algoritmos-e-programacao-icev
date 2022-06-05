@@ -55,7 +55,7 @@ programa
 			senao
 			{
 				// Recebendo posição do computador, validando e colocando as opções no tabuleiro
-				posicaoComputador = obterPosicaoComputador(tabuleiro, simboloComputador, simboloJogador)
+				posicaoComputador = obterPosicaoComputador(tabuleiro, simboloComputador, simboloJogador, posicaoJogador)
 				tabuleiro[(posicaoComputador - 1) / 3][(posicaoComputador - 1) % 3] = simboloComputador
 				
 				escreva("\n",
@@ -403,7 +403,7 @@ programa
 	}
 
 	// Funções computador
-	funcao inteiro obterPosicaoComputador(caracter tabuleiro[][], caracter simboloComputador, caracter simboloOponente)
+	funcao inteiro obterPosicaoComputador(caracter tabuleiro[][], caracter simboloComputador, caracter simboloOponente, inteiro posicaoJogador)
 	{
 		inteiro posicaoComputador = 0
 
@@ -414,31 +414,33 @@ programa
 			{
 				caso 1:
 					posicaoComputador = obterPosicaoVitoria(tabuleiro, simboloComputador, simboloOponente)
-					escreva("Ataca")
 					pare
 					
 				caso 2:
 					posicaoComputador = obterPosicaoDefesa(tabuleiro, simboloOponente, simboloComputador)
-					escreva("defesa")
 					pare
 
 				caso 3:
 					posicaoComputador = obterPrimeiraJogadaComputador()
-					escreva("primeira")
 					pare
 					
 				caso 4:
-					posicaoComputador = obterSegundaJogadaComputador()
-					escreva("segunda")
-					pare
+					se (posicaoJogador == 1 ou posicaoJogador == 3 ou posicaoJogador == 7 ou posicaoJogador == 9)
+					{
+						posicaoComputador = obterTerceiraJogada(tabuleiro)
+						pare
+					}
+					senao
+					{
+						posicaoComputador = obterSegundaJogadaComputador()
+						pare	
+					}
 					
 				caso 5:
 					posicaoComputador = obterPosicaoAleatoria(tabuleiro)
-					escreva("aleatorio")
 					pare
 			}
 
-			mensagemContinuar()
 			se (posicaoComputador != 0)
 			{
 				se (conferirDisponibilidadePosicao(tabuleiro, posicaoComputador))
@@ -449,6 +451,23 @@ programa
 		}
 
 		retorne posicaoComputador
+	}
+	
+	funcao inteiro obterTerceiraJogada(caracter tabuleiro[][])
+	{
+		inteiro lateralEscolhida[4]
+		inteiro index = Util.sorteia(0, 3)
+		lateralEscolhida[0] = 2
+		lateralEscolhida[1] = 4
+		lateralEscolhida[2] = 6
+		lateralEscolhida[3] = 8
+		
+		enquanto (nao conferirDisponibilidadePosicao(tabuleiro, lateralEscolhida[index]))
+		{
+			index = Util.sorteia(1, 9)
+		}
+
+		retorne lateralEscolhida[index]
 	}
 
 	funcao inteiro obterPosicaoAleatoria(caracter tabuleiro[][])
