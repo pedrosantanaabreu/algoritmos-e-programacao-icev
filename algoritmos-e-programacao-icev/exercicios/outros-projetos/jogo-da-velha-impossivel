@@ -1,0 +1,998 @@
+programa
+{
+	inclua biblioteca Util
+	inclua biblioteca Tipos
+	
+	funcao inicio()
+	{
+		// Área das variáveis
+		caracter tabuleiro[3][3]
+
+		inteiro posicaoJogador = 0
+		inteiro posicaoComputador = 0
+
+		caracter simboloJogador = ' '
+		caracter simboloComputador = ' '
+		caracter simboloVencedor = ' '
+		
+		inteiro jogadorAtual = 0
+
+		inteiro opcaoContinuar = 0
+
+		// Configuração inicial
+		configuracaoInicial(simboloJogador, simboloComputador)
+
+		/*
+		 * 0 Significa que o jogador será o primeiro a jogar
+		 * 1 Significa que o computador será o primeiro a jogar
+		 */
+		se (simboloJogador == 'X')
+		{
+			jogadorAtual = 0
+		}
+		senao
+		{
+			jogadorAtual = 1
+		}
+
+		// Iniciando jogo	
+		para (inteiro jogada = 0; jogada < 9; jogada++)
+		{
+			// Exibindo tabuleiro
+			exibirTabuleiro(tabuleiro)
+
+			// Verificando quem vai jogar primeiro
+			se (jogada % 2 == jogadorAtual)
+			{
+				// Recebendo posição do jogador, validando e colocando as opções no tabuleiro
+				escreva("\n",
+				"[ / ] Vez do jogador", "\n",
+				"[ > ] ")
+				posicaoJogador = validarPosicaoJogador(obterPosicaoJogador(), tabuleiro)
+				
+				tabuleiro[(posicaoJogador - 1) / 3][(posicaoJogador - 1) % 3] = simboloJogador
+			}
+			senao
+			{
+				// Recebendo posição do computador, validando e colocando as opções no tabuleiro
+				se (nao verificarVitoriaComputador(tabuleiro, simboloComputador, posicaoComputador))
+				{
+					se (nao verificarDefesaComputador(tabuleiro, simboloComputador, simboloJogador, posicaoComputador))
+					{
+						se (nao primeiraJogadaComputador(tabuleiro, simboloComputador, posicaoComputador))
+						{
+							segundaJogadaComputador(tabuleiro, simboloComputador, posicaoComputador)
+						}
+					}
+				}
+				
+				escreva("\n",
+				"[ / ] O compurador está pensando", "\n",
+				"[ > ] ")
+				para (inteiro i = 0; i < 3; i++)
+				{
+					escreva(".")
+					Util.aguarde(333)
+				}
+				escreva(posicaoComputador)
+				Util.aguarde(1000)
+			}
+			
+			// Verificando se há algum vencedor ou se deu empate
+			se (conferirSituacaoJogo(tabuleiro, simboloVencedor))
+			{
+				pare
+			}
+		}
+
+		// Exibindo resultado
+		exibirTabuleiro(tabuleiro)
+
+		se (simboloVencedor == 'O')
+		{
+			escreva("\n", "[ / ] Vitória do O", "\n\n")
+		}
+		senao se (simboloVencedor == 'X')
+		{
+			escreva("\n", "[ / ] Vitória do X", "\n\n")
+		}
+		senao
+		{
+			escreva("\n", "[ / ] O jogo deu velha", "\n\n")
+		}
+		mensagemContinuar()
+		
+		// Continuar
+		exibirMenuContinuar()
+		opcaoContinuar = validarOpcaoContinuar(obterOpcaoContinuar())
+		
+		se (opcaoContinuar == 1)
+		{
+			inicio()
+		}
+		senao
+		{
+			limpa()
+			escreva("[ / ] Obrigado por jogar! : )")
+		}
+	}
+
+	// Validando valores
+	funcao inteiro validarPosicaoComputador(inteiro posicao, caracter &tabuleiro[][])
+	{
+		enquanto (verdadeiro)
+		{
+			// Conferindo se a posição está disponível
+			se (conferirDisponibilidadePosicao(tabuleiro, posicao))
+			{
+				pare
+			}
+			senao
+			{
+				posicao = obterPosicaoComputador()
+			}
+		}
+
+		retorne posicao
+	}
+
+	funcao inteiro validarPosicaoJogador(cadeia posicao, caracter &tabuleiro[][])
+	{
+		enquanto (verdadeiro)
+		{
+			// Conferindo se a opção é inteiro
+			se (Tipos.cadeia_e_inteiro(posicao, 10))
+			{
+				// Verificando se está entre 1 e 9
+				se (Tipos.cadeia_para_inteiro(posicao, 10) >= 1 e Tipos.cadeia_para_inteiro(posicao, 10) <= 9)
+				{
+					// Conferindo se a posição está disponível
+					se (conferirDisponibilidadePosicao(tabuleiro, Tipos.cadeia_para_inteiro(posicao, 10)))
+					{
+						pare
+					}
+					senao
+					{
+						mensagemCarregamento(2, "Posição ocupada, tente novamente")	
+					}
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Número inválido, tente novamente")
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Tipo inválido, tente novamente")	
+			}
+			
+			exibirTabuleiro(tabuleiro)
+			escreva("\n",
+			"[ / ] Vez do jogador", "\n",
+			"[ > ] ")
+			posicao = obterPosicaoJogador()
+		}
+
+		retorne Tipos.cadeia_para_inteiro(posicao, 10)
+	}
+
+	funcao inteiro validarOpcaoContinuar(cadeia opcao)
+	{
+		enquanto (verdadeiro)
+		{
+			se (Tipos.cadeia_e_inteiro(opcao, 10))
+			{
+				se (Tipos.cadeia_para_inteiro(opcao, 10) >= 1 e Tipos.cadeia_para_inteiro(opcao, 10) <= 2)
+				{
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Opção inválida, tente novamente.")
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+			}
+
+			exibirMenuContinuar()
+			opcao = obterOpcaoContinuar()
+		}
+
+		retorne Tipos.cadeia_para_inteiro(opcao, 10)
+	}
+
+	// Obtendo valores
+	funcao cadeia obterOpcaoContinuar()
+	{
+		cadeia opcao
+
+		leia(opcao)
+
+		retorne opcao
+	}
+
+	funcao inteiro obterPosicaoComputador()
+	{
+		retorne Util.sorteia(1, 9)
+	}
+
+	funcao cadeia obterPosicaoJogador()
+	{
+		cadeia posicao
+
+		leia(posicao)
+
+		retorne posicao
+	}
+
+	// Outras funções
+	funcao logico conferirSituacaoJogo(caracter tabuleiro[][], caracter &vencedor)
+	{
+		// Informações sobre o tabuleiro
+		inteiro quantidadeDeFilas = 3
+		inteiro quantidadeDeColunas = 3
+		
+		logico vitoria = falso
+		
+		// Conferindo fileiras
+		para (inteiro fila = 0; fila < quantidadeDeFilas; fila++)
+		{
+			para (inteiro coluna = 0; coluna < quantidadeDeColunas - 1; coluna++)
+			{
+				se (tabuleiro[fila][coluna] == tabuleiro[fila][coluna + 1])
+				{
+					se (tabuleiro[fila][coluna] == 'X' ou tabuleiro[fila][coluna] == 'O')
+					{
+						vitoria = verdadeiro
+						vencedor = tabuleiro[fila][coluna]
+					}
+				}
+				senao
+				{
+					vitoria = falso
+					
+					pare
+				}
+			}
+
+			se (vitoria)
+			{
+				pare
+			}
+			senao
+			{
+				vencedor = ' '
+			}
+		}
+
+		se (nao vitoria)
+		{
+			// Conferindo colunas
+			para (inteiro coluna = 0; coluna < quantidadeDeColunas; coluna++)
+			{
+				para (inteiro fila = 0; fila < quantidadeDeFilas - 1; fila++)
+				{
+					se (tabuleiro[fila][coluna] == tabuleiro[fila + 1][coluna])
+					{
+						se (tabuleiro[fila][coluna] == 'X' ou tabuleiro[fila][coluna] == 'O')
+						{
+							vitoria = verdadeiro
+							vencedor = tabuleiro[fila][coluna]
+						}
+					}
+					senao
+					{
+						vitoria = falso
+						
+						pare
+					}
+				}
+	
+				se (vitoria)
+				{
+					pare
+				}
+				senao
+				{
+					vencedor = ' '
+				}
+			}
+		}
+		
+		// Coferindo primeira diagonal
+		se (nao vitoria)
+		{
+			para (inteiro diagonal = 0; diagonal < quantidadeDeColunas - 1; diagonal++)
+			{
+				se (tabuleiro[diagonal][diagonal] == tabuleiro[diagonal + 1][diagonal + 1])
+				{
+					se (tabuleiro[diagonal][diagonal] == 'X' ou tabuleiro[diagonal][diagonal] == 'O')
+					{
+						vitoria = verdadeiro
+						vencedor = tabuleiro[diagonal][diagonal]
+					}
+				}
+				senao
+				{
+					vitoria = falso
+					vencedor = ' '
+
+					pare
+				}
+			}
+		}
+
+		// Conferindo segunda diagonal
+		se (nao vitoria)
+		{
+			para (inteiro diagonal = 0; diagonal < quantidadeDeColunas - 1; diagonal++)
+			{
+				se (tabuleiro[diagonal][2 - diagonal] == tabuleiro[diagonal + 1][(2 - diagonal) - 1])
+				{
+					se (tabuleiro[diagonal][2 - diagonal] == 'X' ou tabuleiro[diagonal + 1][(2 - diagonal) - 1] == 'O')
+					{
+						vitoria = verdadeiro
+						vencedor = tabuleiro[diagonal][diagonal]
+					}
+				}
+				senao
+				{
+					vitoria = falso
+					vencedor = ' '
+
+					pare
+				}
+			}
+		}
+
+		retorne vitoria
+	}
+
+	funcao exibirMenuContinuar()
+	{
+		limpa()
+		escreva("[ / ] Deseja jogar novamente?", "\n",
+		"[ 1 ] Sim", "\n",
+		"[ 2 ] Não", "\n",
+		"[ > ] ")
+	}
+
+	funcao exibirTabuleiro(caracter &tabuleiro[][])
+	{
+		limpa()
+		para (inteiro linha = 0; linha < 3; linha++)
+		{
+			para (inteiro coluna = 0; coluna < 3; coluna++)
+			{
+				escreva("[ ", tabuleiro[linha][coluna], " ] ")
+			}
+
+			escreva("\n")
+		}
+	}
+	
+	funcao logico conferirDisponibilidadePosicao(caracter &tabuleiro[][], inteiro posicao)
+	{
+		inteiro fila = (posicao - 1) / 3
+		inteiro coluna  = (posicao - 1) % 3
+
+		se (nao (tabuleiro[fila][coluna] == 'X') e nao (tabuleiro[fila][coluna] == 'O')) 
+		{
+			retorne verdadeiro
+		}
+		senao
+		{
+			retorne falso
+		}
+	}
+
+	funcao configuracaoInicial(caracter &simboloJogador, caracter &simboloComputador)
+	{
+		cadeia opcao = ""
+
+		enquanto (verdadeiro)
+		{
+			// Menu configuração inicial
+			limpa()
+			escreva("[ / ] Escolha uma das opções:", "\n",
+			"[ 1 ] 'X'", "\n",
+			"[ 2 ] 'O'", "\n",
+			"[ > ] ")
+			leia(opcao)
+
+			// Verificando se o valor é numérico
+			se (Tipos.cadeia_e_inteiro(opcao, 10))
+			{
+				// Verificando se está entre 1 e 2
+				se (Tipos.cadeia_para_inteiro(opcao, 10) == 1)
+				{
+					simboloJogador = 'X'
+					simboloComputador = 'O'
+
+					pare
+					
+				}
+				senao se (Tipos.cadeia_para_inteiro(opcao, 10) == 2)
+				{
+					simboloJogador = 'O'
+					simboloComputador = 'X'
+
+					pare
+				}
+				senao
+				{
+					mensagemCarregamento(2, "Opção inválida, tente novamente.")
+				}
+			}
+			senao
+			{
+				mensagemCarregamento(2, "Valor inválido, tente novamente.")
+			}
+		}
+	}
+
+	// Funções computador
+	funcao obterPosicaoComputador(caracter &tabuleiro[][], caracter &simboloComputador, inteiro &posicaoComputador)
+	{
+		verificarVitoriaComputador(tabuleiro, simboloComputador, posicaoComputador)
+	}
+
+	funcao logico verificarVitoriaComputador(caracter &tabuleiro[][], caracter &simboloComputador, inteiro &posicaoComputador)
+	{
+		// Área das variáveis
+		inteiro quantidadeDeLinhas = 3
+		inteiro quantidadeDeColunas = 3
+		logico venceu = falso
+
+		// Verificar possível vitória nas linhas
+		inteiro quantidadeOcupados = 0
+		inteiro quantidadeVazios = 0
+
+		// Variáveis localização da posição de vitória
+		inteiro linhaVitoria = 0
+		inteiro colunaVitoria = 0
+
+		// Variáveis externas
+		inteiro linha = 0
+		inteiro coluna = 0
+		inteiro diagonal = 0
+	
+		// Verificação geral
+		para (inteiro verificacao = 0; verificacao < 4; verificacao++)
+		{
+			// Verificação de linhas
+			se (verificacao == 0)
+			{
+				para (linha = 0; linha < quantidadeDeLinhas; linha++)
+				{
+					para (coluna = 0; coluna < quantidadeDeColunas; coluna++)
+					{
+						se (tabuleiro[linha][coluna] == simboloComputador)
+						{
+							quantidadeOcupados++
+						}
+						senao
+						{
+							quantidadeVazios++
+						}
+					}
+		
+					se (quantidadeOcupados == (quantidadeDeColunas - 1))
+					{
+						para (coluna = 0; coluna < quantidadeDeColunas; coluna++)
+						{
+							se (nao (tabuleiro[linha][coluna] == 'X') e nao (tabuleiro[linha][coluna] == 'O'))
+							{
+								linhaVitoria = linha
+								colunaVitoria = coluna
+								
+								venceu = verdadeiro
+							}
+						}
+						
+						pare
+					}
+					senao
+					{
+						quantidadeOcupados = 0
+						quantidadeVazios = 0
+					}
+				}
+
+				se (venceu)
+				{
+					pare
+				}
+				senao
+				{
+					linha = 0
+					coluna = 0
+				}
+			}
+
+			// Verificando colunas
+			senao se (verificacao == 1)
+			{
+				para (coluna = 0; coluna < quantidadeDeColunas; coluna++)
+				{
+					para (linha = 0; linha < quantidadeDeLinhas; linha++)
+					{
+						se (tabuleiro[linha][coluna] == simboloComputador)
+						{
+							quantidadeOcupados++
+						}
+						senao
+						{
+							quantidadeVazios++
+						}
+					}
+		
+					se (quantidadeOcupados == (quantidadeDeColunas - 1))
+					{
+						para (linha = 0; linha < quantidadeDeLinhas; linha++)
+						{
+							se (nao (tabuleiro[linha][coluna] == 'X') e nao (tabuleiro[linha][coluna] == 'O'))
+							{
+								linhaVitoria = linha
+								colunaVitoria = coluna
+								
+								venceu = verdadeiro
+							}
+						}
+
+						pare
+					}
+					senao
+					{
+						quantidadeOcupados = 0
+						quantidadeVazios = 0
+					}
+				}
+
+				se (venceu)
+				{
+					pare
+				}
+				senao
+				{
+					linha = 0
+					coluna = 0
+				}
+			}
+
+			// Verificando primeira diagonal
+			senao se (verificacao == 2)
+			{
+				para (diagonal = 0; diagonal < quantidadeDeColunas; diagonal++)
+				{
+					se (tabuleiro[diagonal][diagonal] == simboloComputador)
+					{
+						quantidadeOcupados++
+					}
+					senao
+					{
+						quantidadeVazios++
+					}
+				}
+		
+				se (quantidadeOcupados == (quantidadeDeColunas - 1))
+				{
+					para (diagonal = 0; diagonal < quantidadeDeColunas; diagonal++)
+					{
+						se (nao (tabuleiro[diagonal][diagonal] == 'X') e nao (tabuleiro[diagonal][diagonal] == 'O'))
+						{
+							linhaVitoria = diagonal
+							colunaVitoria = diagonal
+
+							venceu = verdadeiro
+						}
+					}
+
+					pare
+				}
+				senao
+				{
+					quantidadeOcupados = 0
+					quantidadeVazios = 0
+				}
+
+				se (venceu)
+				{
+					pare
+				}
+				senao
+				{
+					linha = 0
+					coluna = 0
+				}
+			}
+
+			// Conferindo a segunda diagonal
+			senao
+			{
+				para (diagonal = 0; diagonal < quantidadeDeColunas; diagonal++)
+				{
+					se (tabuleiro[2 - diagonal][diagonal] == simboloComputador)
+					{
+						quantidadeOcupados++
+					}
+					senao
+					{
+						quantidadeVazios++
+					}
+				}
+		
+				se (quantidadeOcupados == (quantidadeDeColunas - 1))
+				{
+					para (diagonal = 0; diagonal < quantidadeDeColunas; diagonal++)
+					{
+						se (nao (tabuleiro[2 - diagonal][diagonal] == 'X') e nao (tabuleiro[2 - diagonal][diagonal] == 'O'))
+						{
+							linhaVitoria = 2 - diagonal
+							colunaVitoria = diagonal
+
+							venceu = verdadeiro
+						}
+					}
+
+					pare
+				}
+				senao
+				{
+					quantidadeOcupados = 0
+					quantidadeVazios = 0
+				}
+
+				se (venceu)
+				{
+					pare
+				}
+				senao
+				{
+					linha = 0
+					coluna = 0
+				}
+			}
+		}
+
+		se (venceu)
+		{
+			inteiro contador = 0
+			logico contadorValidador = falso
+			
+			para (inteiro i = 0; i < 3; i++)
+			{
+				para (inteiro j = 0; j < 3; j++)
+				{
+					contador++
+
+					se (i == linhaVitoria e colunaVitoria == j)
+					{
+						contadorValidador = verdadeiro
+
+						pare
+					}
+				}
+
+				se (contadorValidador)
+				{
+					pare
+				}
+			}
+
+			tabuleiro[linhaVitoria][colunaVitoria] = simboloComputador
+			posicaoComputador = contador
+
+			retorne verdadeiro
+		}
+		senao
+		{
+			retorne falso
+		}
+	}
+
+	funcao logico verificarDefesaComputador(caracter &tabuleiro[][], caracter &simboloComputador, caracter &simboloJogador, inteiro &posicaoComputador)
+	{
+		// Área das variáveis
+		inteiro quantidadeDeLinhas = 3
+		inteiro quantidadeDeColunas = 3
+		logico venceu = falso
+
+		// Verificar possível vitória nas linhas
+		inteiro quantidadeOcupados = 0
+		inteiro quantidadeVazios = 0
+
+		// Variáveis localização da posição de vitória
+		inteiro linhaVitoria = 0
+		inteiro colunaVitoria = 0
+
+		// Variáveis externas
+		inteiro linha = 0
+		inteiro coluna = 0
+		inteiro diagonal = 0
+	
+		// Verificação geral
+		para (inteiro verificacao = 0; verificacao < 4; verificacao++)
+		{
+			// Verificação de linhas
+			se (verificacao == 0)
+			{
+				para (linha = 0; linha < quantidadeDeLinhas; linha++)
+				{
+					para (coluna = 0; coluna < quantidadeDeColunas; coluna++)
+					{
+						se (tabuleiro[linha][coluna] == simboloJogador)
+						{
+							quantidadeOcupados++
+						}
+						senao
+						{
+							quantidadeVazios++
+						}
+					}
+		
+					se (quantidadeOcupados == (quantidadeDeColunas - 1))
+					{
+						para (coluna = 0; coluna < quantidadeDeColunas; coluna++)
+						{
+							se (nao (tabuleiro[linha][coluna] == 'X') e nao (tabuleiro[linha][coluna] == 'O'))
+							{
+								linhaVitoria = linha
+								colunaVitoria = coluna
+								
+								venceu = verdadeiro
+							}
+						}
+						
+						pare
+					}
+					senao
+					{
+						quantidadeOcupados = 0
+						quantidadeVazios = 0
+					}
+				}
+
+				se (venceu)
+				{
+					pare
+				}
+				senao
+				{
+					linha = 0
+					coluna = 0
+				}
+			}
+
+			// Verificando colunas
+			senao se (verificacao == 1)
+			{
+				para (coluna = 0; coluna < quantidadeDeColunas; coluna++)
+				{
+					para (linha = 0; linha < quantidadeDeLinhas; linha++)
+					{
+						se (tabuleiro[linha][coluna] == simboloJogador)
+						{
+							quantidadeOcupados++
+						}
+						senao
+						{
+							quantidadeVazios++
+						}
+					}
+		
+					se (quantidadeOcupados == (quantidadeDeColunas - 1))
+					{
+						para (linha = 0; linha < quantidadeDeLinhas; linha++)
+						{
+							se (nao (tabuleiro[linha][coluna] == 'X') e nao (tabuleiro[linha][coluna] == 'O'))
+							{
+								linhaVitoria = linha
+								colunaVitoria = coluna
+								
+								venceu = verdadeiro
+							}
+						}
+
+						pare
+					}
+					senao
+					{
+						quantidadeOcupados = 0
+						quantidadeVazios = 0
+					}
+				}
+
+				se (venceu)
+				{
+					pare
+				}
+				senao
+				{
+					linha = 0
+					coluna = 0
+				}
+			}
+
+			// Verificando primeira diagonal
+			senao se (verificacao == 2)
+			{
+				para (diagonal = 0; diagonal < quantidadeDeColunas; diagonal++)
+				{
+					se (tabuleiro[diagonal][diagonal] == simboloJogador)
+					{
+						quantidadeOcupados++
+					}
+					senao
+					{
+						quantidadeVazios++
+					}
+				}
+		
+				se (quantidadeOcupados == (quantidadeDeColunas - 1))
+				{
+					para (diagonal = 0; diagonal < quantidadeDeColunas; diagonal++)
+					{
+						se (nao (tabuleiro[diagonal][diagonal] == 'X') e nao (tabuleiro[diagonal][diagonal] == 'O'))
+						{
+							linhaVitoria = diagonal
+							colunaVitoria = diagonal
+
+							venceu = verdadeiro
+						}
+					}
+
+					pare
+				}
+				senao
+				{
+					quantidadeOcupados = 0
+					quantidadeVazios = 0
+				}
+
+				se (venceu)
+				{
+					pare
+				}
+				senao
+				{
+					linha = 0
+					coluna = 0
+				}
+			}
+
+			// Conferindo a segunda diagonal
+			senao
+			{
+				para (diagonal = 0; diagonal < quantidadeDeColunas; diagonal++)
+				{
+					se (tabuleiro[2 - diagonal][diagonal] == simboloJogador)
+					{
+						quantidadeOcupados++
+					}
+					senao
+					{
+						quantidadeVazios++
+					}
+				}
+		
+				se (quantidadeOcupados == (quantidadeDeColunas - 1))
+				{
+					para (diagonal = 0; diagonal < quantidadeDeColunas; diagonal++)
+					{
+						se (nao (tabuleiro[2 - diagonal][diagonal] == 'X') e nao (tabuleiro[2 - diagonal][diagonal] == 'O'))
+						{
+							linhaVitoria = 2 - diagonal
+							colunaVitoria = diagonal
+
+							venceu = verdadeiro
+						}
+					}
+
+					pare
+				}
+				senao
+				{
+					quantidadeOcupados = 0
+					quantidadeVazios = 0
+				}
+
+				se (venceu)
+				{
+					pare
+				}
+				senao
+				{
+					linha = 0
+					coluna = 0
+				}
+			}
+		}
+
+		se (venceu)
+		{
+			inteiro contador = 0
+			logico contadorValidador = falso
+			
+			para (inteiro i = 0; i < 3; i++)
+			{
+				para (inteiro j = 0; j < 3; j++)
+				{
+					contador++
+
+					se (i == linhaVitoria e colunaVitoria == j)
+					{
+						contadorValidador = verdadeiro
+
+						pare
+					}
+				}
+
+				se (contadorValidador)
+				{
+					pare
+				}
+			}
+
+			tabuleiro[linhaVitoria][colunaVitoria] = simboloComputador
+			posicaoComputador = contador
+
+			retorne verdadeiro
+		}
+		senao
+		{
+			retorne falso
+		}
+	}
+
+	funcao inteiro primeiraJogadaComputador(caracter &tabuleiro[][])
+	{
+		retorne 5
+	}
+
+	funcao inteiro segundaJogadaComputador(caracter &tabuleiro[][])
+	{
+		inteiro diagonalEscolhida[4]
+		diagonalEscolhida[0] = 1
+		diagonalEscolhida[1] = 3
+		diagonalEscolhida[2] = 7
+		diagonalEscolhida[3] = 9
+
+		retorne diagonalEscolhida[Util.sorteia(0, 3)]
+	}
+
+	// Funções estéticas
+	funcao mensagemCarregamento(inteiro ciclos, cadeia mensagem)
+	{
+		cadeia simboloCarregamento[4]
+		
+		simboloCarregamento[0] = "|"
+		simboloCarregamento[1] = "\\"
+		simboloCarregamento[2] = "-"
+		simboloCarregamento[3] = "/"
+
+		para (inteiro i = 1; i <= ciclos; i++)
+		{
+			para (inteiro j = 0; j <= 3; j++)
+			{
+				limpa()
+				escreva("[ ", simboloCarregamento[j]," ] ", mensagem)
+				
+				Util.aguarde(100)			
+			}
+		}
+
+		limpa()
+	}
+
+	funcao mensagemContinuar()
+	{
+		cadeia continuar = ""
+		
+		escreva("[ Enter ] Para continuar\n")
+		
+		leia(continuar)
+	}
+}
