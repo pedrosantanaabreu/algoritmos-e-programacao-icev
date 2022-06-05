@@ -433,7 +433,6 @@ programa
 					pare
 			}
 
-			mensagemContinuar()
 			se (posicaoComputador != 0)
 			{
 				se (conferirDisponibilidadePosicao(tabuleiro, posicaoComputador))
