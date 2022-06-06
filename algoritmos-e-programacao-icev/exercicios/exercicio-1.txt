@@ -35,12 +35,11 @@ programa
 	funcao inicio()
 	{
 		// Área das variáveis
-		inteiro quantidadeProdutos = 10
 		inteiro codigos[10]
 		inteiro estoques[10]
 		
 		// Criando produtos | Códigos e Estoques
-		criarProdutos(codigos, estoques, quantidadeProdutos)
+		criarProdutos(codigos, estoques, 10)
 
 		// Realizando pedidos
 		realizarPedidos(codigos, estoques)
@@ -57,7 +56,8 @@ programa
 
 		cadeia quantidadeNaoFormatada = ""
 		inteiro quantidadeFormatada = 0
-		
+		inteiro index = 0
+
 		enquanto (verdadeiro)
 		{
 			// Validando código do cliente
@@ -75,7 +75,7 @@ programa
 				se (validarCodigo(codigoClienteNaoFormatado))
 				{
 					codigoClienteFormato = Tipos.cadeia_para_inteiro(codigoClienteNaoFormatado, 10)
-					
+
 					pare
 				}
 				senao
@@ -111,7 +111,16 @@ programa
 						{
 							codigoProdutoFormatado = Tipos.cadeia_para_inteiro(codigoProdutoNaoFormatado, 10)
 							
-							pare	
+							se (verificarQuantidadeProduto(codigoProdutoFormatado, estoques, codigos) > 0)
+							{
+								index = identificarIndex(codigoProdutoFormatado, codigos)
+
+								pare	
+							}
+							senao
+							{
+								mensagemCarregamento(2, "Produto sem estoque, tente novamente.")
+							}
 						}
 					}
 					senao
@@ -126,25 +135,76 @@ programa
 					// Exibindo menu para solicitar quantidade do produto
 					limpa()
 					escreva("[ / ] Cliente ", codigoClienteFormato, "\n",
-					"[ # ] Código ", codigoProdutoFormatado, "\n",
+					"[ # ] Código do produto", codigoProdutoFormatado, "\n",
 					"[ - ] Insira a quantidade do produto", "\n",
 					"[ > ] ")
 					leia(quantidadeNaoFormatada)
 					
 					// Validando código inserido
-					se (validarCodigo(codigoClienteNaoFormatado))
+					se (validarQuantidade(quantidadeNaoFormatada))
 					{
 						quantidadeFormatada = Tipos.cadeia_para_inteiro(quantidadeNaoFormatada, 10)
-						
-						pare
+
+						se (verificarQuantidadeProduto(codigoProdutoFormatado, estoques, codigos) >= quantidadeFormatada)
+						{
+							se (quantidadeFormatada > 0)
+							{
+								pare
+							}
+							senao
+							{
+								mensagemCarregamento(2, "Quantidade solicitada não pode ser igual ou menor que 0, tente novamente.")
+							}
+						}
+						senao
+						{
+							mensagemCarregamento(2, "Quantidade solicitada superior, tente novamente.")
+						}
 					}
 					senao
 					{
 						mensagemCarregamento(2, "Valor inválido, tente novamente.")
 					}
 				}
+
+				// Removendo do estoque
+				estoques[index] -= quantidadeFormatada
+
+				// Exibindo visão geral
+				limpa()
+				visaoGeralEstoque(codigos, estoques)
+				mensagemContinuar()
 			}
 		}
+	}
+
+	// Outras funções
+	funcao visaoGeralEstoque(inteiro codigos[], inteiro estoques[])
+	{
+		para (inteiro index = 0; index < 10; index++)
+		{
+			escreva("[ # ] Código do produto | ", codigos[index], "\n",
+			"[ @ ] Quantidade em estoque | ", estoques[index], "\n",
+			"\n")
+		}
+	}
+
+	funcao inteiro verificarQuantidadeProduto(inteiro codigo, inteiro estoques[], inteiro codigos[])
+	{
+		retorne estoques[identificarIndex(codigo, codigos)]
+	}
+
+	funcao inteiro identificarIndex(inteiro codigo, inteiro codigos[])
+	{
+		para (inteiro i = 0; i < 10; i++)
+		{
+			se (codigo == codigos[i])
+			{
+				retorne i
+			}
+		}
+
+		retorne 0
 	}
 
 	funcao criarProdutos(inteiro &codigos[], inteiro &estoques[], inteiro quantidadeProdutos)
@@ -220,6 +280,18 @@ programa
 
 	// Validadores de valores
 	funcao logico validarCodigo(cadeia codigo)
+	{
+		se (Tipos.cadeia_e_inteiro(codigo, 10))
+		{
+			retorne verdadeiro
+		}
+		senao
+		{
+			retorne falso
+		}
+	}
+
+	funcao logico validarQuantidade(cadeia codigo)
 	{
 		se (Tipos.cadeia_e_inteiro(codigo, 10))
 		{
