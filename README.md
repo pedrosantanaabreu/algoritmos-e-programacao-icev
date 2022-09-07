@@ -43,7 +43,7 @@ Todos os exercícios e anotações das aulas de "Algoritmos e Programação" no 
       <td class="tg-0pky"></td>
       <td class="tg-0pky"></td>
       <td class="tg-0pky"></td>
-      <td class="tg-0pky"></td>
+      <td class="tg-0pky"><a href="https://rebrand.ly/0qbog1g" target="_blank" rel="noopener noreferrer">01</a></td>
       <td class="tg-0pky"></td>
       <td class="tg-0pky"></td>
       <td class="tg-0pky"></td>
