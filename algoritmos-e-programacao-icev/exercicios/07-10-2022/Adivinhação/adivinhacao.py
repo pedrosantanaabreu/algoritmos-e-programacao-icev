@@ -1,20 +1,7 @@
-"""
-Desenvolva um jogo de acerte o número, onde o computador escolhe um número inteiro aleatório de 0 a 100, inicialmente, e o usuário tem 5 tentativas para adivinhar o número
-OBS.: O design da tela pode ser implementado livremente
-
-Forneça dica se um número informado está no intervalo maior ou menor.
-
-Dica: Use a import random
-
-Implemente um sistema de pontuação com o seguinte comportamento: se o usuário adivinhar o número na primeira tentativa, receberá a pontuação máxima (ex. 100 pontos); se o usuário adivinhar o número na última tentativa, receberá a pontuação mínima (ex. 10 pontos); se o usuário não acertar o número, não receberá nenhum ponto.
-
-Implemente um controle de erros. Caso o jogador digite um número fora da faixa permitida ou caracteres não numéricos, o sistema deve notificar o jogador e solicitar o input correto.
-
-Implemente a opção de o usuário iniciar uma nova partida. Ao finalizar uma rodada, após o resultado final, o jogo deve perguntar se o jogador quer iniciar uma nova partida e, em caso negativo, encerrar a aplicação.
-"""
 # Bibliotecas
 import random
 import os
+from utilitarios import Utilitarios
 
 
 class JogoAdivinhacao:
@@ -79,21 +66,6 @@ class JogoAdivinhacao:
 
     def __mensagem_enter_para_continuar(self):
         input('[ - ] Pressione "Enter" para continuar...')
-
-
-    def __imprimir_menu_principal(self):
-        print('[ - ] Menu "Configurações do Jogo"\n' +
-        '[ A ] Para recomeçar o jogo\n' +
-        '[ B ] Para fechar o jogo\n' +
-        '\n' +
-        '[ - ] Menu "Jogo da Adivinhação"\n' +
-        f'[ ! ] O computador escolheu um número entre {self.__RANGE_DE_ESCOLHA_DO_COMPUTADOR[0]} e {self.__RANGE_DE_ESCOLHA_DO_COMPUTADOR[1]}\n' +
-        f'\n[ - ] Pontuação: {self.__pontuacao_do_usuario} pontos\n' +
-        '\n[ + ] Dicas:')
-        for dica in self.__dicionario_com_as_dicas.items():
-            print(f'[ - ] {int(dica[0])}ª dica | {dica[1]}')
-        print('')
-
 
     def __imprimir_menu_sair_do_jogo(self):
         print('[ - ] Menu "Sair do Jogo"\n' +
@@ -199,14 +171,15 @@ class JogoAdivinhacao:
 
     # Função Main
     def iniciar_jogo(self):
+        utilitarios = Utilitarios(tamanho_da_interface = f'O número {self.__RANGE_DE_ESCOLHA_DO_COMPUTADOR[1]} é maior que o número do computador.')
         while True:
             usuario_acertou_o_numero_do_computador = False
             self.__numero_do_computador = self.__definir_numero_do_computador()
             for rodada_atual in range(self.__QUANTIDADE_DE_TENTATIVAS_DO_USUARIO):
                 while True:
                     self.__limpar_terminal()
-                    self.__imprimir_menu_principal()
-                    escolha_do_usuario_no_menu_principal = input('[ > ] ').strip().upper()
+                    utilitarios.imprimir_pagina_inicial(pontuacao_do_usuario = self.__pontuacao_do_usuario, dicionario_com_as_dicas = self.__dicionario_com_as_dicas, RANGE_DE_ESCOLHA_DO_COMPUTADOR = self.__RANGE_DE_ESCOLHA_DO_COMPUTADOR)
+                    escolha_do_usuario_no_menu_principal = input(' > ').strip().upper()
 
                     if escolha_do_usuario_no_menu_principal == 'A':
                         self.__opcoes_do_menu_reiniciar_o_jogo()
