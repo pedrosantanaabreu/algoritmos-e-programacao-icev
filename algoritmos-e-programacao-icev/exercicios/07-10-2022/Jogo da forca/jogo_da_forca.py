@@ -14,10 +14,12 @@ class JogoDaForca:
         self.__PALAVRA_SECRETA = self.__gerar_palavra_secreta().upper()
         self.__palavra_secreta_display = ['_'] * len(self.__PALAVRA_SECRETA)
 
+        
     def __gerar_palavra_secreta(self):
         with open(str(f"{self.__BANCO_DE_PALAVRAS}"), 'r', encoding = 'utf-8') as banco_de_palavras:
             return random.choice(banco_de_palavras.readlines()[0].split(' '))
 
+        
     def __conferir_se_a_letra_esta_na_palavra_secreta(self, letra_digitada_pelo_usuario):
         if letra_digitada_pelo_usuario in self.__PALAVRA_SECRETA:
             return True
@@ -58,8 +60,10 @@ class JogoDaForca:
 
 
     def __atualizar_estado_atual_da_palavra_secreta(self, letra_digitada_pelo_usuario):
-        for contador_substituicao in range(self.__PALAVRA_SECRETA.count(letra_digitada_pelo_usuario)):
-            self.__palavra_secreta_display[self.__PALAVRA_SECRETA.index(letra_digitada_pelo_usuario, contador_substituicao)] = letra_digitada_pelo_usuario
+        index_proprio = self.__PALAVRA_SECRETA.index(letra_digitada_pelo_usuario) - 1
+        for _ in range(self.__PALAVRA_SECRETA.count(letra_digitada_pelo_usuario)):
+            self.__palavra_secreta_display[self.__PALAVRA_SECRETA.index(letra_digitada_pelo_usuario, index_proprio + 1)] = letra_digitada_pelo_usuario
+            index_proprio = self.__PALAVRA_SECRETA.index(letra_digitada_pelo_usuario, index_proprio + 1)
 
 
     def __imprimir_a_palavra_secreta(self):
