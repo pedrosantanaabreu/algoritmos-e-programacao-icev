@@ -60,10 +60,12 @@ class JogoDaForca:
 
 
     def __atualizar_estado_atual_da_palavra_secreta(self, letra_digitada_pelo_usuario):
-        index_proprio = self.__PALAVRA_SECRETA.index(letra_digitada_pelo_usuario) - 1
-        for _ in range(self.__PALAVRA_SECRETA.count(letra_digitada_pelo_usuario)):
-            self.__palavra_secreta_display[self.__PALAVRA_SECRETA.index(letra_digitada_pelo_usuario, index_proprio + 1)] = letra_digitada_pelo_usuario
-            index_proprio = self.__PALAVRA_SECRETA.index(letra_digitada_pelo_usuario, index_proprio + 1)
+        palavra_secreta_display[self.__PALAVRA_SECRETA.find(letra_digitada_pelo_usuario)] = letra_digitada_pelo_usuario
+        index_proprio = self.__PALAVRA_SECRETA.find(letra_digitada_pelo_usuario)
+        for _ in range(self.__PALAVRA_SECRETA.count(letra_digitada_pelo_usuario) - 1):
+            palavra_secreta_display[self.__PALAVRA_SECRETA.find(letra_digitada_pelo_usuario, index_proprio)] = letra_digitada_pelo_usuario
+            index_proprio = self.__PALAVRA_SECRETA.find(letra_digitada_pelo_usuario, index_proprio + 1)
+        palavra_secreta_display[self.__PALAVRA_SECRETA.find(letra_digitada_pelo_usuario, index_proprio)] = letra_digitada_pelo_usuario
 
 
     def __imprimir_a_palavra_secreta(self):
