@@ -8,7 +8,6 @@ from rich.layout import Layout
 from rich.text import Text
 from rich.align import Align
 from rich.table import Table
-import csv
 
 
 class Interfaces:
@@ -152,7 +151,7 @@ class Interfaces:
         )
 
         div_opcoes_inferiror.split_row(
-            Layout(Panel(Align(Text('Sair'), align='center', vertical='middle'), subtitle='4'))
+            Layout(Panel(Align(Text('Voltar'), align='center', vertical='middle'), subtitle='4'))
         )
 
         div_opcoes.split_column(
@@ -718,6 +717,120 @@ class Interfaces:
                         Layout(Panel(div_esquerda, title='Informações do cliente')),
                         Layout(Panel(div_direita, title='Editar'))
                     )
+
+        menu_principal = Panel(
+            div_opcoes,
+            style='bright_cyan bold',
+            title=TITULO_PRINCIPAL,
+            subtitle='',
+            height=ALTURA_MAXIMA,
+            padding=PADDING
+        )
+
+        rprint(menu_principal)
+
+
+    def imprimir_menu_editando_conta(conta_antiga : Conta, conta_nova : Conta, pagina, opcao):
+        TITULO_PRINCIPAL = 'Editar conta'
+        SUBTITULO = ''
+        ALTURA_MAXIMA = 20
+        PADDING = 1
+
+        div_opcoes = Layout()
+        div_esquerda = Layout()
+        div_confirmacao = Layout()
+        div_opcoes_editar = Layout()
+        div_esquerda_infos = Layout()
+
+        div_esquerda.split_column(
+            Layout(Panel(Align(conta_antiga.agencia, align='center', vertical='middle'), title='Agência')),
+            Layout(Panel(Align(conta_antiga.conta, align='center', vertical='middle'), title='Conta')),
+
+        )
+
+        div_confirmacao.split_row(
+            Layout(Panel(Align(Text('Confirmar'), align='center', vertical='middle'), title='1')),
+            Layout(Panel(Align(Text('Voltar'), align='center', vertical='middle'), title='2'))
+        )
+
+        div_opcoes_editar.split_column(
+            Layout(Panel(Align(Text('Agência'), align='center', vertical='middle'), title='1')),
+            Layout(Panel(Align(Text('Conta'), align='center', vertical='middle'), title='2')),
+            Layout(Panel(Align(Text('CPF'), align='center', vertical='middle'), title='3')),
+            Layout(Panel(Align(Text('Saldo'), align='center', vertical='middle'), title='4'))
+        )
+
+        if pagina <= 2:
+            if conta_antiga.agencia == '':
+                SUBTITULO = 'Informe a agência'
+            else:
+                SUBTITULO = 'Informe a conta'
+
+            div_opcoes.split_row(
+                Layout(Panel(div_esquerda, title='Informações sobre a conta', subtitle=SUBTITULO)),
+                Layout(Panel(Align('Voltar', align='center', vertical='middle'), title='1'))
+            )
+        elif pagina == 3:
+            _agencia, _conta, _cpf, _saldo = Dados.obter_informacoes_bancarias(agencia=conta_antiga.agencia, conta=conta_antiga.conta)
+
+            div_esquerda.split_column(
+                Layout(Panel(Align(_agencia, align='center', vertical='middle'), title='Agência')),
+                Layout(Panel(Align(_conta, align='center', vertical='middle'), title='Conta')),
+                Layout(Panel(Align(Utilitarios.imprimir_cpf_com_pontuacao(_cpf), align='center', vertical='middle'), title='CPF')),
+                Layout(Panel(Align(f'R$ {Utilitarios.formatar_dinheiro(_saldo)}', align='center', vertical='middle'), title='Saldo')),
+            )
+            div_opcoes.split_row(
+                Layout(Panel(div_esquerda, title='Informações sobre a conta', subtitle=SUBTITULO)),
+                Layout(Panel(div_opcoes_editar, title='Editar')),
+                Layout(Panel(Align(Text('Voltar'), align='center', vertical='middle'), title='5')),
+            )
+        elif pagina == 4:
+            if opcao == 1:
+                titulo = 'Informe a nova agência'
+            elif opcao == 2:
+                titulo = 'Informe a nova conta'
+            elif opcao == 3:
+                titulo = 'Informe o novo CPF'
+            else:
+                titulo = 'Informe o novo saldo'
+            
+            _agencia, _conta, _cpf, _saldo = Dados.obter_informacoes_bancarias(agencia=conta_antiga.agencia, conta=conta_antiga.conta)
+
+            div_esquerda.split_column(
+                Layout(Panel(Align(_agencia, align='center', vertical='middle'), title='Agência')),
+                Layout(Panel(Align(_conta, align='center', vertical='middle'), title='Conta')),
+                Layout(Panel(Align(Utilitarios.imprimir_cpf_com_pontuacao(_cpf), align='center', vertical='middle'), title='CPF')),
+                Layout(Panel(Align(f'R$ {Utilitarios.formatar_dinheiro(_saldo)}', align='center', vertical='middle'), title='Saldo')),
+            )
+
+            div_opcoes.split_row(
+                Layout(Panel(div_esquerda, title='Informações sobre a conta')),
+                Layout(Panel('', title=titulo)),
+                Layout(Panel(Align(Text('Voltar'), align='center', vertical='middle'), title='1')),
+            )
+        elif pagina == 5:
+            _agencia, _conta, _cpf, _saldo = Dados.obter_informacoes_bancarias(agencia=conta_antiga.agencia, conta=conta_antiga.conta)
+
+
+            div_esquerda.split_column(
+                Layout(Panel(Align(_agencia, align='center', vertical='middle'), title='Agência')),
+                Layout(Panel(Align(_conta, align='center', vertical='middle'), title='Conta')),
+                Layout(Panel(Align(Utilitarios.imprimir_cpf_com_pontuacao(_cpf), align='center', vertical='middle'), title='CPF')),
+                Layout(Panel(Align(f'R$ {Utilitarios.formatar_dinheiro(_saldo)}', align='center', vertical='middle'), title='Saldo')),
+            )
+
+            div_esquerda_infos.split_column(
+                Layout(Panel(Align(conta_nova.agencia, align='center', vertical='middle'), title='Agência')),
+                Layout(Panel(Align(conta_nova.conta, align='center', vertical='middle'), title='Conta')),
+                Layout(Panel(Align(Utilitarios.imprimir_cpf_com_pontuacao(conta_nova.cpf), align='center', vertical='middle'), title='CPF')),
+                Layout(Panel(Align(f'R$ {Utilitarios.formatar_dinheiro(conta_nova.saldo)}', align='center', vertical='middle'), title='Saldo')),
+            )
+
+            div_opcoes.split_row(
+                Layout(Panel(div_esquerda, title='Conta antiga')),
+                Layout(Panel(div_esquerda_infos, title='Conta nova')),
+                Layout(Panel(div_confirmacao, title='1'))
+            )
 
         menu_principal = Panel(
             div_opcoes,
