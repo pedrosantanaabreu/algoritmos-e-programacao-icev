@@ -441,12 +441,13 @@ class Main:
                 rprint('[bright_cyan bold]| -> [/]', end=''); opcao_menu_excluir = input().strip()
 
                 if opcao_menu_excluir == '1':
-                    agencia, conta, cpf, saldo = Dados.obter_informacoes_bancarias(cpf=cliente.cpf)
-                    conta = Conta(agencia, conta, cpf, saldo)
+                    while Dados.verificar_cpf_cadastrado_em_conta(Utilitarios.formatar_cpf(cliente.cpf)):
+                        agencia, conta, cpf, saldo = Dados.obter_informacoes_bancarias(cpf=cliente.cpf)
+                        conta = Conta(agencia, conta, cpf, saldo)
+                        Dados.del_conta(conta)
 
                     Dados.del_cliente(cliente)
-                    Dados.del_conta(conta)
-
+                    
                     Utilitarios.limpar_terminal()
                     Interfaces.imprimir_menu_mensagem_de_conclusao('Cliente excluido com sucesso')
                     break
@@ -1254,6 +1255,7 @@ class Main:
             Utilitarios.limpar_terminal()
             Interfaces.imprimir_menu_mensagem_de_erro(f'O valor "{opcao_usuario_menu_sair}" é inválido.')
     
+
     # Salvar e sair
     @classmethod
     def __menu_salvar_e_sair(cls):
