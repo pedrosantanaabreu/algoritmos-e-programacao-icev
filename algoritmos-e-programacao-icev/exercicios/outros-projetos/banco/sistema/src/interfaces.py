@@ -1,3 +1,4 @@
+from time import sleep
 from .utilitarios import Utilitarios
 from .cliente import Cliente
 from .dados import Dados
@@ -8,6 +9,7 @@ from rich.layout import Layout
 from rich.text import Text
 from rich.align import Align
 from rich.table import Table
+from rich.console import Console
 
 
 class Interfaces:
