@@ -7,7 +7,6 @@ from .cliente import Cliente
 from .movimentacao import Movimentacao
 from datetime import datetime
 from rich import print as rprint
-import os
 import zipfile
 
 
@@ -106,6 +105,8 @@ class Main:
                         cliente_antigo.cpf = Utilitarios.formatar_cpf(cliente_antigo.cpf)
                         cliente_antigo.nome = Dados.obter_informacoes_pessoais(cliente_antigo.cpf)
                     else:
+                        cliente_antigo.cpf = ''
+                        cliente_antigo.nome = ''
                         Utilitarios.limpar_terminal()
                         Interfaces.imprimir_menu_mensagem_de_erro(f'Cliente não cadastrado.') 
             elif pagina == 2:
@@ -176,6 +177,16 @@ class Main:
                 if Validadores.validar_opcao_menu(confirmacao, 2):
                     if int(confirmacao) == 1:
                         cls.__editar_cliente_banco_dados(cliente_antigo, cliente_novo)
+                        if cliente_novo.cpf != cliente_antigo.cpf:
+                            while Dados.verificar_cpf_cadastrado_em_conta(cliente_antigo.cpf):
+                                _agencia_antiga, _conta_antiga, _cpf_antigo, _saldo_antigo = Dados.obter_informacoes_bancarias(cpf=cliente_antigo.cpf)
+
+                                conta_antiga = Conta(_agencia_antiga, _conta_antiga, _cpf_antigo, _saldo_antigo)
+                                conta_nova = Conta(_agencia_antiga, _conta_antiga, cliente_novo.cpf, _saldo_antigo)
+
+                                Dados.editar_conta(conta_antiga, conta_nova)
+                        else:
+                            pass
                         Utilitarios.limpar_terminal()
                         Interfaces.imprimir_menu_mensagem_de_conclusao('Alteração realizada com sucesso')
                         break
@@ -197,9 +208,174 @@ class Main:
         Dados.editar_cliente(cliente_antigo=cliente_antigo, cliente_novo=cliente_novo)
 
 
+    @staticmethod
+    def __editar_conta_banco_dados(conta_antiga : Conta, conta_nova : Conta):
+        Dados.editar_conta(conta_antiga, conta_nova)
+
+
     @classmethod
     def __editar_conta(cls):
-        ...
+        conta_antiga = Conta()
+        conta_nova = Conta()
+        
+        opcao = 0
+        pagina = 1
+        while pagina > 0:
+            Utilitarios.limpar_terminal()
+            Interfaces.imprimir_menu_editando_conta(conta_antiga, conta_nova, pagina, opcao)
+            
+            if pagina == 1:
+                conta_antiga.agencia = cls.__obter_agencia()
+
+                if conta_antiga.agencia == 1:
+                    pagina -= 1
+                    conta_antiga.agencia = ''
+                elif conta_antiga.agencia == 0:
+                    conta_antiga.agencia = ''
+                else:
+                    pagina += 1
+
+            elif pagina == 2:
+                conta_antiga.conta = cls.__obter_conta_cliente()
+
+                if conta_antiga.conta == 1:
+                    pagina = 1
+                    conta_antiga.conta = ''
+                    conta_antiga.agencia = ''
+                elif conta_antiga.conta == 0:
+                    conta_antiga.conta = ''
+                else:
+                    pagina += 1
+            elif pagina == 3:
+                __agencia, __conta, __cpf, __saldo = Dados.obter_informacoes_bancarias(agencia=conta_antiga.agencia, conta=conta_antiga.conta)
+                conta_antiga.cpf = __cpf
+                conta_antiga.saldo = __saldo
+
+                Interfaces.imprimir_input()
+                item_editar = input()
+
+                if Validadores.validar_opcao_menu(item_editar, 5):
+                    if int(item_editar) == 5:
+                        conta_antiga.conta = ''
+                        pagina -= 1
+                    else:
+                        opcao = int(item_editar)
+                        pagina += 1
+                else:
+                    Utilitarios.limpar_terminal()
+                    Interfaces.imprimir_menu_mensagem_de_erro(f'O valor "{item_editar}" é inválido.')
+            elif pagina == 4:
+                if int(item_editar) == 1:
+                    conta_nova.agencia = cls.__obter_agencia()
+
+                    if conta_nova.agencia == 1:
+                        pagina -= 1
+                        conta_nova.agencia = ''
+                    elif conta_nova.agencia == 0:
+                        conta_nova.agencia = ''
+                    else:
+                        if conta_nova.agencia == conta_antiga.agencia:
+                            conta_nova.agencia = ''
+                            Utilitarios.limpar_terminal()
+                            Interfaces.imprimir_menu_mensagem_de_erro(f'A nova conta não pode ser igual a anterior.')
+                        else:
+                            try:
+                                _agencia, _conta, _cpf, _saldo = Dados.obter_informacoes_bancarias(agencia=conta_nova.agencia, conta=conta_antiga.conta)
+                                conta_nova = Conta()
+                                Utilitarios.limpar_terminal()
+                                Interfaces.imprimir_menu_mensagem_de_erro(f'Conta já cadastrada.')
+                            except:
+                                conta_nova.conta = conta_antiga.conta
+                                conta_nova.saldo = conta_antiga.saldo
+                                conta_nova.cpf = conta_antiga.cpf
+                                pagina += 1
+
+                elif int(item_editar) == 2:
+                    conta_nova.conta = cls.__obter_conta_cliente()
+
+                    if conta_nova.conta == 1:
+                        pagina -= 1
+                        conta_nova.conta = ''
+                    elif conta_nova.conta == 0:
+                        conta_nova.conta = ''
+                    else:
+                        if conta_antiga.conta == conta_nova.conta:
+                            conta_nova.conta = ''
+                            Utilitarios.limpar_terminal()
+                            Interfaces.imprimir_menu_mensagem_de_erro(f'A conta nova não pode ser igual a anterior.')
+                        else:
+                            try:
+                                _agencia, _conta, _cpf, _saldo = Dados.obter_informacoes_bancarias(agencia=conta_antiga.agencia, conta=conta_nova.conta)
+                                conta_nova = Conta()
+                                Utilitarios.limpar_terminal()
+                                Interfaces.imprimir_menu_mensagem_de_erro(f'Conta já cadastrada.')
+                            except:
+                                conta_nova.cpf = conta_antiga.cpf
+                                conta_nova.saldo = conta_antiga.saldo
+                                conta_nova.agencia = conta_antiga.agencia
+                                pagina += 1
+                elif int(item_editar) == 3:
+                    conta_nova.cpf = cls.__obter_cpf_cliente()
+
+                    if conta_nova.cpf == 1:
+                        pagina -= 1
+                        conta_nova.cpf = ''
+                    elif conta_nova.cpf == 0:
+                        conta_nova.cpf = ''
+                    else:
+                        conta_nova.cpf = Utilitarios.formatar_cpf(conta_nova.cpf)
+
+                        _agencia, _conta, _cpf, _saldo = Dados.obter_informacoes_bancarias(agencia=conta_antiga.agencia, conta=conta_antiga.conta)
+                        if _cpf == conta_nova.cpf:
+                            conta_nova.cpf = ''
+                            Utilitarios.limpar_terminal()
+                            Interfaces.imprimir_menu_mensagem_de_erro(f'O CPF novo não pode ser igual a anterior.')
+                        else:
+                            cliente = Cliente('', conta_nova.cpf)
+                            if Dados.verificar_cliente_existe(cliente):
+                                conta_nova.saldo = conta_antiga.saldo
+                                conta_nova.conta = conta_antiga.conta
+                                conta_nova.agencia = conta_antiga.agencia
+                                pagina += 1
+                            else:
+                                conta_nova = Conta()
+                                Utilitarios.limpar_terminal()
+                                Interfaces.imprimir_menu_mensagem_de_erro(f'Cliente não cadastrado.')
+                else:
+                    conta_nova.saldo = cls.__obter_saldo_cliente()
+
+                    if conta_nova.saldo == 1:
+                        pagina -= 1
+                        conta_nova.saldo = ''
+                    elif conta_nova.saldo == 0:
+                        conta_nova.saldo = ''
+                    else:
+                        _agencia, _conta, _cpf, _saldo = Dados.obter_informacoes_bancarias(agencia=conta_antiga.agencia, conta=conta_antiga.conta)
+                        if float(_saldo) == float(conta_nova.saldo):
+                            conta_nova.cpf = ''
+                            Utilitarios.limpar_terminal()
+                            Interfaces.imprimir_menu_mensagem_de_erro(f'O saldo novo não pode ser igual a anterior.')
+                        else:
+                            conta_nova.cpf = conta_antiga.cpf
+                            conta_nova.conta = conta_antiga.conta
+                            conta_nova.agencia = conta_antiga.agencia
+                            pagina += 1 
+            elif pagina == 5:
+                Interfaces.imprimir_input()
+                confirmacao = input()
+
+                if Validadores.validar_opcao_menu(confirmacao, 2):
+                    if int(confirmacao) == 1:
+                        cls.__editar_conta_banco_dados(conta_antiga, conta_nova)
+                        Utilitarios.limpar_terminal()
+                        Interfaces.imprimir_menu_mensagem_de_conclusao('Alteração realizada com sucesso')
+                        pagina = 1
+
+                        conta_antiga = Conta()
+                        conta_nova = Conta()
+                    else:
+                        conta_nova = Conta()
+                        pagina -= 1
 
 
     # Excluir
