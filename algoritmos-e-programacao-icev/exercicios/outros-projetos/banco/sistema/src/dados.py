@@ -1,6 +1,7 @@
 from .cliente import Cliente
 from .conta import Conta
 from .movimentacao import Movimentacao
+from .utilitarios import Utilitarios
 import csv
 
 
@@ -13,7 +14,8 @@ class Dados:
             if not bool(clientes_csv_leitura.readlines()):
                 clientes_csv_escrita.writerow(["nome", "cpf"])
             else:
-                clientes_csv_escrita.writerow([cliente.nome, cliente.cpf])
+                clientes_csv_escrita.writerow([Utilitarios.formatar_nome(cliente.nome), Utilitarios.formatar_cpf(cliente.cpf)])
+        Dados.del_linhas_em_branco()
 
 
     @staticmethod
@@ -23,7 +25,8 @@ class Dados:
             if not bool(contas_csv_leitura.readlines()):
                 contas_csv_escrita.writerow(["agencia", 'conta', "cpf", 'saldo'])
             else:
-                contas_csv_escrita.writerow([conta.agencia, conta.conta, conta.cpf, conta.saldo])
+                contas_csv_escrita.writerow([Utilitarios.formatar_numero(conta.agencia), Utilitarios.formatar_numero(conta.conta), Utilitarios.formatar_cpf(conta.cpf), Utilitarios.formatar_dinheiro(conta.saldo)])
+        Dados.del_linhas_em_branco()
 
 
     @staticmethod
@@ -33,7 +36,8 @@ class Dados:
             if not bool(movimentacao_csv_leitura.readlines()):
                 movimentacao_csv_escrita.writerow(['remetente', 'destinatario', 'acao', 'valor', 'data'])
             else:
-                movimentacao_csv_escrita.writerow([movimentacao.remetente, movimentacao.destinatario, movimentacao.acao, movimentacao.valor, movimentacao.data])
+                movimentacao_csv_escrita.writerow([Utilitarios.formatar_nome(movimentacao.remetente), Utilitarios.formatar_nome(movimentacao.destinatario), Utilitarios.formatar_nome(movimentacao.acao), Utilitarios.formatar_dinheiro(movimentacao.valor), movimentacao.data])
+            Dados.del_linhas_em_branco()
 
 
     # Del
@@ -47,6 +51,7 @@ class Dados:
         with open('..\sistema\src\dados\clientes.csv', 'w') as clientes_csv_escrita: 
             clientes_csv_escrita = csv.writer(clientes_csv_escrita)
             clientes_csv_escrita.writerows(linhas)
+        Dados.del_linhas_em_branco()
 
 
     @staticmethod
@@ -59,6 +64,7 @@ class Dados:
         with open('..\sistema\src\dados\contas.csv', 'w') as contas_csv_escrita: 
             contas_csv_escrita = csv.writer(contas_csv_escrita)
             contas_csv_escrita.writerows(linhas)
+        Dados.del_linhas_em_branco()
 
 
     @staticmethod
@@ -71,7 +77,24 @@ class Dados:
         with open('..\sistema\src\dados\movimentacoes.csv', 'w') as movimentacoes_csv_leitura: 
             movimentacoes_csv_leitura = csv.writer(movimentacoes_csv_leitura)
             movimentacoes_csv_leitura.writerows(linhas)
+        Dados.del_linhas_em_branco()
+ 
 
+    @staticmethod
+    def del_linhas_em_branco():
+        arquivos = ['clientes', 'movimentacoes', 'contas']
+
+        for arquivo in arquivos:
+            with open(f'..\sistema\src\dados\{arquivo}.csv', 'r') as arquivo_leitura:
+                texto = arquivo_leitura.readlines()
+
+            with open(f'..\sistema\src\dados\{arquivo}.csv', 'w') as arquivo_escrita:
+                for linha in texto:
+                    if linha == '\n':
+                        pass
+                    else:
+                        arquivo_escrita.write(linha)
+    
 
     # Get
     @staticmethod
@@ -150,6 +173,19 @@ class Dados:
             for linha in contas_csv_leitura:
                 try:
                     if str(linha[0]).strip() + str(linha[1]).strip() == str(conta.agencia) + str(conta.conta):
+                        return True
+                except:
+                    pass
+            return False
+
+
+    @staticmethod
+    def verificar_cpf_cadastrado_em_conta(cpf):
+        with open('..\sistema\src\dados\contas.csv', 'r', encoding='utf-8', newline='') as contas_csv_leitura:
+            contas_csv_leitura = csv.reader(contas_csv_leitura, delimiter=',')
+            for linha in contas_csv_leitura:
+                try:
+                    if str(linha[2]).strip() == cpf:
                         return True
                 except:
                     pass
