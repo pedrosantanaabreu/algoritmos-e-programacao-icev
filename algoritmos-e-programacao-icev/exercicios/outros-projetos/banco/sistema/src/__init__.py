@@ -6,3 +6,4 @@ from .dados import Dados
 from .conta import Conta
 from .main import Main
 from .movimentacao import Movimentacao
+from .setup import Setup
