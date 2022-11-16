@@ -77,17 +77,12 @@ class Setup:
 
         try:
             with open('..\sistema\src\\bibliotecas.txt', 'r') as arquivo_leitura:
+                print('Instalando bibliotecas...')
                 for biblioteca in bibliotecas_necessarias:
                     if biblioteca not in arquivo_leitura.read():
-                        print('Instalando bibliotecas...')
                         bibliotecas_instaladas = cls.__obter_bibliotecas_instaladas()
                         cls.__escrever_txt_com_bibliotecas_do_usuario(bibliotecas_instaladas)
-
-                        for biblioteca in bibliotecas_necessarias:
-                            if biblioteca not in bibliotecas_instaladas:
-                                cls.__instalar_biblioteca(biblioteca)
-                            else:
-                                pass
+                        cls.__instalar_biblioteca(biblioteca)
         except:
             print('Instalando bibliotecas...')
             bibliotecas_instaladas = cls.__obter_bibliotecas_instaladas()
