@@ -12,7 +12,6 @@ from src import Main
 from src import Setup
 
 
-
 if __name__ == "__main__":
     try:
         from src import Setup, Main
