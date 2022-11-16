@@ -3,16 +3,21 @@ Importando todos os arquivos para o app.py
 '''
 
 
+__modulos = [
+    'cliente',
+    'interfaces',
+    'utilitarios',
+    'validadores',
+    'dados',
+    'conta',
+    'main',
+    'movimentacao',
+    'setup'
+]
+
 if __name__ != '__main__':
-    try:
-        from .cliente import Cliente
-        from .interfaces import Interfaces
-        from .utilitarios import Utilitarios
-        from .validadores import Validadores
-        from .dados import Dados
-        from .conta import Conta
-        from .main import Main
-        from .movimentacao import Movimentacao
-        from .setup import Setup
-    except:
-        pass
+    for modulo in __modulos:
+        try:
+            exec(f'from .{modulo} import {modulo.title()}')
+        except:
+            pass
