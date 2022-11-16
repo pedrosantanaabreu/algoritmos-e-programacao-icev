@@ -15,9 +15,7 @@ path_bibliotecas = '..\sistema\src\\bibliotecas.txt'
 
 # Arquivos
 bibliotecas_necessarias = [
-    'rich',
-    'csv',
-    'zipfile'
+    'rich'
 ]
 
 arquivos_banco_de_dados_necessarios = [
@@ -77,12 +75,14 @@ class Setup:
 
         try:
             with open('..\sistema\src\\bibliotecas.txt', 'r') as arquivo_leitura:
-                print('Instalando bibliotecas...')
                 for biblioteca in bibliotecas_necessarias:
+                    cls.__limpar_terminal()
+                    print('Instalando bibliotecas...')
                     if biblioteca not in arquivo_leitura.read():
                         bibliotecas_instaladas = cls.__obter_bibliotecas_instaladas()
                         cls.__escrever_txt_com_bibliotecas_do_usuario(bibliotecas_instaladas)
                         cls.__instalar_biblioteca(biblioteca)
+                        cls.__limpar_terminal()
         except:
             print('Instalando bibliotecas...')
             bibliotecas_instaladas = cls.__obter_bibliotecas_instaladas()
