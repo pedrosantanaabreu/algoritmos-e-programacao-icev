@@ -15,6 +15,7 @@ __modulos = [
     'setup'
 ]
 
+
 if __name__ != '__main__':
     for modulo in __modulos:
         try:
