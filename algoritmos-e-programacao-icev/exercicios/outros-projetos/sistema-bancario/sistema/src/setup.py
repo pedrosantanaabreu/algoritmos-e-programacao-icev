@@ -143,13 +143,13 @@ class Setup:
                 segmento.add(f'[green]Ok[/]')
             else:
                 segmento.add(f'[red]Erro[/]')
-                erros = 1
+                erros += 1
 
             cls.__limpar_terminal()
             rprint(arvore)
             sleep(0.05)
 
-        if erros > 1:
+        if erros > 0:
             segmento = segmento_src.add(f'[red] Erros encontrados, verifique se todos os arquivos.py estão no src.')
             cls.__limpar_terminal()
             rprint(arvore)
