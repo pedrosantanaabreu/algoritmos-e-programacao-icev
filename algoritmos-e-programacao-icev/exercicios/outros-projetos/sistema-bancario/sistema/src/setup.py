@@ -11,9 +11,11 @@ import sys
 
 class Setup:
     # Path
-    __path_bibliotecas_setup = '..\sistema\src\\bibliotecas.txt'
-    __path_arquivos_py_setup = '..\sistema\src\\'
-    __path_arquivos_csv_setup = '..\sistema\src\dados\\'
+    __path = {
+        'bibliotecas': '..\sistema\src\\bibliotecas.txt',
+        'arquivos_py': '..\sistema\src\\',
+        'arquivos_csv' : '..\sistema\src\dados\\'
+    }
 
 
     # Arquivos
@@ -65,7 +67,7 @@ class Setup:
 
     @classmethod
     def __escrever_txt_com_bibliotecas_do_usuario(cls, bibliotecas) -> None:
-        with open(cls.__path_bibliotecas_setup, 'w+') as arquivo_escrita:
+        with open(cls.__path['bibliotecas'] , 'w+') as arquivo_escrita:
             for biblioteca in bibliotecas:
                 arquivo_escrita.write(biblioteca)
                 arquivo_escrita.write('\n')
@@ -211,7 +213,7 @@ class Setup:
         
         
         try:
-            open(f'{cls.__path_arquivos_csv_setup}{arquivo}', 'r')
+            open(f'{cls.__path["arquivos_csv"]}{arquivo}', 'r')
             return True
         except:
             return False
@@ -226,7 +228,7 @@ class Setup:
         
         
         try:
-            open(f'{cls.__path_arquivos_py_setup}{arquivo}', 'r')
+            open(f'{cls.__path["arquivos_py"]}{arquivo}', 'r')
             return True
         except:
             return False
