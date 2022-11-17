@@ -17,6 +17,7 @@ from .movimentacao import Movimentacao
 from datetime import datetime
 from rich import print as rprint
 import zipfile
+import os
 
 
 class Main:
@@ -1372,9 +1373,9 @@ class Main:
     @staticmethod
     def __salvar_arquivos():
         zip = zipfile.ZipFile('dados.zip', 'w', zipfile.ZIP_DEFLATED)
-        zip.write('..\sistema\src\dados\clientes.csv')
-        zip.write('..\sistema\src\dados\contas.csv')
-        zip.write('..\sistema\src\dados\movimentacoes.csv')
+        zip.write(f'{os.path.abspath(__file__).removesuffix("main.py")}\dados\clientes.csv')
+        zip.write(f'{os.path.abspath(__file__).removesuffix("main.py")}\dados\contas.csv')
+        zip.write(f'{os.path.abspath(__file__).removesuffix("main.py")}\movimentacoes.csv')
         zip.close()
 
 
