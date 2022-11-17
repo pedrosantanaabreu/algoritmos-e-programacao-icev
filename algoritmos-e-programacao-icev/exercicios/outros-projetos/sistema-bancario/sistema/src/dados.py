@@ -12,14 +12,15 @@ from .utilitarios import Utilitarios
 
 # Módulos externos
 import csv
+import os
 
 
 class Dados:
     # Path
     __path = {
-        'clientes': '..\sistema\src\dados\clientes.csv',
-        'contas': '..\sistema\src\dados\contas.csv',
-        'movimentacoes': '..\sistema\src\dados\movimentacoes.csv' 
+        'clientes': f'{os.path.abspath(__file__).removesuffix("dados.py")}\dados\clientes.csv',
+        'contas': f'{os.path.abspath(__file__).removesuffix("dados.py")}\dados\contas.csv',
+        'movimentacoes': f'{os.path.abspath(__file__).removesuffix("dados.py")}\dados\movimentacoes.csv' 
     }
 
     
