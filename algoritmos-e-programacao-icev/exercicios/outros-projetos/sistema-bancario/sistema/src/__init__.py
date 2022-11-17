@@ -3,22 +3,22 @@ Importando todos os arquivos para o app.py
 '''
 
 
-__modulos = [
-    'cliente',
-    'interfaces',
-    'utilitarios',
-    'validadores',
-    'dados',
-    'conta',
-    'main',
-    'movimentacao',
-    'setup'
-]
-
-
 if __name__ != '__main__':
-    for modulo in __modulos:
+    __modulos_init_ = [
+        'cliente',
+        'interfaces',
+        'utilitarios',
+        'validadores',
+        'dados',
+        'conta',
+        'main',
+        'movimentacao',
+        'setup'
+    ]
+    
+    
+    for modulo_init in __modulos_init_:
         try:
-            exec(f'from .{modulo} import {modulo.title()}')
+            exec(f'from .{modulo_init} import {modulo_init.title()}')
         except:
             pass
