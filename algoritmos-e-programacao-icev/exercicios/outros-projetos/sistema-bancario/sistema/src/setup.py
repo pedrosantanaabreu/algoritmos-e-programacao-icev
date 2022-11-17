@@ -78,7 +78,7 @@ class Setup:
         cls.__limpar_terminal()
 
         try:
-            with open('..\sistema\src\\bibliotecas.txt', 'r') as arquivo_leitura:
+            with open(cls.__path['bibliotecas'], 'r') as arquivo_leitura:
                 for biblioteca in cls.__bibliotecas_necessarias_setup:
                     cls.__limpar_terminal()
                     print('Instalando bibliotecas...')
