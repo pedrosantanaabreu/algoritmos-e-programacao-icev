@@ -10,11 +10,12 @@ import sys
 
 
 class Setup:
+    os.path.abspath(__file__).removesuffix('setup.py')
     # Path
     __path = {
-        'bibliotecas': '..\sistema\src\\bibliotecas.txt',
-        'arquivos_py': '..\sistema\src\\',
-        'arquivos_csv' : '..\sistema\src\dados\\'
+        'bibliotecas': f'{os.path.abspath(__file__).removesuffix("setup.py")}bibliotecas.txt',
+        'arquivos_py': f'{os.path.abspath(__file__).removesuffix("setup.py")}',
+        'arquivos_csv' : f'{os.path.abspath(__file__).removesuffix("setup.py")}\dados\\'
     }
 
 
