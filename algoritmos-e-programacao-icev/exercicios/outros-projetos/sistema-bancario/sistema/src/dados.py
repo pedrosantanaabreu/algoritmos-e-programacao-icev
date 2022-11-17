@@ -14,18 +14,20 @@ from .utilitarios import Utilitarios
 import csv
 
 
-# Path
-path_clientes = '..\sistema\src\dados\clientes.csv'
-path_contas = '..\sistema\src\dados\contas.csv'
-path_movimentacoes = '..\sistema\src\dados\movimentacoes.csv'
-
-
 class Dados:
+    # Path
+    __path = {
+        'clientes': '..\sistema\src\dados\clientes.csv',
+        'contas': '..\sistema\src\dados\contas.csv',
+        'movimentacoes': '..\sistema\src\dados\movimentacoes.csv' 
+    }
+
+    
     # Seção adicionar
-    @staticmethod
-    def adicionar_cliente_no_banco_de_dados(cliente: Cliente) -> None:
+    @classmethod
+    def adicionar_cliente_no_banco_de_dados(cls, cliente: Cliente) -> None:
         try:
-            with open(path_clientes, 'r+', encoding='utf-8', newline='') as clientes_csv_leitura:
+            with open(cls.__path['clientes'], 'r+', encoding='utf-8', newline='') as clientes_csv_leitura:
                 clientes_csv_escrita = csv.writer(clientes_csv_leitura)
 
                 # Se o arquivo estiver vazio, será criado os cabeçalhos
@@ -47,10 +49,10 @@ class Dados:
             pass
 
 
-    @staticmethod
-    def adicionar_conta_no_banco_de_dados(conta: Conta) -> None:
+    @classmethod
+    def adicionar_conta_no_banco_de_dados(cls, conta: Conta) -> None:
         try:
-            with open(path_contas, 'r+', encoding='utf-8', newline='') as contas_csv_leitura:
+            with open(cls.__path['contas'], 'r+', encoding='utf-8', newline='') as contas_csv_leitura:
                 contas_csv_escrita = csv.writer(contas_csv_leitura)
                 
                 # Se o arquivo estiver vazio, será criado os cabeçalhos
@@ -76,10 +78,10 @@ class Dados:
             pass
 
 
-    @staticmethod
-    def adicionar_movimentacao_no_banco_de_dados(movimentacao: Movimentacao) -> None:
+    @classmethod
+    def adicionar_movimentacao_no_banco_de_dados(cls, movimentacao: Movimentacao) -> None:
         try:
-            with open(path_movimentacoes, 'r+', encoding='utf-8', newline='') as movimentacao_csv_leitura:
+            with open(cls.__path['movimentacoes'], 'r+', encoding='utf-8', newline='') as movimentacao_csv_leitura:
                 movimentacao_csv_escrita = csv.writer(movimentacao_csv_leitura)
 
                 # Se o arquivo estiver vazio, será criado os cabeçalhos
@@ -108,11 +110,11 @@ class Dados:
 
 
     # Seção deletar
-    @staticmethod
-    def deletar_cliente_no_banco_de_dados(cliente: Cliente) -> None:
+    @classmethod
+    def deletar_cliente_no_banco_de_dados(cls, cliente: Cliente) -> None:
         try:
             # Salvando o arquivo em uma lista e excluindo o cliente da lista
-            with open(path_clientes, 'r', encoding='utf-8', newline='') as clientes_csv_leitura:
+            with open(cls.__path['clientes'], 'r', encoding='utf-8', newline='') as clientes_csv_leitura:
                 clientes_csv_leitura = csv.reader(clientes_csv_leitura, delimiter=',')
 
                 linhas_banco_de_dados_clientes = list(clientes_csv_leitura)
@@ -124,18 +126,18 @@ class Dados:
                 )
 
             # Escrevendo a lista no arquivo sem o cliente
-            with open(path_clientes, 'w') as clientes_csv_escrita:
+            with open(cls.__path['clientes'], 'w') as clientes_csv_escrita:
                 clientes_csv_escrita = csv.writer(clientes_csv_escrita)
                 clientes_csv_escrita.writerows(linhas_banco_de_dados_clientes)
         except:
             pass
 
 
-    @staticmethod
-    def deletar_conta_no_banco_de_dados(conta: Conta) -> None:
+    @classmethod
+    def deletar_conta_no_banco_de_dados(cls, conta: Conta) -> None:
         try:
             # Salvando o arquivo em uma lista e excluindo a conta da lista
-            with open(path_contas, 'r', encoding='utf-8', newline='') as contas_csv_leitura:
+            with open(cls.__path['contas'], 'r', encoding='utf-8', newline='') as contas_csv_leitura:
                 contas_csv_leitura = csv.reader(contas_csv_leitura, delimiter=',')
                 
                 linhas_banco_de_dados_contas = list(contas_csv_leitura)
@@ -149,18 +151,18 @@ class Dados:
                 )
 
             # Escrevendo a lista no arquivo sem a conta
-            with open(path_contas, 'w') as contas_csv_escrita:
+            with open(cls.__path['contas'], 'w') as contas_csv_escrita:
                 contas_csv_escrita = csv.writer(contas_csv_escrita)
                 contas_csv_escrita.writerows(linhas_banco_de_dados_contas)
         except:
             pass
     
     
-    @staticmethod
-    def deletar_movimentacao_do_banco_de_dados(movimentacao: Movimentacao) -> None:
+    @classmethod
+    def deletar_movimentacao_do_banco_de_dados(cls, movimentacao: Movimentacao) -> None:
         try:
             # Salvando o arquivo em uma lista e excluindo a movimentação da lista
-            with open(path_movimentacoes, 'r', encoding='utf-8', newline='') as movimentacoes_csv_leitura:
+            with open(cls.__path['movimentacoes'], 'r', encoding='utf-8', newline='') as movimentacoes_csv_leitura:
                 movimentacoes_csv_leitura = csv.reader(movimentacoes_csv_leitura, delimiter=',')
     
                 linhas_banco_de_dados_movimentacoes = list(movimentacoes_csv_leitura)
@@ -175,7 +177,7 @@ class Dados:
                 )
                 
             # Escrevendo a lista no arquivo sem a movimentação
-            with open(path_movimentacoes, 'w') as movimentacoes_csv_leitura:
+            with open(cls.__path['movimentacoes'], 'w') as movimentacoes_csv_leitura:
                 movimentacoes_csv_leitura = csv.writer(movimentacoes_csv_leitura)
                 movimentacoes_csv_leitura.writerows(linhas_banco_de_dados_movimentacoes)
         except:
@@ -183,8 +185,8 @@ class Dados:
     
 
     # Seção obter dados
-    @staticmethod
-    def obter_informacoes_bancarias_por_agencia_ou_cpf(agencia: str = '', conta: str = '', cpf: str = '') -> list:
+    @classmethod
+    def obter_informacoes_bancarias_por_agencia_ou_cpf(cls, agencia: str = '', conta: str = '', cpf: str = '') -> list:
         '''
         Função resposável por enviar informações bancárias
             [
@@ -208,7 +210,7 @@ class Dados:
         # Se o CPF for diferente de '' será usado a busca por CPF
         if cpf != '':
             try:
-                with open(path_contas, 'r', encoding='utf-8', newline='') as contas_csv_leitura:
+                with open(cls.__path['contas'], 'r', encoding='utf-8', newline='') as contas_csv_leitura:
                     contas_csv_leitura = csv.reader(contas_csv_leitura, delimiter=',')
 
                     for linhas_banco_de_dados_contas in contas_csv_leitura:
@@ -222,7 +224,7 @@ class Dados:
 
         # Caso contrário, significa que será utilizado a busca por agência e conta
         else:
-            with open(path_contas, 'r', encoding='utf-8', newline='') as contas_csv_leitura:
+            with open(cls.__path['contas'], 'r', encoding='utf-8', newline='') as contas_csv_leitura:
                 contas_csv_leitura = csv.reader(contas_csv_leitura, delimiter=',')
                 
                 for linhas_banco_de_dados_contas in contas_csv_leitura:
@@ -236,8 +238,8 @@ class Dados:
                         pass
 
 
-    @staticmethod
-    def obter_informacoes_pessoais_por_cpf(cpf: str) -> str:
+    @classmethod
+    def obter_informacoes_pessoais_por_cpf(cls, cpf: str) -> str:
         '''
         Função resposável por enviar informações pessoais
             [
@@ -254,7 +256,7 @@ class Dados:
 
 
         try:
-            with open(path_clientes, 'r', encoding='utf-8', newline='') as clientes_csv_leitura:
+            with open(cls.__path['clientes'], 'r', encoding='utf-8', newline='') as clientes_csv_leitura:
                 clientes_csv_leitura = csv.reader(clientes_csv_leitura, delimiter=',')
 
                 for linha in clientes_csv_leitura:
@@ -267,10 +269,10 @@ class Dados:
             pass
 
 
-    @staticmethod
-    def obter_lista_de_movimentacoes() -> list:
+    @classmethod
+    def obter_lista_de_movimentacoes(cls) -> list:
         try:
-            with open(path_movimentacoes, 'r', encoding='utf-8', newline='') as movimentacoes_csv_leitura:
+            with open(cls.__path['movimentacoes'], 'r', encoding='utf-8', newline='') as movimentacoes_csv_leitura:
                 movimentacoes_csv_leitura = csv.reader(movimentacoes_csv_leitura, delimiter=',')
 
                 linhas_banco_de_dados_movimentacoes = list(movimentacoes_csv_leitura)
@@ -279,10 +281,10 @@ class Dados:
             pass
 
 
-    @staticmethod
-    def obter_lista_de_contas() -> list:
+    @classmethod
+    def obter_lista_de_contas(cls) -> list:
         try:
-            with open(path_contas, 'r', encoding='utf-8', newline='') as contas_csv_leitura:
+            with open(cls.__path['contas'], 'r', encoding='utf-8', newline='') as contas_csv_leitura:
                 contas_csv_leitura = csv.reader(contas_csv_leitura, delimiter=',')
 
                 linhas_banco_de_dados_contas = list(contas_csv_leitura)
@@ -291,9 +293,9 @@ class Dados:
             pass
 
 
-    @staticmethod
-    def obter_lista_de_clientes() -> list:
-        with open(path_clientes, 'r', encoding='utf-8', newline='') as clientes_csv_leitura:
+    @classmethod
+    def obter_lista_de_clientes(cls) -> list:
+        with open(cls.__path['clientes'], 'r', encoding='utf-8', newline='') as clientes_csv_leitura:
             clientes_csv_leitura = csv.reader(clientes_csv_leitura, delimiter=',')
 
             linhas_banco_de_dados_clientes = list(clientes_csv_leitura)
@@ -301,19 +303,19 @@ class Dados:
 
 
     # Verificar
-    @staticmethod
-    def verificar_se_cliente_existe(cliente: Cliente) -> bool:
-        with open(path_clientes, 'r', encoding='utf-8', newline='') as clientes_csv_leitura:
+    @classmethod
+    def verificar_se_cliente_existe(cls, cliente: Cliente) -> bool:
+        with open(cls.__path['clientes'], 'r', encoding='utf-8', newline='') as clientes_csv_leitura:
             if cliente.cpf in clientes_csv_leitura.read():
                 return True
             else:
                 return False
 
 
-    @staticmethod
-    def verificar_se_conta_existe(conta: Conta) -> bool:
+    @classmethod
+    def verificar_se_conta_existe(cls, conta: Conta) -> bool:
         try:
-            with open(path_contas, 'r', encoding='utf-8', newline='') as contas_csv_leitura:
+            with open(cls.__path['contas'], 'r', encoding='utf-8', newline='') as contas_csv_leitura:
                 contas_csv_leitura = csv.reader(contas_csv_leitura, delimiter=',')
         
                 for linhas_banco_de_dados_contas in contas_csv_leitura:
@@ -330,10 +332,10 @@ class Dados:
             pass
 
 
-    @staticmethod
-    def verificar_cpf_cadastrado_em_conta(cpf: str) -> bool:
+    @classmethod
+    def verificar_cpf_cadastrado_em_conta(cls, cpf: str) -> bool:
         try:
-            with open(path_contas, 'r', encoding='utf-8', newline='') as contas_csv_leitura:
+            with open(cls.__path['contas'], 'r', encoding='utf-8', newline='') as contas_csv_leitura:
                 contas_csv_leitura = csv.reader(contas_csv_leitura, delimiter=',')
 
                 for linhas_banco_de_dados_contas in contas_csv_leitura:
@@ -361,20 +363,14 @@ class Dados:
 
 
     # Outros
-    @staticmethod
-    def deletar_linhas_em_branco(banco_de_dados: str) -> None:
-        banco_de_dados_path = {
-            'clientes': path_clientes,
-            'movimentacoes': path_movimentacoes,
-            'contas' : path_contas
-        }
-
+    @classmethod
+    def deletar_linhas_em_branco(cls, banco_de_dados: str) -> None:
         try:
-            with open(banco_de_dados_path[banco_de_dados], 'r') as arquivo_leitura:
+            with open(cls.__path[banco_de_dados], 'r') as arquivo_leitura:
                 linhas_banco_de_dados = arquivo_leitura.readlines()
 
 
-            with open(banco_de_dados_path[banco_de_dados], 'w') as arquivo_escrita:
+            with open(cls.__path[banco_de_dados], 'w') as arquivo_escrita:
                 for linha in linhas_banco_de_dados:
                     if linha == '\n':
                         pass
