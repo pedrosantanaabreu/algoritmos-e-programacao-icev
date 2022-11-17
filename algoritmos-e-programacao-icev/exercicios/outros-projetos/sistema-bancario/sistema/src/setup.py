@@ -9,36 +9,41 @@ import subprocess
 import sys
 
 
-# Path
-path_bibliotecas = '..\sistema\src\\bibliotecas.txt'
 
-
-# Arquivos
-bibliotecas_necessarias = [
-    'rich'
-]
-
-arquivos_banco_de_dados_necessarios = [
-    'clientes.csv',
-    'contas.csv',
-    'movimentacoes.csv'
-]
-
-arquivos_py_necessarios = [
-    '__init__.py',
-    'cliente.py',
-    'conta.py',
-    'dados.py',
-    'interfaces.py',
-    'main.py',
-    'movimentacao.py',
-    'setup.py',
-    'utilitarios.py',
-    'validadores.py'
-]
 
 
 class Setup:
+    # Path
+    __path_bibliotecas_setup = '..\sistema\src\\bibliotecas.txt'
+    __path_arquivos_py_setup = '..\sistema\src\\'
+    __path_arquivos_csv_setup = '..\sistema\src\dados\\'
+
+
+    # Arquivos
+    __bibliotecas_necessarias_setup = [
+        'rich'
+    ]
+
+    __arquivos_banco_de_dados_necessarios_setup = [
+        'clientes.csv',
+        'contas.csv',
+        'movimentacoes.csv'
+    ]
+
+    __arquivos_py_necessarios_setup = [
+        '__init__.py',
+        'cliente.py',
+        'conta.py',
+        'dados.py',
+        'interfaces.py',
+        'main.py',
+        'movimentacao.py',
+        'setup.py',
+        'utilitarios.py',
+        'validadores.py'
+    ]
+
+
     @staticmethod
     def __obter_bibliotecas_instaladas() -> list:
         '''
@@ -61,9 +66,9 @@ class Setup:
         os.system(f'pip install {biblioteca}')
 
 
-    @staticmethod
-    def __escrever_txt_com_bibliotecas_do_usuario(bibliotecas) -> None:
-        with open(path_bibliotecas, 'w+') as arquivo_escrita:
+    @classmethod
+    def __escrever_txt_com_bibliotecas_do_usuario(cls, bibliotecas) -> None:
+        with open(cls.__path_bibliotecas_setup, 'w+') as arquivo_escrita:
             for biblioteca in bibliotecas:
                 arquivo_escrita.write(biblioteca)
                 arquivo_escrita.write('\n')
@@ -75,7 +80,7 @@ class Setup:
 
         try:
             with open('..\sistema\src\\bibliotecas.txt', 'r') as arquivo_leitura:
-                for biblioteca in bibliotecas_necessarias:
+                for biblioteca in cls.__bibliotecas_necessarias_setup:
                     cls.__limpar_terminal()
                     print('Instalando bibliotecas...')
                     if biblioteca not in arquivo_leitura.read():
@@ -88,7 +93,7 @@ class Setup:
             bibliotecas_instaladas = cls.__obter_bibliotecas_instaladas()
             cls.__escrever_txt_com_bibliotecas_do_usuario(bibliotecas_instaladas)
 
-            for biblioteca in bibliotecas_necessarias:
+            for biblioteca in cls.__bibliotecas_necessarias_setup:
                 if biblioteca not in bibliotecas_instaladas:
                     cls.__instalar_biblioteca(biblioteca)
                 else:
@@ -127,12 +132,14 @@ class Setup:
         arvore = Tree('[green]Verificando todos os arquivos.py necessários...')
         segmento_src = arvore.add('src')
 
-        for arquivo in arquivos_py_necessarios:
+
+        for arquivo in cls.__arquivos_py_necessarios_setup:
             segmento = segmento_src.add(f'Verificando arquivo \'{arquivo}\'')
             
             cls.__limpar_terminal()
             rprint(arvore)
             sleep(0.05)
+
 
             if cls.__verificar_arquivo_py(arquivo):
                 segmento.add(f'[green]Ok[/]')
@@ -169,7 +176,7 @@ class Setup:
         arvore = Tree('[green]Verificando todos os arquivos.csv necessários...')
         segmento_src = arvore.add('dados')
 
-        for arquivo in arquivos_banco_de_dados_necessarios:
+        for arquivo in cls.__arquivos_banco_de_dados_necessarios_setup:
             segmento = segmento_src.add(f'Verificando arquivo \'{arquivo}\'')
     
             cls.__limpar_terminal()
@@ -198,8 +205,8 @@ class Setup:
             pass
 
 
-    @staticmethod
-    def __verificar_arquivo_banco_de_dados(arquivo: str) -> bool:
+    @classmethod
+    def __verificar_arquivo_banco_de_dados(cls, arquivo: str) -> bool:
         '''
         Tenta abrir o arquivo seleionado, caso não consiga
         sgnifica que o mesmo não existe deve ser instalado
@@ -207,14 +214,14 @@ class Setup:
         
         
         try:
-            open(f'..\sistema\src\dados\{arquivo}', 'r')
+            open(f'{cls.__path_arquivos_csv_setup}{arquivo}', 'r')
             return True
         except:
             return False
 
 
-    @staticmethod
-    def __verificar_arquivo_py(arquivo: str) -> bool:
+    @classmethod
+    def __verificar_arquivo_py(cls, arquivo: str) -> bool:
         '''
         Tenta abrir o arquivo seleionado, caso não consiga
         sgnifica que o mesmo não existe deve ser instalado
@@ -222,7 +229,7 @@ class Setup:
         
         
         try:
-            open(f'..\sistema\src\{arquivo}', 'r')
+            open(f'{cls.__path_arquivos_py_setup}{arquivo}', 'r')
             return True
         except:
             return False
