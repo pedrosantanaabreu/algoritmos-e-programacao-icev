@@ -9,9 +9,6 @@ import subprocess
 import sys
 
 
-
-
-
 class Setup:
     # Path
     __path_bibliotecas_setup = '..\sistema\src\\bibliotecas.txt'
