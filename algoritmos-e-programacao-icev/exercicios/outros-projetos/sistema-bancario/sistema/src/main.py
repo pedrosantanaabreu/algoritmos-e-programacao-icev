@@ -194,9 +194,9 @@ class Main:
                                 conta_nova = Conta(_agencia_antiga, _conta_antiga, cliente_novo.cpf, _saldo_antigo)
 
                                 Dados.editar_conta(conta_antiga, conta_nova)
+                        else:
                             Dados.deletar_linhas_em_branco('contas')
                             Dados.deletar_linhas_em_branco('clientes')
-                        else:
                             pass
                         Utilitarios.limpar_terminal()
                         Interfaces.imprimir_menu_mensagem_de_conclusao('Alteração realizada com sucesso')
